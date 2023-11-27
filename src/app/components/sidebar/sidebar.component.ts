@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  @Input() selected$: number | undefined;
+
+  constructor(private _router: Router) {
+   }
 
   ngOnInit(): void {
+  }
+
+  goToPath(path: string) {
+    this._router.navigate([path])
   }
 
 }

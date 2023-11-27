@@ -1,0 +1,67 @@
+<app-sidebar [selected$]=2></app-sidebar>
+<div class="page">
+  <div class="flex-container">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+        class="mat-elevation-z8 tabela">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
+          Nome
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by active">
+          Ativo
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container  *ngIf="element.active == true">
+            <div class="ativo">
+              <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+            </div>
+          </ng-container>
+          <ng-container  *ngIf="element.active == false">
+            <div class="ativo desativado">
+              <mat-icon>close</mat-icon> <div class="ativo-text">Desativado</div>
+            </div>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="qtd_usuarios">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_usuarios">
+          Usuarios
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.qtd_usuarios}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="qtd_usuarios_local">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_usuarios_local">
+          Usuarios Locais
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.qtd_usuarios_local}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="qtd_canais">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_canais">
+          Canais
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.qtd_canais}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="paginacao" >
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Seleciona pagina dos clientes">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

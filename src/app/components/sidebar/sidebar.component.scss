@@ -24,12 +24,49 @@
     padding: 10px;
     border-radius: 5px;
     padding-left: 20px;
+    margin-top: 5px;
+}
+
+.span-selected{
+    background-color: #0353a4;
+}
+
+
+.span-bump{
+  position: absolute;
+  opacity: 0;
+  height: 0px;
+  width: 5px;
+  background-color: white;
+  margin-left: -36px;
+  border-radius: 25px;
+  transition: all 0.1s ease-in-out;
+}
+
+.bump-active {
+  opacity: 1;
+  height: 25px;
 }
 
 .span:hover{
     background-color: #0353a4;
     color: white;
     cursor: pointer;
+
+    .span-bump{
+      display: block;
+      height: 25px;
+      opacity: 1;
+    }
+
+    // .bump-active {
+    //   opacity: 0;
+    //   height: 0px;
+    // }
+}
+
+.span-selected:hover{
+  cursor: default;
 }
 
 .span-text{
@@ -41,6 +78,7 @@
     height: 25px;
     margin-right: 10px;
 }
+
 
 .subtitle-text {
     color: #c1c4cc;
@@ -88,7 +126,7 @@ hr {
 .flex-full {
     display: flex;
     height: 100%;
-    
+
 }
 
 .footer {
@@ -108,7 +146,7 @@ hr {
     padding: 10px;
     align-items: center;
     font-weight: 400;
-    
+
 }
 
 .footer-section:hover{
