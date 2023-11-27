@@ -58,5 +58,10 @@
 .paginacao {
   display: flex;
   justify-content: center;
-  margin-top: auto;
+  position:absolute;
+  width: 100%;
+  bottom: 0;
+}
+.header-tabela {
+  background-color: #a9d4ff;
 }

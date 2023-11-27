@@ -1,0 +1,72 @@
+
+<div class="title">
+  <mat-icon class="title-icon">description</mat-icon>
+  Servidor Info
+</div>
+
+<hr class="divider">
+  <div class="input-group">
+    <mat-form-field class="input-nome" appearance="fill">
+      <mat-label>Nome Servidor</mat-label>
+      <input disabled matInput value="{{data.nome}}">
+    </mat-form-field>
+
+    <mat-checkbox class="checkbox" checked="{{data.active}}" disabled #myCheckbox>
+      <ng-container *ngIf="myCheckbox.checked == true">
+        <div class="ativo">
+          Ativo
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="myCheckbox.checked == false">
+        <div class="ativo desativado">
+          Desativado
+        </div>
+      </ng-container>
+
+
+
+  </mat-checkbox>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Usuarios</mat-label>
+      <input disabled type="number" matInput value="{{data.qtd_usuarios}}">
+    </mat-form-field>
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Usuarios Locais</mat-label>
+      <input disabled type="number" matInput value="{{data.qtd_usuarios_local}}">
+    </mat-form-field>
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Canais</mat-label>
+      <input disabled type="number" matInput value="{{data.qtd_canais}}">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Id</mat-label>
+      <input readonly type="number" matInput value="5">
+    </mat-form-field>
+
+    <mat-form-field class="input-serial" appearance="fill">
+      <mat-label>Serial</mat-label>
+      <input readonly type="text" matInput value="1234567890123456789012">
+    </mat-form-field>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Criado em</mat-label>
+      <input readonly type="date" matInput value="5">
+    </mat-form-field>
+    <mat-icon (click)="closeDialog()" color="warn" class="icon-close">close</mat-icon>
+  </div>
+
+
+
+
+
+

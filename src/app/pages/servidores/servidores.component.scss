@@ -50,6 +50,10 @@
   margin-left: 5px;
 }
 
+.row-tabela {
+  z-index: 300;
+}
+
 .row-tabela:hover {
   background-color: beige;
   cursor: pointer;
@@ -58,4 +62,70 @@
 .paginacao {
   display: flex;
   justify-content: center;
+  position:absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.add-btn {
+  width: 60%;
+}
+
+.action-add-row{
+  width: 100%;
+  height: 50px;
+}
+
+.add-icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: 2px solid rgb(0, 166, 216);
+  color: rgb(0, 166, 216);
+  transition: all 0.1s ease-in-out;
+}
+
+.add-icon:hover {
+  padding: 5px;
+  cursor: pointer;
+  border: 2px solid rgb(0, 141, 122);
+  color: rgb(0, 141, 122);
+}
+
+.header-tabela {
+  background-color: #a9d4ff;
+}
+
+.edit-icon{
+  display: none;
+}
+
+.edit-input:hover{
+  .edit-icon{
+    display: block;
+  }
+}
+
+.td-container {
+  display: flex;
+  align-items: center;
+}
+
+.td-view-icon {
+  margin-right: 10px;
+  transform: scale(1.2);
+  padding: 5px;
+  border-radius: 15px;
+}
+
+.td-view-icon {
+  z-index: 1000;
+}
+
+.td-view-icon:hover {
+  background-color: gray;
 }

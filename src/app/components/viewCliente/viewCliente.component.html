@@ -1,0 +1,28 @@
+
+<div class="title">
+  <mat-icon class="title-icon">description</mat-icon>
+  Cliente Info
+</div>
+
+<hr class="divider">
+<mat-form-field class="input-text " appearance="fill">
+  <mat-label>Nome</mat-label>
+  <input readonly type="text" matInput value="{{data.nome}}">
+</mat-form-field>
+<mat-form-field class="input-text " appearance="fill">
+  <mat-label>Cnpj</mat-label>
+  <input readonly type="text" matInput value="{{data.cnpj}}">
+</mat-form-field>
+<mat-form-field class="input-text " appearance="fill">
+  <mat-label>Termos</mat-label>
+  <input readonly type="text" matInput value="{{data.accept_terms}}">
+</mat-form-field>
+
+<mat-icon (click)="closeDialog()" color="warn" class="icon-close">close</mat-icon>
+
+
+
+
+
+
+

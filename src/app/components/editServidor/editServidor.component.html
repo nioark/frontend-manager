@@ -1,0 +1,63 @@
+
+<div class="title">
+  <mat-icon class="title-icon">edit</mat-icon>
+  Edit Servidor
+</div>
+
+<hr class="divider">
+
+<div class="inputs-container">
+  <div class="input-group">
+    <mat-form-field class="input-nome" appearance="fill">
+      <mat-label>Nome Servidor</mat-label>
+      <input matInput value="{{data.nome}}">
+    </mat-form-field>
+
+    <mat-checkbox class="checkbox" checked="{{data.active}}" #myCheckbox>
+      <ng-container *ngIf="myCheckbox.checked == true">
+        <div class="ativo">
+          Ativo
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="myCheckbox.checked == false">
+        <div class="ativo desativado">
+          Desativado
+        </div>
+      </ng-container>
+
+
+
+  </mat-checkbox>
+  </div>
+
+  <div class="input-group">
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Usuarios</mat-label>
+      <input ype="number" matInput value="{{data.qtd_usuarios}}">
+    </mat-form-field>
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Usuarios Locais</mat-label>
+      <input type="number" matInput value="{{data.qtd_usuarios_local}}">
+    </mat-form-field>
+    <mat-form-field class="input-number " appearance="fill">
+      <mat-label>Canais</mat-label>
+      <input type="number" matInput value="{{data.qtd_canais}}">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Comentário</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+</div>
+
+<div class="buttons-container">
+  <button mat-raised-button class="button btn-form" disabled color="primary">
+    <mat-icon class="btn-icon">save</mat-icon>
+    Salvar
+  </button>
+  <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
+</div>
+
+

@@ -1,6 +1,8 @@
+
 <app-sidebar [selected$]=2></app-sidebar>
 <div class="page">
   <div class="flex-container">
+
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 tabela">
 
@@ -9,7 +11,12 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
           Nome
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element">
+          <div class="td-container">
+            <mat-icon (click)="editServidor(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
+            {{element.nome}}
+          </div>
+        </td>
       </ng-container>
 
       <!-- Name Column -->
@@ -17,7 +24,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by active">
           Ativo
         </th>
-        <td mat-cell *matCellDef="let element">
+        <td class="edit-input" mat-cell *matCellDef="let element">
           <ng-container  *ngIf="element.active == true">
             <div class="ativo">
               <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
@@ -51,12 +58,17 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_canais">
           Canais
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.qtd_canais}} </td>
+        <td mat-cell *matCellDef="let element">
+          {{element.qtd_canais}}
+        </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="header-tabela" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr (click)="viewServidor(row)" class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <mat-icon (click)="addServidor()" class="add-icon">add</mat-icon>
     <div class="paginacao" >
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons
