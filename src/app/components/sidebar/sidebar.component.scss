@@ -1,0 +1,127 @@
+:host {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #0466c8;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    user-select: none;
+    padding-top: 20px;
+
+}
+
+.span {
+    display: flex;
+    align-items: center;
+    color: white;
+    transition: all 0.1s ease;
+    height: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+.span:hover{
+    background-color: #0353a4;
+    color: white;
+    cursor: pointer;
+}
+
+.span-text{
+    margin: 0;
+    font-size: medium;
+}
+
+.span-icon{
+    height: 25px;
+    margin-right: 10px;
+}
+
+.subtitle-text {
+    color: #c1c4cc;
+    font-size: normal;
+    font-family: 'Azeret Mono';
+    margin-bottom: 10px;
+}
+
+.title-span {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: solid 2px;
+    border-color: white;
+}
+
+.username{
+    margin-top: 10px;
+    font-size: x-large;
+    height: 10px;
+    user-select: text;
+}
+
+.user-type{
+    font-size: small;
+    color: #c1c4cc;
+}
+
+hr {
+    margin-top: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.flex-full {
+    display: flex;
+    height: 100%;
+    
+}
+
+.footer {
+    margin-top: auto;
+    display: flex;
+    padding: 10px;
+    font-size: medium;
+    width: 100%
+}
+
+.footer-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    align-items: center;
+    font-weight: 400;
+    
+}
+
+.footer-section:hover{
+    background-color: #0353a4;
+    cursor: pointer;
+}
+
+.footer-icon{
+    height: 25px;
+    margin-right: 5px;
+}
+
+.logout{
+    color: rgb(252, 6, 6);
+}
+

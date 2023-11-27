@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    height: 100vh;
+    transition: all 1s ease-in-out;
+}
+
+@font-face {
+    font-family: 'Azeret Mono';
+    src: url('../assets/fonts/AzeretMono-Regular.ttf');
+  }
