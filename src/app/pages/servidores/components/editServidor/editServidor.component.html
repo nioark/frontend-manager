@@ -6,26 +6,27 @@
 
 <hr class="divider">
 
+
+
 <div class="inputs-container">
   <div class="input-group">
     <mat-form-field class="input-nome" appearance="fill">
       <mat-label>Nome Servidor</mat-label>
-      <input matInput value="{{data.nome}}">
+      <input matInput value="{{data.nome}}" (keydown)="inputChanged()"  #nome>
     </mat-form-field>
 
-    <mat-checkbox class="checkbox" checked="{{data.active}}" #myCheckbox>
-      <ng-container *ngIf="myCheckbox.checked == true">
+    <mat-checkbox (change)="inputChanged()"  class="checkbox" checked="{{data.active}}" #ativo>
+      <ng-container *ngIf="ativo.checked == true">
         <div class="ativo">
           Ativo
         </div>
       </ng-container>
 
-      <ng-container *ngIf="myCheckbox.checked == false">
+      <ng-container *ngIf="ativo.checked == false">
         <div class="ativo desativado">
           Desativado
         </div>
       </ng-container>
-
 
 
   </mat-checkbox>
@@ -34,15 +35,15 @@
   <div class="input-group">
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Usuarios</mat-label>
-      <input ype="number" matInput value="{{data.qtd_usuarios}}">
+      <input ype="number" matInput value="{{data.qtd_usuarios}}" (keydown)="inputChanged()"  #usuarios>
     </mat-form-field>
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Usuarios Locais</mat-label>
-      <input type="number" matInput value="{{data.qtd_usuarios_local}}">
+      <input type="number" matInput value="{{data.qtd_usuarios_local}}" (keydown)="inputChanged()"  #usuarios_locais>
     </mat-form-field>
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Canais</mat-label>
-      <input type="number" matInput value="{{data.qtd_canais}}">
+      <input type="number" matInput value="{{data.qtd_canais}}" (keydown)="inputChanged()"  #canais>
     </mat-form-field>
   </div>
 
@@ -53,10 +54,18 @@
 </div>
 
 <div class="buttons-container">
-  <button mat-raised-button class="button btn-form" disabled color="primary">
-    <mat-icon class="btn-icon">save</mat-icon>
-    Salvar
-  </button>
+  <ng-container *ngIf="canSubmit$ == true">
+    <button (click)="submitEdit()" mat-raised-button class="button btn-form" color="primary">
+      <mat-icon class="btn-icon">edit</mat-icon>
+      Editar
+    </button>
+  </ng-container>
+  <ng-container *ngIf="canSubmit$ == false">
+    <button mat-raised-button class="button btn-form" disabled color="primary">
+      <mat-icon class="btn-icon">save</mat-icon>
+      Salvar
+    </button>
+  </ng-container>
   <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
 </div>
 

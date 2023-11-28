@@ -6,21 +6,22 @@
 
 <hr class="divider">
 
-<div class="inputs-container">
+
+<div class="inputs-container" >
   <div class="input-group">
     <mat-form-field class="input-nome" appearance="fill">
       <mat-label>Nome Servidor</mat-label>
-      <input matInput>
+      <input (keydown)="inputChanged()" matInput #nome>
     </mat-form-field>
 
-    <mat-checkbox class="checkbox" #myCheckbox>
-      <ng-container *ngIf="myCheckbox.checked == true">
+    <mat-checkbox (change)="inputChanged()" class="checkbox" #ativo>
+      <ng-container *ngIf="ativo.checked == true">
         <div class="ativo">
           Ativo
         </div>
       </ng-container>
 
-      <ng-container *ngIf="myCheckbox.checked == false">
+      <ng-container *ngIf="ativo.checked == false">
         <div class="ativo desativado">
           Desativado
         </div>
@@ -34,15 +35,15 @@
   <div class="input-group">
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Usuarios</mat-label>
-      <input ype="number" matInput>
+      <input (keydown)="inputChanged()" type="number" matInput #usuarios>
     </mat-form-field>
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Usuarios Locais</mat-label>
-      <input type="number" matInput>
+      <input (keydown)="inputChanged()" type="number" matInput #usuarios_locais>
     </mat-form-field>
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Canais</mat-label>
-      <input type="number" matInput>
+      <input (keydown)="inputChanged()" type="number" matInput #canais>
     </mat-form-field>
   </div>
 
@@ -53,10 +54,18 @@
 </div>
 
 <div class="buttons-container">
-  <button mat-raised-button class="button btn-form" disabled color="primary">
-    <mat-icon class="btn-icon">add</mat-icon>
-    Adicionar
-  </button>
+  <ng-container *ngIf="canSubmit$ == true">
+    <button (click)="submitAdd()" mat-raised-button class="button btn-form" color="primary">
+      <mat-icon class="btn-icon">add</mat-icon>
+      Adicionar
+    </button>
+  </ng-container>
+  <ng-container *ngIf="canSubmit$ == false">
+    <button mat-raised-button class="button btn-form" disabled color="primary">
+      <mat-icon class="btn-icon">add</mat-icon>
+      Adicionar
+    </button>
+  </ng-container>
   <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
 </div>
 

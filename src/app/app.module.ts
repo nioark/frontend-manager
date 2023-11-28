@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SidebarComponent } from './pages/components/sidebar/sidebar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginFormComponent } from './pages/login/components/login-form/login-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
