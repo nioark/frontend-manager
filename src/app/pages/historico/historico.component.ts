@@ -7,8 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ViewUserActionComponent } from 'src/app/pages/historico/viewUserAction/viewUserAction.component';
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 
-const adm = {nome: "Administrador", permissao: 1};
-const gerente = {nome: "Gerente", permissao: 0};
+const adm = {nome: "Administrador", permissao: 1, id: 1};
+const gerente = {nome: "Gerente", permissao: 0, id: 2};
 
 const usuario1: Usuario = {id: 1, nome: "Leandro", created_at: "2021-08-01", cargo: adm};
 const usuario2: Usuario = {id: 2, nome: "Jeferson", created_at: "2021-08-01", cargo: adm};

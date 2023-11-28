@@ -12,8 +12,9 @@ import { Usuario, UsuarioEdit } from 'src/app/models/usuario';
 import { AddUsuarioComponent } from './components/add-usuario/add-usuario.component';
 import { EditUsuarioComponent } from './components/edit-usuario/edit-usuario.component';
 
-const adm = {nome: "Administrador", permissao: 1};
-const gerente = {nome: "Gerente", permissao: 0};
+
+const adm = {nome: "Administrador", permissao: 1, id: 1};
+const gerente = {nome: "Gerente", permissao: 0, id: 2};
 
 const usuario1: Usuario = {id: 1, nome: "Leandro", created_at: "2021-08-01", cargo: adm};
 const usuario2: Usuario = {id: 2, nome: "Jeferson", created_at: "2021-08-01", cargo: adm};

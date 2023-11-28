@@ -4,8 +4,8 @@ import { Cargo } from 'src/app/models/cargos';
 import { Servidor } from 'src/app/models/servidor';
 
 
-const adm = {nome: "Administrador", permissao: 1};
-const gerente = {nome: "Gerente", permissao: 0};
+const adm = {nome: "Administrador", permissao: 1, id: 1};
+const gerente = {nome: "Gerente", permissao: 0, id: 2};
 
 @Component({
   selector: 'app-add-usuario',

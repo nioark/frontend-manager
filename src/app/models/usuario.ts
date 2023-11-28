@@ -13,6 +13,13 @@ export interface Usuario {
   cargo: Cargo;
 }
 
+export interface UsuarioNew{
+  nome: string;
+  senha: string;
+  cargo: Cargo;
+}
+
+
 export interface UsuarioEdit extends Usuario {
   senha: string;
 }
