@@ -5,6 +5,18 @@
 </div>
 
 <hr class="divider">
+
+<div class="data-container">
+  <h1 class="sub-title">ID:</h1>
+  <p class="data">{{data.id}}</p>
+  <br>
+  <h1 class="sub-title">Contrato ID:</h1>
+  <p class="data">{{data.contrato_id}}</p>
+  <br>
+  <h1 class="sub-title">Aceito termos em:</h1>
+  <p class="data">{{data.accepted_at}}</p>
+</div>
+<!-- <hr class="divider">
 <mat-form-field class="input-text " appearance="fill">
   <mat-label>Nome</mat-label>
   <input readonly type="text" matInput value="{{data.nome}}">
@@ -16,9 +28,15 @@
 <mat-form-field class="input-text " appearance="fill">
   <mat-label>Termos</mat-label>
   <input readonly type="text" matInput value="{{data.accept_terms}}">
-</mat-form-field>
+</mat-form-field> -->
 
-<mat-icon (click)="closeDialog()" color="warn" class="icon-close">close</mat-icon>
+<div class="buttons-container">
+  <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
+</div>
+
+
+
+
 
 
 

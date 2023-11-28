@@ -1,3 +1,5 @@
+import { ViewUserActionComponent } from './pages/historico/viewUserAction/viewUserAction.component';
+import { UsuarioAction } from 'src/app/models/usuario';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginFormComponent } from './pages/login/components/login-form/login-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule}  from '@angular/material/progress-bar';
 import { LoginComponent } from './pages/login/login.component';
@@ -22,12 +24,16 @@ import { MatSortModule } from '@angular/material/sort';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditServidorComponent } from './components/editServidor/editServidor.component';
-import { AddServidorComponent } from './components/addServidor/addServidor.component';
+import { EditServidorComponent } from './pages/servidores/components/editServidor/editServidor.component';
+import { AddServidorComponent } from './pages/servidores/components/addServidor/addServidor.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { ViewServidorComponent } from './components/viewServidor/viewServidor.component';
-import { ViewClienteComponent } from './components/viewCliente/viewCliente.component';
+import { ViewServidorComponent } from './pages/servidores/components/viewServidor/viewServidor.component';
+import { ViewClienteComponent } from './pages/clientes/components/viewCliente/viewCliente.component';
+import { HistoricoComponent } from './pages/historico/historico.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { AddUsuarioComponent } from './pages/usuarios/components/add-usuario/add-usuario.component';
+import { EditUsuarioComponent } from './pages/usuarios/components/edit-usuario/edit-usuario.component';
 
 
 @NgModule({
@@ -43,6 +49,11 @@ import { ViewClienteComponent } from './components/viewCliente/viewCliente.compo
     ViewServidorComponent,
     ViewClienteComponent,
     ClientesComponent,
+    HistoricoComponent,
+    UsuariosComponent,
+    EditUsuarioComponent,
+    AddUsuarioComponent,
+    ViewUserActionComponent,
     CountUpDirective
   ],
   imports: [

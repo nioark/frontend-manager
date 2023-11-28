@@ -1,0 +1,40 @@
+
+<div class="title">
+  <mat-icon class="title-icon">library_add</mat-icon>
+  Adicionar Usuário
+</div>
+
+<hr class="divider">
+
+<div class="inputs-container">
+  <div class="input-group">
+    <mat-form-field class="input-nome" appearance="fill">
+      <mat-label>Nome Usuário</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field class="input-nome" appearance="fill">
+      <mat-label>Senha</mat-label>
+      <input type="password" matInput>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Selecione o cargo</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let cargo of cargos" [value]="cargo.nome">
+        {{cargo.nome}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="buttons-container">
+  <button mat-raised-button class="button btn-form" disabled color="primary">
+    <mat-icon class="btn-icon">add</mat-icon>
+    Adicionar
+  </button>
+  <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
+</div>
+
+

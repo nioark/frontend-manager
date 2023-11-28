@@ -5,13 +5,9 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { ViewClienteComponent } from 'src/app/components/viewCliente/viewCliente.component';
+import { ViewClienteComponent } from 'src/app/pages/clientes/components/viewCliente/viewCliente.component';
+import { ClienteElement, Cliente } from 'src/app/models/cliente';
 
-export interface ClienteElement {
-  nome: string;
-  cnpj: string;
-  accept_terms: boolean;
-}
 
 const ELEMENT_DATA: ClienteElement[] = [
   {nome: "Bremer", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: true},
@@ -60,10 +56,11 @@ export class ClientesComponent implements AfterViewInit {
   }
 
   viewCliente(data: ClienteElement){
+    const clientData: Cliente = {...data, id: 1, contrato_id: 1, accepted_at: "2021-08-01", updated_at: "2021-08-01", accept_at: "2021-08-01"};
     const dialogRef = this.dialog.open(ViewClienteComponent, {
       width: '500px',
       height: '500px',
-      data: data
+      data: clientData
     });
 
 

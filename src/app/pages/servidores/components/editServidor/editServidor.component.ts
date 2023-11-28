@@ -1,22 +1,15 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-
-export interface ServidorElement {
-  nome: string;
-  active: boolean;
-  qtd_usuarios: number;
-  qtd_usuarios_local: number;
-  qtd_canais: number;
-}
+import { Servidor } from 'src/app/models/servidor';
 
 @Component({
-  selector: 'app-editServidor',
+  selector: 'app-edit-usuario',
   templateUrl: './editServidor.component.html',
   styleUrls: ['./editServidor.component.css']
 })
 export class EditServidorComponent{
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ServidorElement, private _dialogRef: MatDialogRef<EditServidorComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Servidor, private _dialogRef: MatDialogRef<EditServidorComponent>) { }
 
   ngOnInit() {
   }

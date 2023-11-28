@@ -5,7 +5,18 @@
 </div>
 
 <hr class="divider">
-  <div class="input-group">
+
+<div class="data-container">
+  <h1 class="sub-title">ID:</h1>
+  <p class="data">{{data.id}}</p>
+  <br>
+  <h1 class="sub-title">Código Serial:</h1>
+  <p class="data">{{data.serial}}</p>
+  <br>
+  <h1 class="sub-title">Criado em:</h1>
+  <p class="data">28/11/2023</p>
+</div>
+  <!-- <div class="input-group">
     <mat-form-field class="input-nome" appearance="fill">
       <mat-label>Nome Servidor</mat-label>
       <input disabled matInput value="{{data.nome}}">
@@ -27,9 +38,9 @@
 
 
   </mat-checkbox>
-  </div>
+  </div> -->
 
-  <div class="input-group">
+  <!-- <div class="input-group">
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Usuarios</mat-label>
       <input disabled type="number" matInput value="{{data.qtd_usuarios}}">
@@ -55,15 +66,17 @@
       <mat-label>Serial</mat-label>
       <input readonly type="text" matInput value="1234567890123456789012">
     </mat-form-field>
-  </div>
+  </div> -->
 
-  <div class="input-group">
+  <!-- <div class="input-group">
     <mat-form-field class="input-number " appearance="fill">
       <mat-label>Criado em</mat-label>
       <input readonly type="date" matInput value="5">
     </mat-form-field>
-    <mat-icon (click)="closeDialog()" color="warn" class="icon-close">close</mat-icon>
-  </div>
+  </div> -->
+<div class="buttons-container">
+  <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
+</div>
 
 
 

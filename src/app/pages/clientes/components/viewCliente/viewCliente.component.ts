@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ClienteElement, ClientesComponent } from 'src/app/pages/clientes/clientes.component';
+import { ClientesComponent } from 'src/app/pages/clientes/clientes.component';
+import { Cliente } from 'src/app/models/cliente';
 
 @Component({
   selector: 'app-viewCliente',
@@ -9,7 +10,7 @@ import { ClienteElement, ClientesComponent } from 'src/app/pages/clientes/client
 })
 export class ViewClienteComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ClienteElement, private _dialogRef: MatDialogRef<ViewClienteComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Cliente, private _dialogRef: MatDialogRef<ViewClienteComponent>) { }
 
   ngOnInit() {
   }

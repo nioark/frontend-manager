@@ -1,0 +1,101 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+
+.inputs-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: xx-large;
+  font-weight: 500;
+}
+
+.divider {
+  width: 100%;
+  color: gray;
+}
+
+.title-icon{
+  margin-right: 20px;
+  transform: scale(1.8);
+}
+
+.input-nome{
+  width: 200px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-select{
+  display: flex;
+}
+
+.input-number {
+  width: 100px
+}
+
+.ativo {
+  display: center;
+  justify-content: center;
+  font-size: medium;
+  font-weight: 400;
+  padding: 8px;
+  width: 80px;
+  height: 25px;
+  background-color: greenyellow;
+  display: flex;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 20px;
+}
+
+.desativado {
+  background-color: rgb(248, 57, 57);
+}
+
+.ativo-text{
+  font-size: small;
+  margin-left: 5px;
+}
+
+.checkbox{
+  display: flex;
+}
+
+.btn-icon {
+  margin-left: -5px;
+  margin-top: -5px;
+}
+
+.buttons-container{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 165px;
+}
+
+.btn-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin: 5px;
+}

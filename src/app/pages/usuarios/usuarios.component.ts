@@ -1,30 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, ViewChild} from '@angular/core';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { AddServidorComponent } from 'src/app/pages/servidores/components/addServidor/addServidor.component';
 import { EditServidorComponent } from 'src/app/pages/servidores/components/editServidor/editServidor.component';
 import { ViewServidorComponent } from 'src/app/pages/servidores/components/viewServidor/viewServidor.component';
 import { ServidorTable, Servidor } from 'src/app/models/servidor';
+import { Usuario, UsuarioEdit } from 'src/app/models/usuario';
+import { AddUsuarioComponent } from './components/add-usuario/add-usuario.component';
+import { EditUsuarioComponent } from './components/edit-usuario/edit-usuario.component';
 
-const ELEMENT_DATA: ServidorTable[] = [
-  {nome: "Bremer", active: true, qtd_usuarios: 100, qtd_usuarios_local: 50, qtd_canais: 2},
-  {nome: "Contabilidade Wagner", active: true, qtd_usuarios: 50, qtd_usuarios_local: 20, qtd_canais: 5},
-  {nome: "Postos Russi", active: true, qtd_usuarios: 150, qtd_usuarios_local: 20, qtd_canais: 5},
-  {nome: "Postos Pilão", active: false, qtd_usuarios: 120, qtd_usuarios_local: 50, qtd_canais: 10},
+const adm = {nome: "Administrador", permissao: 1};
+const gerente = {nome: "Gerente", permissao: 0};
+
+const usuario1: Usuario = {id: 1, nome: "Leandro", created_at: "2021-08-01", cargo: adm};
+const usuario2: Usuario = {id: 2, nome: "Jeferson", created_at: "2021-08-01", cargo: adm};
+
+const ELEMENT_DATA: Usuario[] = [
+  usuario1,
+  usuario2
 ];
 
-
 @Component({
-  selector: 'app-servidores',
-  templateUrl: './servidores.component.html',
-  styleUrls: ['./servidores.component.scss']
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.scss']
 })
-export class ServidoresComponent implements AfterViewInit {
-  displayedColumns: string[] = ['nome', 'active', 'qtd_usuarios', 'qtd_usuarios_local', 'qtd_canais'];
+export class UsuariosComponent implements AfterViewInit {
+  displayedColumns: string[] = ['id', 'nome', 'created_at'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   constructor(private _liveAnnouncer: LiveAnnouncer, public dialog: MatDialog) {}
@@ -56,7 +61,7 @@ export class ServidoresComponent implements AfterViewInit {
   }
 
   addServidor(){
-    const dialogRef = this.dialog.open(AddServidorComponent, {
+    const dialogRef = this.dialog.open(AddUsuarioComponent, {
       width: '500px',
       height: '500px',
     });
@@ -69,34 +74,18 @@ export class ServidoresComponent implements AfterViewInit {
     console.log("Add servidor");
   }
 
-  editServidor(server: ServidorTable){
-    const dialogRef = this.dialog.open(EditServidorComponent, {
+  editUsuario(data: Usuario){
+    const usuarioData: UsuarioEdit = {...data, senha: "testesenha"};
+    const dialogRef = this.dialog.open(EditUsuarioComponent, {
       width: '500px',
       height: '500px',
-      data: server,
+      data: usuarioData,
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The edit dialog was closed');
       // this.animal = result;
     });
-    console.log("Edit servidor", server);
-  }
-
-  viewServidor(serverTable: ServidorTable){
-    const serverData: Servidor = {...serverTable, id: 1, serial: "1234567890"};
-    const dialogRef = this.dialog.open(ViewServidorComponent, {
-      width: '500px',
-      height: '500px',
-      data: serverData,
-    });
-
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The view dialog was closed');
-      // this.animal = result;
-    });
-
-    console.log("View servidor");
+    console.log("Edit servidor", data);
   }
 }
