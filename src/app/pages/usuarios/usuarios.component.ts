@@ -7,22 +7,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddServidorComponent } from 'src/app/pages/servidores/components/addServidor/addServidor.component';
 import { EditServidorComponent } from 'src/app/pages/servidores/components/editServidor/editServidor.component';
 import { ViewServidorComponent } from 'src/app/pages/servidores/components/viewServidor/viewServidor.component';
-import { ServidorTable, Servidor } from 'src/app/models/servidor';
+import { Servidor } from 'src/app/models/servidor';
 import { Usuario, UsuarioEdit } from 'src/app/models/usuario';
 import { AddUsuarioComponent } from './components/add-usuario/add-usuario.component';
 import { EditUsuarioComponent } from './components/edit-usuario/edit-usuario.component';
-
-
-const adm = {nome: "Administrador", permissao: 1, id: 1};
-const gerente = {nome: "Gerente", permissao: 0, id: 2};
-
-const usuario1: Usuario = {id: 1, nome: "Leandro", created_at: "2021-08-01", cargo: adm};
-const usuario2: Usuario = {id: 2, nome: "Jeferson", created_at: "2021-08-01", cargo: adm};
-
-const ELEMENT_DATA: Usuario[] = [
-  usuario1,
-  usuario2
-];
+import { DeleteUsuarioComponent } from './components/delete-usuario/delete-usuario.component';
+import { UsuariosService } from './services/usuarios.service';
+import { Observable } from 'rxjs';
+import { Cargo } from 'src/app/models/cargos';
+import { CargosService } from './services/cargos.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -30,15 +23,52 @@ const ELEMENT_DATA: Usuario[] = [
   styleUrls: ['./usuarios.component.scss']
 })
 export class UsuariosComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'created_at'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'nome', 'cargo'];
+  dataSource = new MatTableDataSource();
+  usuarios$?: Observable<Usuario[] | undefined>
+  cargos$?: Observable<Cargo[] | undefined>
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, public dialog: MatDialog) {}
+
+  constructor(private _liveAnnouncer: LiveAnnouncer,  private _cargosSrv:CargosService,  private _usuariosSrv:UsuariosService, public dialog: MatDialog) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   ngAfterViewInit() {
+    this.cargos$ = this._cargosSrv.fetch();
+    this.cargos$?.subscribe((dataCargos: Cargo[] | undefined) => {
+      this.usuarios$ = this._usuariosSrv.fetch();
+
+      // Solver for the usuario cargo_id to the Cargo object
+      // cargo name --> usuario.cargo.name
+      this.usuarios$?.subscribe((dataUsuarios: any[] | undefined) => {
+        dataUsuarios?.forEach((usuario: any, index) => {
+          let cargo_id : number;
+          if (usuario.cargo_id === undefined)
+            cargo_id = usuario.cargo.id
+          else
+            cargo_id = usuario.cargo_id
+          console.log("Came user: ", usuario, "Came cargo_id: ", cargo_id)
+          const cargo: Cargo = dataCargos?.find(cargo => cargo.id === cargo_id) as Cargo
+          const usuarioNew: Usuario = {
+            name: usuario.name,
+            id: usuario.id,
+            cargo: cargo,
+            email: usuario.email,
+          }
+
+          dataUsuarios[index] = usuarioNew
+        })
+
+        const datasource = dataUsuarios as Usuario[];
+        this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
+        console.log("Usuarios data: ",datasource);
+        console.log("Data cargos: ", dataCargos)
+      });
+    });
+
+
+
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }
@@ -75,12 +105,11 @@ export class UsuariosComponent implements AfterViewInit {
     console.log("Add servidor");
   }
 
-  editUsuario(data: Usuario){
-    const usuarioData: UsuarioEdit = {...data, senha: "testesenha"};
+  editUsuario(data: UsuarioEdit){
     const dialogRef = this.dialog.open(EditUsuarioComponent, {
       width: '500px',
       height: '500px',
-      data: usuarioData,
+      data: data,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -88,5 +117,14 @@ export class UsuariosComponent implements AfterViewInit {
       // this.animal = result;
     });
     console.log("Edit servidor", data);
+  }
+
+  deleteUsuario(id : number){
+    console.log("Delete Usuario", id);
+    const dialogRef = this.dialog.open(DeleteUsuarioComponent, {
+      width: '360px',
+      height: '170px',
+      data: id,
+    });
   }
 }

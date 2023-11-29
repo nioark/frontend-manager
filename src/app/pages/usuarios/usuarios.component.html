@@ -22,16 +22,20 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
           Nome
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="created_at">
+      <ng-container matColumnDef="cargo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by acao">
-          Criado em
+          Cargo
         </th>
         <td mat-cell *matCellDef="let element">
-          {{element.created_at}}
+          <div class="td-container">
+            <mat-icon (click)="deleteUsuario(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+            {{element.cargo.name}}
+          </div>
+
         </td>
       </ng-container>
 

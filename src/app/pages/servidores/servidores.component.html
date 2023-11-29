@@ -59,7 +59,10 @@
           Canais
         </th>
         <td mat-cell *matCellDef="let element">
-          {{element.qtd_canais}}
+          <div class="td-container">
+            {{element.qtd_canais}}
+            <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+          </div>
         </td>
       </ng-container>
 

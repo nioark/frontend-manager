@@ -89,7 +89,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 165px;
+  margin-top: 80px;
 }
 
 .btn-form{
@@ -98,4 +98,8 @@
   align-items: center;
   width: 100px;
   margin: 5px;
+}
+
+.input-email {
+  width: 100%;
 }

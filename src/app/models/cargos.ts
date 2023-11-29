@@ -1,6 +1,5 @@
 export interface Cargo{
   id: number;
-  nome: string;
-  permissao: number;
+  name: string;
+  permissao_level: number;
 }
-

@@ -134,3 +134,19 @@
 .td-view-icon:hover {
   background-color: gray;
 }
+
+.td-delete-icon {
+  position: absolute;
+  right: 0;
+  color: rgb(248, 57, 57);
+  margin-right: 10px;
+  transform: scale(1.2);
+  padding: 5px;
+  border-radius: 15px;
+}
+
+.td-delete-icon:hover {
+  background-color: gray;
+  color: rgb(163, 40, 40);
+  cursor: pointer;
+}

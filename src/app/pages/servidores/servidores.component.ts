@@ -8,17 +8,10 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { AddServidorComponent } from 'src/app/pages/servidores/components/addServidor/addServidor.component';
 import { EditServidorComponent } from 'src/app/pages/servidores/components/editServidor/editServidor.component';
 import { ViewServidorComponent } from 'src/app/pages/servidores/components/viewServidor/viewServidor.component';
-import { ServidorTable, Servidor } from 'src/app/models/servidor';
+import {  Servidor } from 'src/app/models/servidor';
 import { ServidoresService } from './services/servidores.service';
 import { Observable } from 'rxjs';
-
-const ELEMENT_DATA: ServidorTable[] = [
-  {nome: "Bremer", active: true, qtd_usuarios: 100, qtd_usuarios_local: 50, qtd_canais: 2},
-  {nome: "Contabilidade Wagner", active: true, qtd_usuarios: 50, qtd_usuarios_local: 20, qtd_canais: 5},
-  {nome: "Postos Russi", active: true, qtd_usuarios: 150, qtd_usuarios_local: 20, qtd_canais: 5},
-  {nome: "Postos Pilão", active: false, qtd_usuarios: 120, qtd_usuarios_local: 50, qtd_canais: 10},
-];
-
+import { DeleteServidorComponent } from './components/deleteServidor/deleteServidor.component';
 
 @Component({
   selector: 'app-servidores',
@@ -27,7 +20,7 @@ const ELEMENT_DATA: ServidorTable[] = [
 })
 export class ServidoresComponent implements AfterViewInit {
   displayedColumns: string[] = ['nome', 'active', 'qtd_usuarios', 'qtd_usuarios_local', 'qtd_canais'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
   @ViewChild("tablee")
   table!: MatTable<any>;
 
@@ -36,17 +29,15 @@ export class ServidoresComponent implements AfterViewInit {
   constructor(private _liveAnnouncer: LiveAnnouncer,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
 
   ngAfterViewInit() {
-    this._servidoresSrv.fetch().subscribe((data: Servidor[] | undefined) => {
-      // this.dataSource =  new MatTableDataSource([...data as ServidorTable[]]);
-      const newData = [ ...data as ServidorTable[] ];
+    this.servidores$ = this._servidoresSrv.fetch();
 
-      this.dataSource.data = newData;
-      this.dataSource.connect().next(newData)
-      console.log("Update table", this.dataSource.data)
-      // this.table.renderRows();
+    this.servidores$?.subscribe((data: Servidor[] | undefined) => {
+      const datasource = data as Servidor[];
+      this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);;
+      console.log(datasource)
     })
 
     if (this.sort) {
@@ -54,7 +45,7 @@ export class ServidoresComponent implements AfterViewInit {
     }
 
     if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
+      setTimeout(() => {this.dataSource.paginator = this.paginator!;}, 10);
     }
   }
 
@@ -85,7 +76,7 @@ export class ServidoresComponent implements AfterViewInit {
     console.log("Add servidor");
   }
 
-  editServidor(server: ServidorTable){
+  editServidor(server: Servidor){
     const dialogRef = this.dialog.open(EditServidorComponent, {
       width: '500px',
       height: '500px',
@@ -99,8 +90,8 @@ export class ServidoresComponent implements AfterViewInit {
     console.log("Edit servidor", server);
   }
 
-  viewServidor(serverTable: ServidorTable){
-    const serverData: Servidor = {...serverTable, id: 1, serial: "1234567890"};
+  viewServidor(serverTable: Servidor){
+    const serverData: Servidor = {...serverTable};
     const dialogRef = this.dialog.open(ViewServidorComponent, {
       width: '500px',
       height: '500px',
@@ -110,16 +101,17 @@ export class ServidoresComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The view dialog was closed');
-      // this.animal = result;
     });
 
     console.log("View servidor");
   }
 
-  refresh(){
-    this.changeDetectorRefs.detectChanges();
-    // this.dataSource._renderChangesSubscription?.add(() => {
-    //   this.changeDetectorRefs.detectChanges();
-    // }
+  deleteServidor(id: number){
+    console.log("Delete servidor", id);
+    const dialogRef = this.dialog.open(DeleteServidorComponent, {
+      width: '360px',
+      height: '170px',
+      data: id,
+    });
   }
 }

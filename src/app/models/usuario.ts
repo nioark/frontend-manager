@@ -8,18 +8,19 @@ export interface UsuarioAction{
 
 export interface Usuario {
   id: number;
-  nome: string;
-  created_at: string;
+  name: string;
   cargo: Cargo;
+  email: string;
 }
 
 export interface UsuarioNew{
-  nome: string;
-  senha: string;
+  name: string;
+  password: string;
   cargo: Cargo;
+  email: string;
 }
 
 
 export interface UsuarioEdit extends Usuario {
-  senha: string;
+  password: string;
 }

@@ -1,0 +1,21 @@
+h1{
+  text-align: center;
+  font-size: x-large;
+  font-weight: 600;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+hr{
+  width: 300px;
+}
+
+button {
+  width: 100px;
+  margin-right: 10px;
+}

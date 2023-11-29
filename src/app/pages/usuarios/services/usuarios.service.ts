@@ -45,14 +45,20 @@ export class UsuariosService {
 
   add_usuario(usuario: UsuarioNew): Observable<any> {
     const params = new HttpParams()
-      .append('nome', usuario.nome)
-      .append('senha', usuario.senha)
+      .append('name', usuario.name)
+      .append('email', usuario.email)
+      .append('password', usuario.password)
       .append('cargo_id', usuario.cargo.id)
+
+      console.log("Post: ", params, usuario)
 
     return this.http.post<DataResult<Usuario>>(`${this.url}/usuarios`, "", {params: params}).pipe(tap({
       next:(data)=> {
-        if(data.data===undefined) return
-        this.list?.add(data.data)
+        if(data.error!=undefined) return
+        const id = data.data as unknown as number
+        const user: Usuario = {...usuario, id: id}
+        console.log("POST hapening")
+        this.list?.add(user) //data.data para servidor
       }
     }))
   }
@@ -63,15 +69,14 @@ export class UsuariosService {
     }
 
     const params = new HttpParams()
-      .append('nome', usuario.nome)
-      .append('senha', usuario.senha)
+      .append('name', usuario.name)
+      .append('password', usuario.password)
       .append('cargo_id', usuario.cargo.id)
-      .append('id', usuario.id)
 
     return this.http.post<DataResult<Usuario>>(`${this.url}/usuarios/${usuario.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
-        if(data.data===undefined) return
-        this.list?.edit(data.data)
+        if(data.error!=undefined) return
+        this.list?.edit(usuario) //data.data para servidor
       }
     }));
   }
@@ -79,8 +84,9 @@ export class UsuariosService {
   remove(id : number): Observable<any>{
     return this.http.delete<DataResult<Usuario>>(`${this.url}/usuarios/${id}`).pipe(tap({
       next:(data)=> {
-        if(data.data?.id===undefined) return
-        this.list?.delete(data.data.id)
+        console.log(data)
+        if(data.error!=undefined) return
+        this.list?.delete(id)
       }
     }));
   }

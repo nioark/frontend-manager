@@ -52,7 +52,7 @@ export class EditServidorComponent{
     const usuarios_locais = this.usuarios_locais.first.nativeElement.value;
     const canais = this.canais.first.nativeElement.value;
     const ativo = this.ativo.first.checked;
-    console.log(nome, usuarios, usuarios_locais, canais, ativo);
+    console.log("Submit: ",nome, usuarios, usuarios_locais, canais, ativo, this.data.id);
 
     const serverData: Servidor = {
       nome: nome, active: ativo, qtd_usuarios: usuarios,

@@ -34,6 +34,8 @@ import { HistoricoComponent } from './pages/historico/historico.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AddUsuarioComponent } from './pages/usuarios/components/add-usuario/add-usuario.component';
 import { EditUsuarioComponent } from './pages/usuarios/components/edit-usuario/edit-usuario.component';
+import { DeleteServidorComponent } from './pages/servidores/components/deleteServidor/deleteServidor.component';
+import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuario/delete-usuario.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import { EditUsuarioComponent } from './pages/usuarios/components/edit-usuario/e
     UsuariosComponent,
     EditUsuarioComponent,
     AddUsuarioComponent,
+    DeleteUsuarioComponent,
     ViewUserActionComponent,
+    DeleteServidorComponent,
     CountUpDirective
   ],
   imports: [

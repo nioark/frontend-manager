@@ -52,8 +52,8 @@ export class ServidoresService {
 
     return this.http.post<DataResult<Servidor>>(`${this.url}/servidores`, "", {params: params}).pipe(tap({
       next:(data)=> {
-        if(data.data===undefined) return
-        this.list?.add(data.data)
+        if(data.error!=undefined) return
+        this.list?.add(data.data as Servidor) //data.data para servidor
       }
     }))
   }
@@ -72,8 +72,8 @@ export class ServidoresService {
 
     return this.http.post<DataResult<Servidor>>(`${this.url}/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
-        if(data.data===undefined) return
-        this.list?.edit(data.data)
+        if(data.error!=undefined) return
+        this.list?.edit(servidor) //data.data para servidor
       }
     }));
   }
@@ -81,8 +81,9 @@ export class ServidoresService {
   remove(id : number): Observable<any>{
     return this.http.delete<DataResult<Servidor>>(`${this.url}/servidores/${id}`).pipe(tap({
       next:(data)=> {
-        if(data.data?.id===undefined) return
-        this.list?.delete(data.data.id)
+        console.log(data)
+        if(data.error!=undefined) return
+        this.list?.delete(id)
       }
     }));
   }

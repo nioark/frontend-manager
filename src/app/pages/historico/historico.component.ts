@@ -7,17 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ViewUserActionComponent } from 'src/app/pages/historico/viewUserAction/viewUserAction.component';
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 
-const adm = {nome: "Administrador", permissao: 1, id: 1};
-const gerente = {nome: "Gerente", permissao: 0, id: 2};
-
-const usuario1: Usuario = {id: 1, nome: "Leandro", created_at: "2021-08-01", cargo: adm};
-const usuario2: Usuario = {id: 2, nome: "Jeferson", created_at: "2021-08-01", cargo: adm};
-
-const ELEMENT_DATA: UsuarioAction[] = [
-  {usuario: usuario1, acao:"Editou o servidor 'Servidor 1'", comentario: "Comentário 1"},
-  {usuario: usuario2, acao:"Editou o servidor 'Servidor 2'", comentario: "Comentário 2"},
-];
-
 @Component({
   selector: 'app-historico',
   templateUrl: './historico.component.html',
@@ -25,7 +14,7 @@ const ELEMENT_DATA: UsuarioAction[] = [
 })
 export class HistoricoComponent implements AfterViewInit {
   displayedColumns: string[] = ['nome', 'acao'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
 
   constructor(private _liveAnnouncer: LiveAnnouncer, public dialog: MatDialog) {}
 

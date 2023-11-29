@@ -7,6 +7,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewClienteComponent } from 'src/app/pages/clientes/components/viewCliente/viewCliente.component';
 import { ClienteElement, Cliente } from 'src/app/models/cliente';
+import { Observable } from 'rxjs';
+import { ClientesService } from './services/clientes.service';
 
 
 const ELEMENT_DATA: ClienteElement[] = [
@@ -25,14 +27,24 @@ const ELEMENT_DATA: ClienteElement[] = [
 })
 export class ClientesComponent implements AfterViewInit {
   displayedColumns: string[] = ['nome', 'cnpj', 'accept_terms'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, public dialog: MatDialog) {}
+  clientes$?: Observable<Cliente[] | undefined>
+
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _clientesSrv: ClientesService, public dialog: MatDialog) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   ngAfterViewInit() {
+    this.clientes$ = this._clientesSrv.fetch();
+
+    this.clientes$.subscribe((dataClientes: Cliente[] | undefined) => {
+      console.log("Data clientes: ", dataClientes)
+      const datasource = dataClientes as Cliente[];
+      this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
+    })
+
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }

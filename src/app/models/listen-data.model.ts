@@ -8,21 +8,26 @@ export class ListenData<T extends {id?:number}> {
     initValue = initValue?.length ? initValue : []
     this._data = new BehaviorSubject<T[]>(initValue)
     this.data$ = this._data.asObservable().pipe(
-      map((data)=> data?.length ? data : [])
+      map((data)=> {
+        console.log("Inside LISTENDATA PIPE: ", data)
+        return data?.length ? data : []
+        }
+      )
     )
   }
 
   add(value:T):void {
+    // console.log("Inside listendata add: ", this._data?.value, value)
+    // const newData = [value].concat(this._data?.value.slice() || [])
     this._data.next([value, ...this._data?.value])
+    // console.log("Inside listendata add after: ", this._data?.value, value)
+
   }
 
   edit(value:T):void {
     const index = this._data.value.findIndex((item)=> item.id === value?.id)
     if(index !== -1) {
-      this._data.value[index] = {
-        ...this._data.value,
-        ...value
-      }
+      this._data.value[index] = value
       this._data.next(this._data.value)
     }
   }

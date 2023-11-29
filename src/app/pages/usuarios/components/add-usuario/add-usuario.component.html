@@ -7,33 +7,49 @@
 <hr class="divider">
 
 <div class="inputs-container">
+
+  <mat-form-field class="input-email" appearance="fill">
+    <mat-label>Email Usuário</mat-label>
+    <input (keydown)="inputChanged()" type="email" matInput #email required>
+  </mat-form-field>
+
   <div class="input-group">
     <mat-form-field class="input-nome" appearance="fill">
       <mat-label>Nome Usuário</mat-label>
-      <input matInput>
+      <input (keydown)="inputChanged()" matInput #nome required>
     </mat-form-field>
 
     <mat-form-field class="input-nome" appearance="fill">
       <mat-label>Senha</mat-label>
-      <input type="password" matInput>
+      <input (keydown)="inputChanged()" type="password" matInput #password required>
     </mat-form-field>
   </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Selecione o cargo</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let cargo of cargos" [value]="cargo.nome">
-        {{cargo.nome}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <ng-container *ngIf="cargos$ | async as cargos">
+    <mat-form-field appearance="fill">
+      <mat-label>Selecione o cargo</mat-label>
+      <mat-select (selectionChange)="inputChanged()"  #cargo required>
+        <mat-option *ngFor="let cargo of cargos" [value]="cargo.id">
+          {{cargo.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
 </div>
 
 <div class="buttons-container">
-  <button mat-raised-button class="button btn-form" disabled color="primary">
-    <mat-icon class="btn-icon">add</mat-icon>
-    Adicionar
-  </button>
+  <ng-container *ngIf="canSubmit$ == true">
+    <button (click)="submitAdd()" mat-raised-button class="button btn-form" color="primary">
+      <mat-icon class="btn-icon">add</mat-icon>
+      Adicionar
+    </button>
+  </ng-container>
+  <ng-container *ngIf="canSubmit$ == false">
+    <button mat-raised-button class="button btn-form" disabled color="primary">
+      <mat-icon class="btn-icon">add</mat-icon>
+      Adicionar
+    </button>
+  </ng-container>
   <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
 </div>
 
