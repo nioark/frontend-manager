@@ -9,7 +9,7 @@
 <div class="inputs-container">
   <mat-form-field class="input-email" appearance="fill">
     <mat-label>Email Usuário</mat-label>
-    <input (keydown)="inputChanged()" type="email" matInput #email required>
+    <input (keydown)="inputChanged()" type="email" matInput value="{{data.email}}" #email required>
   </mat-form-field>
 
   <div class="input-group">
@@ -26,8 +26,8 @@
   <ng-container *ngIf="cargos$ | async as cargos">
     <mat-form-field appearance="fill">
       <mat-label>Selecione o cargo</mat-label>
-      <mat-select (selectionChange)="inputChanged()" [value]="data.cargo.name" #cargo required>
-        <mat-option *ngFor="let cargo of cargos" [value]="cargo.name">
+      <mat-select (selectionChange)="inputChanged()" [value]="data.cargo.id" #cargo required>
+        <mat-option *ngFor="let cargo of cargos" [value]="cargo.id">
           {{cargo.name}}
         </mat-option>
       </mat-select>

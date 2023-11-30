@@ -24,7 +24,7 @@ export class ClientesService {
   }
 
   fetch(): Observable<Cliente[]> {
-    return this.http.get<DataResult<Cliente[]>>(`${this.url}/cargos`).pipe(
+    return this.http.get<DataResult<Cliente[]>>(`${this.url}/clientes`).pipe(
       map(data => data?.data?.length ? data.data : []),
       tap({
         next: data=> this.list = new ListenData<Cliente>(data)

@@ -3,7 +3,11 @@
     display: flex;
     height: 100vh;
     width: 100%;
-    background-color: gainsboro;
+    background-color: white;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 .flex-container {
@@ -17,8 +21,8 @@
 
 .size-1 {
   display: flex;
-  background-color: white;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  background-color: gainsboro;
+  filter: drop-shadow(0 10px 8px rgba(68, 53, 53, 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   border-radius: 10px;
   height: calc(50% - 5px);
   width: calc(50% - 5px);

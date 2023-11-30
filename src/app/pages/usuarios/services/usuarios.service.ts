@@ -69,10 +69,10 @@ export class UsuariosService {
     }
 
     const params = new HttpParams()
+      .append('email', usuario.email)
       .append('name', usuario.name)
       .append('password', usuario.password)
       .append('cargo_id', usuario.cargo.id)
-
     return this.http.post<DataResult<Usuario>>(`${this.url}/usuarios/${usuario.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
         if(data.error!=undefined) return

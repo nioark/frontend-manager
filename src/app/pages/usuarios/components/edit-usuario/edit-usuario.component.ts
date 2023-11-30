@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { Cargo } from 'src/app/models/cargos';
 import { Servidor } from 'src/app/models/servidor';
-import { UsuarioEdit } from 'src/app/models/usuario';
+import { Usuario, UsuarioEdit } from 'src/app/models/usuario';
 import { UsuariosService } from '../../services/usuarios.service';
 import { CargosService } from '../../services/cargos.service';
 
@@ -26,7 +26,7 @@ export class EditUsuarioComponent{
   canSubmit$ = false;
   cargos$: Observable<Cargo[]> | undefined;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: UsuarioEdit, private _usuariosSrv:UsuariosService, private _cargosSrv: CargosService, private _dialogRef: MatDialogRef<EditUsuarioComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Usuario, private _usuariosSrv:UsuariosService, private _cargosSrv: CargosService, private _dialogRef: MatDialogRef<EditUsuarioComponent>) { }
 
   ngOnInit() {
    this.cargos$ = this._cargosSrv.fetch();
@@ -37,8 +37,6 @@ export class EditUsuarioComponent{
       let flag = true;
 
       if (this.nome.first.nativeElement.value == '')
-        flag = false
-      if (this.password.first.nativeElement.value == '')
         flag = false
       if (this.cargo.first.selected == undefined)
         flag = false
@@ -58,7 +56,11 @@ export class EditUsuarioComponent{
 
   submitEdit(){
     const val = this.cargo.first.selected as any;
-    const cargo = val.value;
+    const cargo : Cargo = {
+      id: val.value,
+      name: undefined,
+      permissao_level: undefined
+    };
     const nome = this.nome.first.nativeElement.value;
     const senha = this.password.first.nativeElement.value;
     const email = this.email.first.nativeElement.value;

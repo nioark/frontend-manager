@@ -1,12 +1,16 @@
+@import "/src/assets/css/colors-scheme.scss";
+
 :host {
     display: flex;
 }
 
 .sidebar {
     width: 250px;
-    background-color: #0466c8;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    background-color: $secondary-color;
+    //background-color: #0466c8;
+    // border-top-right-radius: 5px;
+    // border-bottom-right-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -18,7 +22,7 @@
 .span {
     display: flex;
     align-items: center;
-    color: white;
+    color: $text-color;
     transition: all 0.1s ease;
     height: 20px;
     padding: 10px;
@@ -49,7 +53,7 @@
 // }
 
 .span:hover{
-    background-color: #0353a4;
+    background-color: $primary-color;
     color: white;
     cursor: pointer;
 
