@@ -9,9 +9,10 @@ import { LoginService } from '../pages/login/services/login.service';
 export class InterceptorService implements HttpInterceptor {
 
 //  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+  constructor(public _loginSrv: LoginService) { }
 
  intercept( request: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
-    const loginService = this.injector.get(LoginService);
+    // const loginService = this._loginSrv.retrieveData()
 
     request = request.clone({
       setHeaders: {
