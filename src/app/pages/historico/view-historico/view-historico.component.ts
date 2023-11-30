@@ -5,13 +5,13 @@ import { ViewServidorComponent } from '../../servidores/components/viewServidor/
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 
 @Component({
-  selector: 'app-viewUserAction',
-  templateUrl: './viewUserAction.component.html',
-  styleUrls: ['./viewUserAction.component.scss']
+  selector: 'app-view-historico',
+  templateUrl: './view-historico.component.html',
+  styleUrls: ['./view-historico.component.scss']
 })
-export class ViewUserActionComponent {
+export class ViewHistoricoComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: UsuarioAction, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
 
   ngOnInit() {
   }

@@ -1,14 +1,21 @@
+@import "/src/assets/css/table-style.scss";
+
 :host {
+
   display: flex;
   height: 100vh;
   width: 100%;
-  background-color: gainsboro;
+  padding: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing: border-box;
 }
 
 .page {
-  margin: 10px;
+  margin-left: 10px;
   width: 100%;
 }
+
 
 .flex-container {
   flex-wrap: wrap;
@@ -19,49 +26,4 @@
   overflow: auto;
   background-color: white;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-
-.tabela {
-  width: 100%;
-  box-shadow: none;
-}
-
-.td {
-  height: 100px;
-}
-
-.ativo {
-  padding: 10px;
-  background-color: greenyellow;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  border-radius: 20px;
-}
-
-.desativado {
-  background-color: rgb(248, 245, 57);
-}
-
-.ativo-text{
-  font-size: small;
-  margin-left: 5px;
-}
-
-.row-tabela:hover {
-  background-color: beige;
-  cursor: pointer;
-}
-
-.paginacao {
-  display: flex;
-  justify-content: center;
-  position:absolute;
-  width: 100%;
-  bottom: 0;
-}
-.header-tabela {
-  background-color: #a9d4ff;
 }

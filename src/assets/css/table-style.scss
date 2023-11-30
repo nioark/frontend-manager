@@ -1,0 +1,145 @@
+@import "/src/assets/css/colors-scheme.scss";
+
+.tabela {
+  width: 100%;
+  box-shadow: none;
+}
+
+.td {
+  height: 100px;
+}
+
+.ativo {
+  padding: 10px;
+  background-color: greenyellow; //greenyellow
+  width: 90px;
+  display: flex;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 20px;
+}
+
+.desativado {
+  background-color: rgb(248, 57, 57);
+}
+
+.ativo-text{
+  font-size: small;
+  margin-left: 5px;
+}
+
+.row-tabela {
+  z-index: 300;
+  transition: all 0.3s ease-in-out;
+}
+
+.row-tabela:hover {
+  background-color: rgba($secondary-color,0.5);
+  cursor: pointer;
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  position:absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.add-btn {
+  width: 60%;
+}
+
+.action-add-row{
+  width: 100%;
+  height: 50px;
+}
+
+.add-icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: 2px solid rgba($accent-color, 0.7);
+  // color: rgb(0, 166, 216);
+  color: rgba($accent-color,0.7);
+  transition: all 0.1s ease-in-out;
+}
+
+.add-icon:hover {
+  padding: 5px;
+  cursor: pointer;
+  border: 2px solid rgba($accent-color, 1);
+  color: rgba($accent-color, 1)
+}
+
+.header-tabela {
+  background-color: $secondary-color;
+}
+
+.edit-icon{
+  display: none;
+}
+
+.edit-input:hover{
+  .edit-icon{
+    display: block;
+  }
+}
+
+.td-container {
+  display: flex;
+  align-items: center;
+}
+
+.td-view-icon {
+  margin-right: 10px;
+  transform: scale(1.2);
+  padding: 5px;
+  border-radius: 15px;
+}
+
+.td-view-icon {
+  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+}
+
+.td-view-icon:hover {
+  background-color: rgba($primary-color,0.5);
+}
+
+.td-delete-icon {
+  position: absolute;
+  right: 0;
+  color: rgb(248, 57, 57);
+  margin-right: 10px;
+  transform: scale(1.2);
+  padding: 5px;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+.td-delete-icon:hover {
+  background-color: rgba($primary-color,0.5);
+  color: rgb(163, 40, 40);
+
+}
+
+.animate {
+  animation-duration: 0.3s;
+  animation-name: animate-fade;
+  animation-fill-mode: backwards;
+}
+
+@keyframes animate-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

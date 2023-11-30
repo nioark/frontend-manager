@@ -44,7 +44,12 @@ export class LoginService {
   }
 
   getName(): string{
-    return this.retrieveData().Name
+    console.log("Storage: ",this.retrieveData())
+    return this.retrieveData().name
+  }
+
+  logout(){
+    localStorage.removeItem("userdata");
   }
 
   storeToken(token: string) {

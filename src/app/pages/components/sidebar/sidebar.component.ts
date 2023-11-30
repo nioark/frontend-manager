@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../login/services/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,11 +10,14 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   @Input() selected$: number | undefined;
+  name: string | undefined;
 
-  constructor(private _router: Router) {
+
+  constructor(private _router: Router, private _loginSrv: LoginService) {
    }
 
   ngOnInit(): void {
+    this.name = this._loginSrv.getName()
   }
 
   goToPath(path: string) {

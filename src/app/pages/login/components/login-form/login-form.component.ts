@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
 
@@ -23,22 +23,22 @@ export class LoginFormComponent implements OnInit {
   }
 
   authenticate(email : string, password : string){
-    // if (!this._loginSrv.isAuthenticated()){
-    //   this._loginSrv.authenticate(email, password).pipe(
-    //     map((data: any) => {
+    if (!this._loginSrv.isAuthenticated()){
+      this._loginSrv.authenticate(email, password).pipe(
+        map((data: any) => {
 
-    //       console.log("Storage: ",this._loginSrv.retrieveData())
-    //       if (data){
-    //         this.loading$ = true;
-    //         this._router.navigate(['home'])
-    //       }
-    //       else{
-    //         this.openSnackBar("Email ou Senha invalidos", "OK")
+          console.log("Storage: ",this._loginSrv.retrieveData())
+          if (data){
+            this.loading$ = true;
+            this._router.navigate(['dashboard'])
+          }
+          else{
+            this.openSnackBar("Email ou Senha invalidos", "OK")
 
-    //       }
-    //     }
-    //   )).subscribe()
-    // }
+          }
+        }
+      )).subscribe()
+    }
   }
 
   openSnackBar(message: string, action: string) {

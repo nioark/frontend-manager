@@ -1,4 +1,4 @@
-import { ViewUserActionComponent } from './pages/historico/viewUserAction/viewUserAction.component';
+import { ViewHistoricoComponent } from './pages/historico/view-historico/view-historico.component';
 import { UsuarioAction } from 'src/app/models/usuario';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,6 +37,8 @@ import { EditUsuarioComponent } from './pages/usuarios/components/edit-usuario/e
 import { DeleteServidorComponent } from './pages/servidores/components/deleteServidor/deleteServidor.component';
 import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuario/delete-usuario.component';
 
+import { InterceptorModule } from './interceptor/interceptor.module';
+
 
 @NgModule({
   declarations: [
@@ -56,9 +58,9 @@ import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuar
     EditUsuarioComponent,
     AddUsuarioComponent,
     DeleteUsuarioComponent,
-    ViewUserActionComponent,
+    ViewHistoricoComponent,
     DeleteServidorComponent,
-    CountUpDirective
+    CountUpDirective,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuar
     MatPaginatorModule,
     MatDialogModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    InterceptorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

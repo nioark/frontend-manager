@@ -1,18 +1,20 @@
+@import "/src/assets/css/colors-scheme.scss";
+
 :host{
   width: 100%;
   display: flex;
+  background-color: $background-color;
   /* background-color: #e5e5f7;
   background-color: #e5e5f7;
   opacity: 0.8;
   background: linear-gradient(135deg, #444cf755 25%, transparent 25%) -19px 0/ 38px 38px, linear-gradient(225deg, #444cf7 25%, transparent 25%) -19px 0/ 38px 38px, linear-gradient(315deg, #444cf755 25%, transparent 25%) 0px 0/ 38px 38px, linear-gradient(45deg, #444cf7 25%, #e5e5f7 25%) 0px 0/ 38px 38px; */
 }
 
-.login-form{
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px 0px #00000040;
-}
+// .login-form{
+//   width: 100%;
+//   max-width: 400px;
+//   margin: auto;
+//   padding: 20px;
+//   border-radius: 5px;
+//   box-shadow: 0px 0px 10px 0px #00000040;
+// }

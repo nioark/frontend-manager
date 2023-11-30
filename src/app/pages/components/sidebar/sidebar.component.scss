@@ -4,6 +4,27 @@
     display: flex;
 }
 
+.bay{
+  display: flex;
+  width: 100%;
+  justify-content: right;
+}
+
+.config-icon {
+  height: 25px;
+  margin-right: 5px;
+  padding: 0px;
+  transition: all 0.1s ease-in-out;
+  padding: 5px;
+}
+
+.config-icon:hover {
+  background-color: $primary-color;
+  cursor: pointer;
+  border-radius: 25px;
+
+}
+
 .sidebar {
     width: 250px;
     background-color: $secondary-color;
@@ -26,13 +47,13 @@
     transition: all 0.1s ease;
     height: 20px;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
     padding-left: 20px;
     margin-top: 5px;
 }
 
 .span-selected{
-    background-color: #0353a4;
+    background-color: $primary-color
 }
 
 
@@ -41,7 +62,7 @@
   opacity: 0;
   height: 0px;
   width: 5px;
-  background-color: white;
+  background-color: $primary-color;
   margin-left: -36px;
   border-radius: 25px;
   transition: all 0.1s ease-in-out;
@@ -54,7 +75,6 @@
 
 .span:hover{
     background-color: $primary-color;
-    color: white;
     cursor: pointer;
 
     .span-bump{
@@ -85,40 +105,39 @@
 
 
 .subtitle-text {
-    color: #c1c4cc;
+    color: $accent-color;
     font-size: normal;
     font-family: 'Azeret Mono';
     margin-bottom: 10px;
 }
 
 .title-span {
-    margin-top: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: white;
+    justify-content: left;
+    margin-left: 20px;
+    flex-direction: row;
+    color: $text-color;
 }
 
 
 .avatar {
-    width: 70px;
-    height: 70px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
     border-radius: 50%;
-    border: solid 2px;
-    border-color: white;
 }
 
 .username{
-    margin-top: 10px;
-    font-size: x-large;
-    height: 10px;
+    font-size: large;
     user-select: text;
+    color: $text-color;
+    margin: 0;
 }
 
 .user-type{
     font-size: small;
-    color: #c1c4cc;
+    color: $primary-color;
 }
 
 hr {
@@ -142,25 +161,28 @@ hr {
 }
 
 .footer-section {
-    width: 100%;
+    width: 46px;
     display: flex;
-    justify-content: center;
-    color: white;
-    border-radius: 5px;
+    justify-content: left;
+    color: $text-color;
+    border-radius: 25px;
     padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+
     align-items: center;
     font-weight: 400;
 
 }
 
 .footer-section:hover{
-    background-color: #0353a4;
     cursor: pointer;
+    background-color: $primary-color;
 }
 
 .footer-icon{
-    height: 25px;
-    margin-right: 5px;
+    transform: scale(2.5);
+    margin-right: 10px;
 }
 
 .logout{

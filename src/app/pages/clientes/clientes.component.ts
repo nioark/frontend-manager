@@ -10,15 +10,11 @@ import { ClienteElement, Cliente } from 'src/app/models/cliente';
 import { Observable } from 'rxjs';
 import { ClientesService } from './services/clientes.service';
 
-
 const ELEMENT_DATA: ClienteElement[] = [
   {nome: "Bremer", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: true},
   {nome: "Contabilidade Wagner", cnpj:"XX.XXX.XXX/0001-XX.", accept_terms: true},
   {nome: "Postos Russi", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: true},
   {nome: "Postos Pilão", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: false},
-
-
-
 ];
 @Component({
   selector: 'app-clientes',

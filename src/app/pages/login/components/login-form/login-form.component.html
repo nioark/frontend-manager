@@ -1,21 +1,27 @@
-<div class="form">
-  <h1 class="title">Login</h1>
-  <mat-form-field class="example-full-width">
-    <mat-label>Email</mat-label>
-    <input #email matInput type="email" placeholder="Email">
-  </mat-form-field>
-  <br>
-  <mat-form-field class="example-full-width">
-    <mat-label>Senha</mat-label>
-    <input #password matInput type="password" placeholder="Senha">
-  </mat-form-field>
-  <button (click)="authenticate(email.value,password.value)" mat-raised-button color="primary">Entrar</button>
-  <ng-container *ngIf="!loading$"  >
-    <div class="loadbar-div">
-    </div>
-  </ng-container>
-  <ng-container *ngIf="loading$"  >
-    <mat-progress-bar  class="loadbar" mode="indeterminate"></mat-progress-bar>
-  </ng-container>
+
+<div class="container">
+  <div class="left-container">
+    <img class="logo" src="assets/logo.png" alt="">
+  </div>
+  <div class="form">
+    <h1 class="title">Login</h1>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input #email matInput type="email" placeholder="Email">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Senha</mat-label>
+      <input #password matInput type="password" placeholder="Senha">
+    </mat-form-field>
+    <button (click)="authenticate(email.value,password.value)" mat-raised-button color="primary">Entrar</button>
+    <ng-container *ngIf="!loading$"  >
+      <div class="loadbar-div">
+      </div>
+    </ng-container>
+    <ng-container *ngIf="loading$"  >
+      <mat-progress-bar  class="loadbar" mode="indeterminate"></mat-progress-bar>
+    </ng-container>
+  </div>
 </div>
 

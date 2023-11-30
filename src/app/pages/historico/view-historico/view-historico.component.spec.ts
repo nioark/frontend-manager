@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ViewUserActionComponent } from './viewUserAction.component';
+import { ViewHistoricoComponent } from './view-historico.component';
 
-describe('ViewUserActionComponent', () => {
-  let component: ViewUserActionComponent;
-  let fixture: ComponentFixture<ViewUserActionComponent>;
+describe('ViewHistoricoComponent', () => {
+  let component: ViewHistoricoComponent;
+  let fixture: ComponentFixture<ViewHistoricoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewUserActionComponent ]
+      declarations: [ ViewHistoricoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewUserActionComponent);
+    fixture = TestBed.createComponent(ViewHistoricoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

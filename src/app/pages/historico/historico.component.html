@@ -1,6 +1,6 @@
 <app-sidebar [selected$]=5></app-sidebar>
 <div class="page">
-  <div class="flex-container">
+  <div class="flex-container animate">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
         class="mat-elevation-z8 tabela">
 
@@ -9,7 +9,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
           Nome
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.usuario.nome}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
       <!-- Name Column -->
@@ -18,7 +18,16 @@
           Ação
         </th>
         <td mat-cell *matCellDef="let element">
-          {{element.acao}}
+          {{element.action}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quando">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quando">
+          Qunado
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.time_ago}}
         </td>
       </ng-container>
 
@@ -30,7 +39,7 @@
     <div class="paginacao" >
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons
-        aria-label="Seleciona pagina dos clientes">
+        aria-label="Seleciona pagina do historico">
       </mat-paginator>
     </div>
   </div>
