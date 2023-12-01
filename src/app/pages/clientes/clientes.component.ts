@@ -63,12 +63,11 @@ export class ClientesComponent implements AfterViewInit {
     }
   }
 
-  viewCliente(data: ClienteElement){
-    const clientData: Cliente = {...data, id: 1, contrato_id: 1, accepted_at: "2021-08-01", updated_at: "2021-08-01", accept_at: "2021-08-01"};
+  viewCliente(data: Cliente){
     const dialogRef = this.dialog.open(ViewClienteComponent, {
       width: '500px',
       height: '500px',
-      data: clientData
+      data: data
     });
 
 

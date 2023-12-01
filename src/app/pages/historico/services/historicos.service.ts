@@ -24,7 +24,7 @@ export class HistoricosService {
   }
 
   fetch(): Observable<Historico[]> {
-    return this.http.get<DataResult<Historico[]>>(`${this.url}/historicos`).pipe(
+    return this.http.get<DataResult<Historico[]>>(`${this.url}/manager/historicos`).pipe(
       map(data => data?.data?.length ? data.data : []),
       tap({
         next: data=> this.list = new ListenData<Historico>(data)

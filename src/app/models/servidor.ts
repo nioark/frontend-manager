@@ -6,6 +6,7 @@ export interface Servidor {
   qtd_canais: number;
   serial: string;
   id: number;
+  comentario:string | undefined;
 }
 
 export interface ServidorNew {
@@ -14,4 +15,5 @@ export interface ServidorNew {
   qtd_usuarios: number;
   qtd_usuarios_local: number;
   qtd_canais: number;
+  comentario:string | undefined;
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import Utils from "chart.js/auto"
+import { ServidoresService } from '../servidores/services/servidores.service';
+import { Servidor } from 'src/app/models/servidor';
+import { Observable } from 'rxjs';
+import { ClientesService } from '../clientes/services/clientes.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +13,30 @@ import Utils from "chart.js/auto"
 })
 export class DashboardComponent implements OnInit {
   public chart: any;
+  servidores$?: Observable<Servidor[] | undefined>
 
-  constructor() { }
+  serverCount: number = 0;
+  serversAtivo: number = 0;
+  serversInativo: number = 0;
+  clienteCount: number = 0;
+
+  constructor(private _servidoresSrv: ServidoresService, private _clientesSrv: ClientesService) { }
 
   ngOnInit(): void {
+    this.servidores$ = this._servidoresSrv.fetch();
+
+    this.servidores$?.subscribe((data: Servidor[] | undefined) => {
+      console.log("Data from server: ", data)
+      this.serverCount = data?.length as number;
+
+      // this.serversAtivo = data?.filter((item: Servidor) => item.active == true).length as number;
+      // this.serversInativo = data?.filter((item: Servidor) => item.active == false).length as number;
+    })
+
+    this._clientesSrv.fetch().subscribe((data: any) => {
+      this.clienteCount = data.length;
+    })
+
     this.createChart();
   }
 
@@ -54,33 +78,6 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-
-    // this.chart = new Chart("MyChart", {
-    //   type: 'bar', //this denotes tha type of chart
-
-    //   data: {// values on X-Axis
-    //     labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-		// 						 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
-	  //      datasets: [
-    //       {
-    //         label: "Sales",
-    //         data: ['467','576', '572', '79', '92',
-		// 						 '574', '573', '576'],
-    //         backgroundColor: 'blue'
-    //       },
-    //       {
-    //         label: "Profit",
-    //         data: ['542', '542', '536', '327', '17',
-		// 							 '0.00', '538', '541'],
-    //         backgroundColor: 'limegreen'
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     aspectRatio:2.5
-    //   }
-
-    // });
   }
 
 }

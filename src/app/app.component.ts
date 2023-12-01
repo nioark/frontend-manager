@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from './pages/login/services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frotend-manager';
+  title = 'HT Manager';
+
+  constructor(private _router: Router, private _loginSrv : LoginService) {
+    if (this._loginSrv.isAuthenticated() == false){
+      this._router.navigate(['/login'])
+    }
+  }
 }

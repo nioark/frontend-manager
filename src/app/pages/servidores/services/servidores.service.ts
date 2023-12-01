@@ -1,12 +1,13 @@
 import { Servidor, ServidorNew } from 'src/app/models/servidor';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map, of, switchMap, tap } from 'rxjs';
+import { Observable, Subject, map, of, switchMap, tap, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import { DataResult } from 'src/app/models/data-result.model';
 import { throwError } from 'rxjs';
 import { ListenData } from 'src/app/models/listen-data.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Injectable({
@@ -16,12 +17,16 @@ export class ServidoresService {
   list: ListenData<Servidor>|undefined
 
   url:string
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
     this.url=environment.backend
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
   fetch(): Observable<Servidor[]> {
-    return this.http.get<DataResult<Servidor[]>>(`${this.url}/servidores`).pipe(
+    return this.http.get<DataResult<Servidor[]>>(`${this.url}/manager/servidores`).pipe(
       map(data => data?.data?.length ? data.data : []),
       tap({
         next: data=> this.list = new ListenData<Servidor>(data)
@@ -34,7 +39,7 @@ export class ServidoresService {
   }
 
   get(id: number): Observable<Servidor>{
-    return this.http.get<DataResult<Servidor>>(`${this.url}/servidores/${id}`).pipe(
+    return this.http.get<DataResult<Servidor>>(`${this.url}/manager/servidores/${id}`).pipe(
       map(data => data.data as Servidor),
       tap({
         next: (x) => console.log(x)
@@ -49,16 +54,19 @@ export class ServidoresService {
       .append('qtd_usuarios', servidor.qtd_usuarios)
       .append('qtd_usuarios_local', servidor.qtd_usuarios_local)
       .append('qtd_canais', servidor.qtd_canais)
+      .append('comentario', servidor.comentario as string)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/servidores`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Servidor>>(`${this.url}/manager/servidores`, "", {params: params}).pipe(tap({
       next:(data)=> {
+        this.openSnackBar(data.message as string, "OK")
+
         if(data.error!=undefined) return
         this.list?.add(data.data as Servidor) //data.data para servidor
       }
     }))
   }
 
-  edit_servidor(servidor: Servidor): Observable<any> {
+  edit_servidor(servidor: Servidor, resetarSerial: boolean): Observable<any> {
     if (!servidor.id) {
       return throwError("servidor sem id");
     }
@@ -69,22 +77,39 @@ export class ServidoresService {
       .append('qtd_usuarios', servidor.qtd_usuarios)
       .append('qtd_usuarios_local', servidor.qtd_usuarios_local)
       .append('qtd_canais', servidor.qtd_canais)
+      .append('comentario', servidor.comentario as string)
+      .append('resetar_serial', resetarSerial)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Servidor>>(`${this.url}/manager/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
+        this.openSnackBar(data.message as string, "OK")
+
         if(data.error!=undefined) return
-        this.list?.edit(servidor) //data.data para servidor
-      }
+
+        this.get(servidor.id).subscribe((data) => {
+          const servidor2 = data;
+          this.list?.edit(servidor2);
+        });
+        //data.data para servidor
+      },
+    }),catchError((err)=>{
+      this.openSnackBar(err.error.message as string, "OK")
+      return throwError(err)
     }));
   }
 
   remove(id : number): Observable<any>{
-    return this.http.delete<DataResult<Servidor>>(`${this.url}/servidores/${id}`).pipe(tap({
+    return this.http.delete<DataResult<Servidor>>(`${this.url}/manager/servidores/${id}`).pipe(tap({
       next:(data)=> {
+        this.openSnackBar(data.message as string, "OK")
+
         console.log(data)
         if(data.error!=undefined) return
         this.list?.delete(id)
       }
-    }));
+    }),catchError((err)=>{
+      this.openSnackBar(err.error.message as string, "OK")
+      return throwError(err)
+      }));
   }
 }

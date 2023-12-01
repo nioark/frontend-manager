@@ -4,6 +4,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { InterceptorService } from './interceptor.service';
 import { LoginService } from '../pages/login/services/login.service';
+import { Router } from '@angular/router';
 
 @NgModule({
   providers: [
@@ -12,7 +13,7 @@ import { LoginService } from '../pages/login/services/login.service';
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true,
-      deps: [LoginService]
+      deps: [LoginService, Router]
     },
   ],
 })

@@ -37,7 +37,10 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean{
-    if (this.retrieveData().Token != null){
+    console.log("Value Bool: ", this.retrieveData() != null)
+
+    console.log("Value: ", this.retrieveData())
+    if (this.retrieveData().access_token != null){
       return true
     }
     return false
@@ -58,7 +61,7 @@ export class LoginService {
 
   retrieveData() : any {
     let storedToken = localStorage.getItem("userdata");
-    if(!storedToken) return {data: {Token: null, Name: ''}};
+    if(!storedToken) return {data: {acces_token: null, name: ''}};
     return JSON.parse(storedToken);
   }
 }

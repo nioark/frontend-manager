@@ -16,6 +16,8 @@ export class EditServidorComponent{
   @ViewChildren("usuarios") usuarios!: QueryList<ElementRef>;
   @ViewChildren("usuarios_locais") usuarios_locais!: QueryList<ElementRef>;
   @ViewChildren("canais") canais!: QueryList<ElementRef>;
+  @ViewChildren("comentario") comentario!: QueryList<ElementRef>;
+  @ViewChildren("resetarSerial") resetarSerial!: QueryList<MatCheckbox>;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Servidor, private _dialogRef: MatDialogRef<EditServidorComponent>, private _servidoresSrv:ServidoresService) { }
 
@@ -38,9 +40,10 @@ export class EditServidorComponent{
         flag = false
       if (this.nome.first.nativeElement.value == '')
         flag = false
-
-      if (flag)
+      console.log("textArea: ", this.comentario.first.nativeElement.value)
+      if (flag && this.comentario.first.nativeElement.value != ''){
         this.canSubmit$ = true;
+      }
       else
         this.canSubmit$ = false;
     }, 100);
@@ -52,15 +55,18 @@ export class EditServidorComponent{
     const usuarios_locais = this.usuarios_locais.first.nativeElement.value;
     const canais = this.canais.first.nativeElement.value;
     const ativo = this.ativo.first.checked;
-    console.log("Submit: ",nome, usuarios, usuarios_locais, canais, ativo, this.data.id);
+    const comentario = this.comentario.first.nativeElement.value;
+    const resetarSerial = this.resetarSerial.first.checked;
+
+    console.log("Submit: ",nome, usuarios, usuarios_locais, canais, ativo, this.data.id, comentario);
 
     const serverData: Servidor = {
       nome: nome, active: ativo, qtd_usuarios: usuarios,
       qtd_usuarios_local: usuarios_locais, qtd_canais: canais,
-      serial: this.data.serial, id: this.data.id
+      serial: this.data.serial, id: this.data.id, comentario: comentario
     };
 
-    this._servidoresSrv.edit_servidor(serverData).subscribe((data) => {
+    this._servidoresSrv.edit_servidor(serverData, resetarSerial).subscribe((data) => {
       console.log(data);
       this.closeDialog();
     })

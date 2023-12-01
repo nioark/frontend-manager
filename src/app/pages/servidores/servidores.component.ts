@@ -35,8 +35,9 @@ export class ServidoresComponent implements AfterViewInit {
     this.servidores$ = this._servidoresSrv.fetch();
 
     this.servidores$?.subscribe((data: Servidor[] | undefined) => {
+      console.log("Data from server: ", data)
       const datasource = data as Servidor[];
-      this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);;
+      this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
       console.log(datasource)
     })
 
@@ -71,6 +72,7 @@ export class ServidoresComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The add dialog was closed');
       // this.animal = result;
+
     });
 
     console.log("Add servidor");

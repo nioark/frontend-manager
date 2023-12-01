@@ -17,8 +17,7 @@ export class AddServidorComponent implements OnInit {
   @ViewChildren("usuarios") usuarios!: QueryList<ElementRef>;
   @ViewChildren("usuarios_locais") usuarios_locais!: QueryList<ElementRef>;
   @ViewChildren("canais") canais!: QueryList<ElementRef>;
-
-
+  @ViewChildren("comentario") comentario!: QueryList<ElementRef>;
 
   constructor(private _dialogRef: MatDialogRef<AddServidorComponent>, private _servidoresSrv:ServidoresService) { }
 
@@ -41,6 +40,8 @@ export class AddServidorComponent implements OnInit {
         flag = false
       if (this.nome.first.nativeElement.value == '')
         flag = false
+      if (this.comentario.first.nativeElement.value == '')
+        flag = false
 
       if (flag)
         this.canSubmit$ = true;
@@ -55,9 +56,10 @@ export class AddServidorComponent implements OnInit {
     const usuarios_locais = this.usuarios_locais.first.nativeElement.value;
     const canais = this.canais.first.nativeElement.value;
     const ativo = this.ativo.first.checked;
-    console.log(nome, usuarios, usuarios_locais, canais, ativo);
+    const comentario = this.comentario.first.nativeElement.value;
+    console.log(nome, usuarios, usuarios_locais, canais, ativo, comentario);
 
-    const serverData: ServidorNew = {nome: nome, active: ativo, qtd_usuarios: usuarios, qtd_usuarios_local: usuarios_locais, qtd_canais: canais};
+    const serverData: ServidorNew = {nome: nome, active: ativo, qtd_usuarios: usuarios, qtd_usuarios_local: usuarios_locais, qtd_canais: canais, comentario: comentario};
     this._servidoresSrv.add_servidor(serverData).subscribe((data) => {
       console.log(data);
       this.closeDialog();

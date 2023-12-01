@@ -35,7 +35,7 @@ export class HistoricoComponent implements AfterViewInit {
       this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
 
       dataHistorico?.forEach(element => {
-        const historico = dataHistorico?.[0] as Historico;
+        const historico = element as Historico;
         const timestamp = historico.created_at;
 
         const date = new Date(timestamp);
@@ -58,6 +58,8 @@ export class HistoricoComponent implements AfterViewInit {
         } else {
           timeAgoString = `${seconds} segundo${seconds > 1 ? 's' : ''} atrás`;
         }
+
+
 
         element.time_ago = timeAgoString
       });
@@ -90,7 +92,11 @@ export class HistoricoComponent implements AfterViewInit {
   viewAction(data: any){
     console.log("Inject data: ", data)
     const date = new Date(data.created_at);
-    const formatedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+
+    let minutes: any = date.getMinutes();
+    if (minutes < 10)
+      minutes = `0${minutes}`;
+    const formatedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${minutes}`;
     data.timestamp = formatedDate;
 
     const dialogRef = this.dialog.open(ViewHistoricoComponent, {

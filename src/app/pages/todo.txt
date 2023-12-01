@@ -1,2 +1,0 @@
--- Adicionar handling de erro nos formulários
--- Usar required invés de javascript nos fomrularios

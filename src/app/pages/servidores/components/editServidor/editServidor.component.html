@@ -28,8 +28,7 @@
         </div>
       </ng-container>
 
-
-  </mat-checkbox>
+    </mat-checkbox>
   </div>
 
   <div class="input-group">
@@ -49,8 +48,12 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Comentário</mat-label>
-    <textarea matInput></textarea>
+    <textarea (keydown)="inputChanged()" matInput #comentario></textarea>
   </mat-form-field>
+
+  <mat-checkbox (change)="inputChanged()"  class="checkbox" #resetarSerial>
+    Resetar Serial
+  </mat-checkbox>
 </div>
 
 <div class="buttons-container">
