@@ -38,7 +38,7 @@ import { DeleteServidorComponent } from './pages/servidores/components/deleteSer
 import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuario/delete-usuario.component';
 
 import { InterceptorModule } from './interceptor/interceptor.module';
-
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -79,7 +79,8 @@ import { InterceptorModule } from './interceptor/interceptor.module';
     MatDialogModule,
     MatSelectModule,
     MatCheckboxModule,
-    InterceptorModule
+    InterceptorModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

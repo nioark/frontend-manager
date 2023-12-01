@@ -25,7 +25,7 @@
           Ativo
         </th>
         <td class="edit-input" mat-cell *matCellDef="let element">
-          <ng-container  *ngIf="element.active == true">
+          <!-- <ng-container  *ngIf="element.active == true">
             <div class="ativo">
               <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
             </div>
@@ -34,7 +34,19 @@
             <div class="ativo desativado">
               <mat-icon>close</mat-icon> <div class="ativo-text">Desativado</div>
             </div>
-          </ng-container>
+          </ng-container> -->
+          <button mat-button [matMenuTriggerFor]="menu"><div class="ativo">
+            <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+          </div></button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <div class="ativo desativado">
+                  <mat-icon>close</mat-icon>
+                  <div class="ativo-text">Desativado</div>
+                </div>
+              </button>
+            </mat-menu>
+
 
         </td>
       </ng-container>

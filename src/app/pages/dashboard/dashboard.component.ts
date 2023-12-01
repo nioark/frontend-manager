@@ -29,8 +29,8 @@ export class DashboardComponent implements OnInit {
       console.log("Data from server: ", data)
       this.serverCount = data?.length as number;
 
-      // this.serversAtivo = data?.filter((item: Servidor) => item.active == true).length as number;
-      // this.serversInativo = data?.filter((item: Servidor) => item.active == false).length as number;
+      this.serversAtivo = data?.filter((item: Servidor) => item.active == true).length as number;
+      this.serversInativo = data?.filter((item: Servidor) => item.active == false).length as number;
     })
 
     this._clientesSrv.fetch().subscribe((data: any) => {
