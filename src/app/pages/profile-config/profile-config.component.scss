@@ -1,0 +1,85 @@
+@import "/src/assets/css/colors-scheme.scss";
+
+:host {
+  display: flex;
+  height: 100vh;
+  padding: 10px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+.page {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 400px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: auto;
+  background-color: $secondary-color;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+@keyframes animate-slide-fade {
+  0% {
+    opacity: 0;
+    z-index: -1000;
+    transform: translateX(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.animateSlider {
+  animation-duration: 0.3s;
+  animation-name: animate-slide-fade;
+  animation-fill-mode: backwards;
+}
+
+.title-span {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-left: 20px;
+  width: 325px;
+  flex-direction: row;
+  color: $text-color;
+}
+
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.username{
+  font-size: x-large;
+  user-select: text;
+  color: $text-color;
+  margin: 0;
+}
+
+
+.inputs-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+}
+
+.divider{
+  width: 300px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}

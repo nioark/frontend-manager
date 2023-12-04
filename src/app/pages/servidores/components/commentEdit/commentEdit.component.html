@@ -1,0 +1,34 @@
+
+<div class="title">
+  <mat-icon class="title-icon">comment</mat-icon>
+  Adicionar comentário
+</div>
+
+<hr class="divider">
+
+
+<div class="inputs-container" >
+
+  <mat-form-field appearance="fill">
+    <mat-label>Comentário</mat-label>
+    <textarea (keydown)="inputChanged()" matInput #comentario required></textarea>
+  </mat-form-field>
+</div>
+
+<div class="buttons-container">
+  <ng-container *ngIf="canSubmit$ == true">
+    <button (click)="submit()" mat-raised-button class="button btn-form" color="primary">
+      <mat-icon class="btn-icon">edit</mat-icon>
+      Editar
+    </button>
+  </ng-container>
+  <ng-container *ngIf="canSubmit$ == false">
+    <button mat-raised-button class="button btn-form" disabled color="primary">
+      <mat-icon class="btn-icon">edit</mat-icon>
+      Editar
+    </button>
+  </ng-container>
+  <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
+</div>
+
+

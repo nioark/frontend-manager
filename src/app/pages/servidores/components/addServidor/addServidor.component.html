@@ -49,7 +49,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Comentário</mat-label>
-    <textarea matInput #comentario></textarea>
+    <textarea (keydown)="inputChanged()" matInput #comentario></textarea>
   </mat-form-field>
 </div>
 

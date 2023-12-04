@@ -63,7 +63,7 @@ export class EditServidorComponent{
     const serverData: Servidor = {
       nome: nome, active: ativo, qtd_usuarios: usuarios,
       qtd_usuarios_local: usuarios_locais, qtd_canais: canais,
-      serial: this.data.serial, id: this.data.id, comentario: comentario
+      serial: this.data.serial, id: this.data.id, comentario: comentario, deleted_at: ""
     };
 
     this._servidoresSrv.edit_servidor(serverData, resetarSerial).subscribe((data) => {

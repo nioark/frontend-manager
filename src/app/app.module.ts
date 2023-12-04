@@ -39,6 +39,10 @@ import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuar
 
 import { InterceptorModule } from './interceptor/interceptor.module';
 import {MatMenuModule} from '@angular/material/menu';
+import { CommentEditComponent } from './pages/servidores/components/commentEdit/commentEdit.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +55,7 @@ import {MatMenuModule} from '@angular/material/menu';
     EditServidorComponent,
     AddServidorComponent,
     ViewServidorComponent,
+    CommentEditComponent,
     ViewClienteComponent,
     ClientesComponent,
     HistoricoComponent,
@@ -60,7 +65,8 @@ import {MatMenuModule} from '@angular/material/menu';
     DeleteUsuarioComponent,
     ViewHistoricoComponent,
     DeleteServidorComponent,
-    CountUpDirective,
+    ProfileConfigComponent,
+    CountUpDirective
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSelectModule,
     MatCheckboxModule,
     InterceptorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

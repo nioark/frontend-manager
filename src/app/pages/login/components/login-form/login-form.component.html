@@ -3,7 +3,7 @@
   <div class="left-container">
     <img class="logo" src="assets/logo.png" alt="">
   </div>
-  <div class="form">
+  <div class="form " id="enterEvnt">
     <h1 class="title">Login</h1>
     <mat-form-field class="example-full-width">
       <mat-label>Email</mat-label>
@@ -14,7 +14,7 @@
       <mat-label>Senha</mat-label>
       <input #password matInput type="password" placeholder="Senha">
     </mat-form-field>
-    <button (click)="authenticate(email.value,password.value)" mat-raised-button color="primary">Entrar</button>
+    <button id="loginBtn" (click)="authenticate(email.value,password.value)" mat-raised-button color="primary">Entrar</button>
     <ng-container *ngIf="!loading$"  >
       <div class="loadbar-div">
       </div>

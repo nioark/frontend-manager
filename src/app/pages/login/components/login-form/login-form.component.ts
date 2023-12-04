@@ -20,6 +20,13 @@ export class LoginFormComponent implements OnInit {
     // if (this._loginSrv.isAuthenticated()){
     //   this._router.navigate(['home'])
     // }
+    document.querySelector("#enterEvnt")?.addEventListener("keyup", event => {
+      const ev = event as any;
+
+      if(ev.key !== "Enter") return; // Use `.key` instead.
+      (document.querySelector("#loginBtn") as HTMLButtonElement)?.click(); // Things you want to do.
+      ev.preventDefault(); // No need to `return false;`.
+  });
   }
 
   authenticate(email : string, password : string){

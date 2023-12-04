@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, ignoreElements, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class LoginService {
   url: string
   private userData:any;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar, public _router: Router) {
     this.url=environment.backend
   }
 
@@ -29,6 +31,33 @@ export class LoginService {
         // Logado com sucesso
         if (data.data != null){
           this.storeToken(data.data)
+          return true;
+        }
+        return false;
+      }),
+    );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
+  changePassword(newPassword: string): Observable<boolean>{
+    const params = new HttpParams()
+    .append('password', newPassword)
+    return this.http.post(`${this.url}/usuarios/change-password`, "", {params: params}).pipe(
+      catchError((err) => {
+        console.error(err);
+        this.openSnackBar(err.message as string, "OK")
+        return of(false);
+      }),
+      map((data: any) => {
+        // Logado com sucesso
+        this.openSnackBar(data.message as string, "OK")
+        this.logout()
+        this._router.navigate(['/login'])
+
+        if (data.data != null){
           return true;
         }
         return false;

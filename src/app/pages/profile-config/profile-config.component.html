@@ -1,0 +1,29 @@
+<app-sidebar></app-sidebar>
+<div class="page">
+  <div class="flex-container animateSlider">
+    <span class="title-span ">
+      <img class="avatar" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_640.png" alt="">
+
+      <p class="username">{{name}}</p>
+      <!-- <p class="user-type">administrador</p> -->
+
+    </span>
+    <hr class="divider">
+    <div class="inputs-container">
+
+      <mat-form-field class="input-nome" appearance="fill">
+        <mat-label>Nova Senha</mat-label>
+        <input class="input" (keydown)="inputChanged()" type="password" matInput #password required>
+      </mat-form-field>
+      <mat-form-field class="input-nome" appearance="fill">
+        <mat-label>Confirme Nova Senha</mat-label>
+        <input class="input" (keydown)="inputChanged()" type="password" matInput #confirmpassword required>
+      </mat-form-field>
+
+      <button (click)="resetPassword()" mat-raised-button class="button btn-form" color="primary">
+        <mat-icon class="btn-icon">restart_alt</mat-icon>
+        Resetar
+      </button>
+    </div>
+  </div>
+</div>

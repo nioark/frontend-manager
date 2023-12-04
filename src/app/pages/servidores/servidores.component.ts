@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -12,6 +12,8 @@ import {  Servidor } from 'src/app/models/servidor';
 import { ServidoresService } from './services/servidores.service';
 import { Observable } from 'rxjs';
 import { DeleteServidorComponent } from './components/deleteServidor/deleteServidor.component';
+import { CommentEditComponent } from './components/commentEdit/commentEdit.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-servidores',
@@ -22,7 +24,9 @@ export class ServidoresComponent implements AfterViewInit {
   displayedColumns: string[] = ['nome', 'active', 'qtd_usuarios', 'qtd_usuarios_local', 'qtd_canais'];
   dataSource = new MatTableDataSource();
   @ViewChild("tablee")
+  @ViewChildren("checkbox") checkbox!: QueryList<MatCheckbox>;
   table!: MatTable<any>;
+  showDeleted: boolean = false;
 
   servidores$?: Observable<Servidor[] | undefined>
 
@@ -37,7 +41,19 @@ export class ServidoresComponent implements AfterViewInit {
     this.servidores$?.subscribe((data: Servidor[] | undefined) => {
       console.log("Data from server: ", data)
       const datasource = data as Servidor[];
-      this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
+      // this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
+      this.dataSource.data = datasource?.sort((a, b) => {
+        if (a.deleted_at && !b.deleted_at) {
+          return 1; // a comes after b
+        } else if (!a.deleted_at && b.deleted_at) {
+          return -1; // a comes before b
+        } else {
+          return b.id - a.id; // sort by id (reverse order)
+        }
+      });
+
+
+
       console.log(datasource)
     })
 
@@ -71,8 +87,6 @@ export class ServidoresComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The add dialog was closed');
-      // this.animal = result;
-
     });
 
     console.log("Add servidor");
@@ -87,7 +101,6 @@ export class ServidoresComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The edit dialog was closed');
-      // this.animal = result;
     });
     console.log("Edit servidor", server);
   }
@@ -115,5 +128,23 @@ export class ServidoresComponent implements AfterViewInit {
       height: '170px',
       data: id,
     });
+  }
+
+  changeServerActive(server : Servidor, state : boolean){
+    const serverData: Servidor = {...server, active: state};
+
+    const dialogRef = this.dialog.open(CommentEditComponent, {
+      width: '500px',
+      height: '280px',
+      data: serverData,
+    });
+
+    // this._servidoresSrv.edit_servidor(serverData, false).subscribe((data) => {
+    //   console.log(data);
+    // })
+  }
+
+  toggleShowDeleted(){
+    this.showDeleted = this.checkbox.first.checked;
   }
 }

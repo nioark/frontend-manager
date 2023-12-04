@@ -7,6 +7,7 @@ export interface Servidor {
   serial: string;
   id: number;
   comentario:string | undefined;
+  deleted_at: string | undefined;
 }
 
 export interface ServidorNew {

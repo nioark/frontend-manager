@@ -35,17 +35,42 @@
               <mat-icon>close</mat-icon> <div class="ativo-text">Desativado</div>
             </div>
           </ng-container> -->
-          <button mat-button [matMenuTriggerFor]="menu"><div class="ativo">
-            <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
-          </div></button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <div class="ativo desativado">
-                  <mat-icon>close</mat-icon>
-                  <div class="ativo-text">Desativado</div>
-                </div>
-              </button>
-            </mat-menu>
+
+          <ng-container  *ngIf="element.active == true">
+            <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo">
+              <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+            </div></button>
+              <mat-menu #menu="matMenu" class="select-menu">
+                <button mat-menu-item disabled>
+                  <div class="ativo" mat-menu-item>
+                    <div class="ativo-text">Ativo</div>
+                  </div>
+                </button>
+                <button mat-menu-item>
+                  <div  (click)="changeServerActive(element, false)"  class="ativo desativado" mat-menu-item>
+                    <div class="ativo-text">Inativo</div>
+                  </div>
+                </button>
+              </mat-menu>
+          </ng-container>
+
+          <ng-container  *ngIf="element.active == false">
+            <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo desativado">
+              <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
+            </div></button>
+              <mat-menu #menu="matMenu" class="select-menu">
+                <button mat-menu-item disabled>
+                  <div class="ativo desativado" mat-menu-item>
+                    <div class="ativo-text">Inativo</div>
+                  </div>
+                </button>
+                <button (click)="changeServerActive(element, true)" mat-menu-item>
+                  <div class="ativo" mat-menu-item>
+                    <div class="ativo-text">Ativo</div>
+                  </div>
+                </button>
+              </mat-menu>
+          </ng-container>
 
 
         </td>
@@ -74,22 +99,28 @@
         <td mat-cell *matCellDef="let element">
           <div class="td-container">
             {{element.qtd_canais}}
-            <!-- <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon> -->
+            <ng-container *ngIf="element.deleted_at == null">
+              <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+            </ng-container>
           </div>
         </td>
       </ng-container>
 
 
+
       <tr class="header-tabela" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr (click)="viewServidor(row)" class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr (click)="viewServidor(row)" [ngClass]="{'row-tabela': row.deleted_at == null, 'row-tabela-deleted': row.deleted_at != null, 'hideDeleted': showDeleted == false && row.deleted_at != null}" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- <tr (click)="viewServidor(row)" class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
     </table>
 
     <mat-icon (click)="addServidor()" class="add-icon">add</mat-icon>
     <div class="paginacao" >
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      <mat-paginator [pageSizeOptions]="[10, 20]"
         showFirstLastButtons
         aria-label="Seleciona pagina dos clientes">
       </mat-paginator>
+      <mat-checkbox class="checkbox" (change)="toggleShowDeleted()" #checkbox value="" color="primary">Mostrar Deletados</mat-checkbox>
     </div>
   </div>
 </div>

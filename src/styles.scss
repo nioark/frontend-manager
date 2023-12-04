@@ -1,4 +1,27 @@
+// @import "scss/components/am-components/am-tabs";
+
+@import "assets/css/colors-scheme.scss";
+
+
+.mat-menu-content{
+  // background: transparent !important;
+
+}
+
+.mat-menu-panel{
+  // background: transparent !important;
+  // padding-top: 40px;
+  margin-top: -43px;
+  border-radius: 15px !important;
+  padding: 0px !important;
+}
+
+.mat-menu-item {
+
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
