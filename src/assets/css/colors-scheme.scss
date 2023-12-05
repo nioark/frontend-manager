@@ -1,7 +1,11 @@
-$background-color: #EDF8F3;
+// $background-color: #EDF8F3;
+$background-color: var(--background-color);
 // $primary-color: #9ca3f1;
-$primary-color: rgb(170, 175, 236);
+$primary-color: var(--primary-color);
 
-$secondary-color: #e6effa;
-$accent-color: #192ae1;
-$text-color: #1c1a03;
+// $secondary-color: #e6effa;
+$secondary-color: var(--secondary-color);
+// $accent-color: #192ae1;
+$accent-color: var(--accent-color);
+// $text-color: #1c1a03;
+$text-color: var(--text-color);

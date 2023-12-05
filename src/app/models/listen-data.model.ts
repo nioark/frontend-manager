@@ -1,6 +1,6 @@
 import { Observable, BehaviorSubject, map } from "rxjs"
 
-export class ListenData<T extends {id?:number}> {
+export class ListenData<T extends {id?:number, deleted_at?:string}> {
   data$: Observable<T[]>
 
   private _data: BehaviorSubject<T[]>
@@ -36,6 +36,14 @@ export class ListenData<T extends {id?:number}> {
     const index = this._data.value.findIndex((item)=> item.id === id)
     if(index !== -1) {
       this._data.value.splice(index, 1)
+      this._data.next(this._data.value)
+    }
+  }
+
+  softDelete(id:number):void {
+    const index = this._data.value.findIndex((item)=> item.id === id)
+    if(index !== -1) {
+      this._data.value[index].deleted_at = new Date().toISOString()
       this._data.next(this._data.value)
     }
   }

@@ -1,3 +1,4 @@
+import { ThemeService } from './services/theme.service';
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { LoginService } from '../login/services/login.service';
 
@@ -11,12 +12,16 @@ export class ProfileConfigComponent implements OnInit {
   @ViewChildren("confirmpassword") confirmPassword!: QueryList<ElementRef>;
   @ViewChildren("password") password!: QueryList<ElementRef>;
 
-  constructor(private _loginSrv: LoginService) {
+
+  constructor(private _loginSrv: LoginService, private _themeSrv: ThemeService) {
     this.name = this._loginSrv.getName()
   }
 
   ngOnInit() {
+    // document.documentElement.style.setProperty('--primary-color', "blue");
   }
+
+
 
   inputChanged() {
 
@@ -29,6 +34,10 @@ export class ProfileConfigComponent implements OnInit {
         console.log(data)
       })
     }
+  }
+
+  changeTheme(){
+    this._themeSrv.nextTheme();
   }
 
 }

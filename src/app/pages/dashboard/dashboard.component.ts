@@ -33,9 +33,10 @@ export class DashboardComponent implements OnInit {
 
     this.servidores$?.subscribe((data: Servidor[] | undefined) => {
       console.log("Data from server: ", data)
+      data = data?.filter((item: Servidor) => item.deleted_at == null);
       this.serverCount = data?.length as number;
 
-      this.serversAtivo = data?.filter((item: Servidor) => item.active == true).length as number;
+      this.serversAtivo = data?.filter((item: Servidor) => item.active == true && item).length as number;
       this.serversInativo = data?.filter((item: Servidor) => item.active == false).length as number;
     })
 

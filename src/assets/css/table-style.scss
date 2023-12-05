@@ -3,6 +3,7 @@
 .tabela {
   width: 100%;
   box-shadow: none;
+
 }
 
 .td {
@@ -32,6 +33,7 @@
 .row-tabela {
   z-index: 300;
   transition: all 0.3s ease-in-out;
+
 }
 
 .row-tabela:hover {
@@ -79,6 +81,8 @@
 
 .header-tabela {
   background-color: $secondary-color;
+  color: $text-color !important;
+
 }
 
 .edit-icon{

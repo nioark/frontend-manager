@@ -105,7 +105,7 @@ export class ServidoresService {
 
         console.log(data)
         if(data.error!=undefined) return
-        this.list?.delete(id)
+        this.list?.softDelete(id)
       }
     }),catchError((err)=>{
       this.openSnackBar(err.error.message as string, "OK")
