@@ -13,8 +13,12 @@
           <div class="td-container">
             <ng-container *ngIf="permission_level > element.cargo.permission_level">
               <mat-icon (click)="editUsuario(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
+              {{element.id}}
             </ng-container>
-            {{element.id}}
+            <ng-container *ngIf="permission_level <= element.cargo.permission_level">
+              <mat-icon class="td-view-icon"></mat-icon>
+              {{element.id}}
+            </ng-container>
           </div>
         </td>
       </ng-container>
@@ -38,6 +42,7 @@
               <mat-icon (click)="deleteUsuario(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
             </ng-container>
             {{element.cargo.name}}
+
           </div>
 
         </td>

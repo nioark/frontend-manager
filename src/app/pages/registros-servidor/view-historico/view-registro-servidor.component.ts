@@ -5,11 +5,11 @@ import { ViewServidorComponent } from '../../servidores/components/viewServidor/
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 
 @Component({
-  selector: 'app-view-historico',
-  templateUrl: './view-historico.component.html',
-  styleUrls: ['./view-historico.component.scss']
+  selector: 'app-view-registro-servidor',
+  templateUrl: './view-registro-servidor.component.html',
+  styleUrls: ['./view-registro-servidor.component.scss']
 })
-export class ViewHistoricoComponent {
+export class ViewRegistroServidorComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
 

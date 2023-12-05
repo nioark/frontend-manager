@@ -11,7 +11,7 @@ export class ProfileConfigComponent implements OnInit {
   name: string | undefined;
   @ViewChildren("confirmpassword") confirmPassword!: QueryList<ElementRef>;
   @ViewChildren("password") password!: QueryList<ElementRef>;
-
+  @ViewChildren("username") username!: QueryList<ElementRef>;
 
   constructor(private _loginSrv: LoginService, private _themeSrv: ThemeService) {
     this.name = this._loginSrv.getName()
@@ -31,6 +31,15 @@ export class ProfileConfigComponent implements OnInit {
     if (this.password.first.nativeElement.value == this.confirmPassword.first.nativeElement.value) {
       console.log("Reset password")
       this._loginSrv.changePassword(this.password.first.nativeElement.value).subscribe((data) => {
+        console.log(data)
+      })
+    }
+  }
+
+  changeUsername(){
+    if (this.username.first.nativeElement.value != ""){
+
+      this._loginSrv.changeUsername(this.username.first.nativeElement.value).subscribe((data) => {
         console.log(data)
       })
     }

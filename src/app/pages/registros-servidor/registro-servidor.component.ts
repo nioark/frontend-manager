@@ -5,33 +5,37 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
-import { HistoricosService } from './services/historicos.service';
+
 import { Historico } from 'src/app/models/historicos';
 import { Observable } from 'rxjs';
-import { ViewHistoricoComponent } from './view-historico/view-historico.component';
+import { HistoricosService } from '../registros/services/historicos.service';
+import { ViewRegistroServidorComponent } from './view-historico/view-registro-servidor.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-historico',
-  templateUrl: './historico.component.html',
-  styleUrls: ['./historico.component.scss']
+  selector: 'app-registro-servidor-view',
+  templateUrl: './registro-servidor.component.html',
+  styleUrls: ['./registro-servidor.component.scss']
 })
-export class HistoricoComponent implements AfterViewInit {
+export class RegistroServidorComponent implements AfterViewInit {
   displayedColumns: string[] = ['nome', 'acao', 'quando'];
   dataSource = new MatTableDataSource();
 
   historico$?: Observable<Historico[] | undefined>
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _historicosSrv: HistoricosService, public dialog: MatDialog) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _historicosSrv: HistoricosService, public dialog: MatDialog, private route: ActivatedRoute) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   ngAfterViewInit() {
+    const serverId = parseInt(this.route.snapshot.paramMap.get('id') as string)
     this.historico$ = this._historicosSrv.fetch();
 
     this.historico$.subscribe((dataHistorico: Historico[] | undefined) => {
       console.log("Data historico: ", dataHistorico)
-      const datasource = dataHistorico as Historico[];
+      let datasource = dataHistorico as Historico[];
+      datasource = datasource?.filter((x) => x.server_id == serverId)
       this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
 
       dataHistorico?.forEach(element => {
@@ -99,7 +103,7 @@ export class HistoricoComponent implements AfterViewInit {
     const formatedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${minutes}`;
     data.timestamp = formatedDate;
 
-    const dialogRef = this.dialog.open(ViewHistoricoComponent, {
+    const dialogRef = this.dialog.open(ViewRegistroServidorComponent, {
       width: '500px',
       height: '500px',
       data: data

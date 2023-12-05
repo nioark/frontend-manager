@@ -36,7 +36,7 @@
 .flex-container {
   display: flex;
   flex-direction: column;
-  height: 50%;
+  height: 100%;
   width: 400px;
   justify-content: center;
   align-items: center;
@@ -72,6 +72,8 @@
   width: 325px;
   flex-direction: row;
   color: $text-color;
+  margin-bottom: 40px;
+  margin-top: -40px;
 }
 
 
@@ -99,6 +101,9 @@
 
 .divider{
   width: 300px;
-  margin-bottom: 20px;
-  margin-top: 20px;
+}
+
+h1 {
+  color: $text-color;
+  text-align: center;
 }

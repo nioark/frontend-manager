@@ -8,6 +8,8 @@ export interface Servidor {
   id: number;
   comentario:string | undefined;
   deleted_at: string | undefined;
+  created_at: string | undefined;
+
 }
 
 export interface ServidorNew {

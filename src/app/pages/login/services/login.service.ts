@@ -68,6 +68,34 @@ export class LoginService {
     );
   }
 
+  changeUsername(username: string): Observable<boolean>{
+    const params = new HttpParams()
+    .append('username', username)
+    return this.http.post(`${this.url}/usuarios/change-username`, "", {params: params}).pipe(
+      catchError((err) => {
+        console.error(err);
+        this.openSnackBar(err.message as string, "OK")
+        return of(false);
+      }),
+      map((data: any) => {
+        // Logado com sucesso
+        this.openSnackBar(data.message as string, "OK")
+
+
+        let local = this.retrieveData()
+        local.name = username
+
+        localStorage.setItem("userdata", JSON.stringify(local));
+        this._router.navigate(['/dashboard'])
+
+        if (data.data != null){
+          return true;
+        }
+        return false;
+      }),
+    );
+  }
+
   isAuthenticated(): boolean{
     console.log("Value Bool: ", this.retrieveData() != null)
 
@@ -85,6 +113,8 @@ export class LoginService {
 
   logout(){
     localStorage.removeItem("userdata");
+    localStorage.removeItem("permission_level");
+
   }
 
   storeToken(token: string) {

@@ -11,6 +11,7 @@
 
 
     <mat-icon (click)="changeTheme()" class="theme-changer">format_color_fill</mat-icon>
+    <h1>Trocar Senha</h1>
     <hr class="divider">
     <div class="inputs-container">
 
@@ -27,6 +28,24 @@
         <mat-icon class="btn-icon">restart_alt</mat-icon>
         Resetar
       </button>
+
+      <br>
+      <br>
+      <h1>Trocar Nome</h1>
+      <hr class="divider">
+      <div class="inputs-container">
+
+        <mat-form-field class="input-nome" appearance="fill">
+          <mat-label>Novo Nome</mat-label>
+          <input class="input" (keydown)="inputChanged()" type="text" matInput #username required>
+        </mat-form-field>
+
+        <button (click)="changeUsername()" mat-raised-button class="button btn-form" color="primary">
+          <mat-icon class="btn-icon">restart_alt</mat-icon>
+          Trocar
+        </button>
+      </div>
     </div>
   </div>
+
 </div>

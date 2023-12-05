@@ -1,4 +1,4 @@
-import { ViewHistoricoComponent } from './pages/historico/view-historico/view-historico.component';
+import { ViewRegistroComponent } from './pages/registros/view-historico/view-registro.component';
 import { UsuarioAction } from 'src/app/models/usuario';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,7 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ViewServidorComponent } from './pages/servidores/components/viewServidor/viewServidor.component';
 import { ViewClienteComponent } from './pages/clientes/components/viewCliente/viewCliente.component';
-import { HistoricoComponent } from './pages/historico/historico.component';
+import { RegistrosComponent } from './pages/registros/registros.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { AddUsuarioComponent } from './pages/usuarios/components/add-usuario/add-usuario.component';
 import { EditUsuarioComponent } from './pages/usuarios/components/edit-usuario/edit-usuario.component';
@@ -42,6 +42,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import { CommentEditComponent } from './pages/servidores/components/commentEdit/commentEdit.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
+import { RegistroServidorComponent } from './pages/registros-servidor/registro-servidor.component';
+import { ViewRegistroServidorComponent } from './pages/registros-servidor/view-historico/view-registro-servidor.component';
 
 
 @NgModule({
@@ -58,15 +60,17 @@ import { ProfileConfigComponent } from './pages/profile-config/profile-config.co
     CommentEditComponent,
     ViewClienteComponent,
     ClientesComponent,
-    HistoricoComponent,
+    RegistrosComponent,
     UsuariosComponent,
     EditUsuarioComponent,
     AddUsuarioComponent,
     DeleteUsuarioComponent,
-    ViewHistoricoComponent,
+    ViewRegistroComponent,
     DeleteServidorComponent,
     ProfileConfigComponent,
-    CountUpDirective
+    CountUpDirective,
+    RegistroServidorComponent,
+    ViewRegistroServidorComponent
   ],
   imports: [
     BrowserModule,

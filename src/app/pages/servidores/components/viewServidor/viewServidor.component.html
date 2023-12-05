@@ -14,7 +14,12 @@
   <p class="data">{{data.serial}}</p>
   <br>
   <h1 class="sub-title">Criado em:</h1>
-  <p class="data">28/11/2023</p>
+  <p class="data">{{created_at}}</p>
+  <br>
+  <ng-container *ngIf="data.deleted_at != null">
+    <h1 class="sub-title">Deletado em:</h1>
+    <p class="data">{{deleted_at}}</p>
+  </ng-container>
 </div>
 
 <div class="buttons-container">

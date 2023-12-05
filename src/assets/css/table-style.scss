@@ -130,8 +130,24 @@
 .td-delete-icon:hover {
   background-color: rgba($primary-color,0.5);
   color: rgb(163, 40, 40);
-
 }
+
+.td-history-icon {
+  position: absolute;
+  right: 0;
+  color: $text-color;
+  margin-right: 45px;
+  transform: scale(1.2);
+  padding: 5px;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+.td-history-icon:hover {
+  background-color: rgba($primary-color,0.5);
+  color: rgba($text-color,0.2);;
+}
+
 
 .animate {
   animation-duration: 0.3s;

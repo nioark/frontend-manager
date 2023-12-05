@@ -4,9 +4,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ServidoresComponent } from './pages/servidores/servidores.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
-import { HistoricoComponent } from './pages/historico/historico.component';
+import { RegistrosComponent } from './pages/registros/registros.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
+import { RegistroServidorComponent } from './pages/registros-servidor/registro-servidor.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'clientes', component: ClientesComponent},
   { path: 'usuarios', component: UsuariosComponent},
-  { path: 'historico', component: HistoricoComponent},
+  { path: 'registros', component: RegistrosComponent},
+  { path: 'registro/:id', component: RegistroServidorComponent},
   { path: 'config', component: ProfileConfigComponent},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 

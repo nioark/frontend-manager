@@ -18,6 +18,7 @@ import { LoginService } from '../login/services/login.service';
 import { UserService } from '../login/services/user.service';
 import { CargosService } from '../usuarios/services/cargos.service';
 import { Cargo } from 'src/app/models/cargos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-servidores',
@@ -35,7 +36,7 @@ export class ServidoresComponent implements AfterViewInit {
   servidores$?: Observable<Servidor[] | undefined>
   permission_level: number = -1;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _cargosSrv: CargosService, private _loginSrv: LoginService,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer,  private _router: Router, private _cargosSrv: CargosService, private _loginSrv: LoginService,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
@@ -158,5 +159,10 @@ export class ServidoresComponent implements AfterViewInit {
 
   toggleShowDeleted(){
     this.showDeleted = this.checkbox.first.checked;
+  }
+
+  viewHistorico(id : number) {
+    this._router.navigate(['registro/', id]);
+    //Todo navigate to route
   }
 }

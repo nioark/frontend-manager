@@ -108,6 +108,8 @@
             <ng-container *ngIf="element.deleted_at == null">
               <ng-container *ngIf="permission_level > -1">
                 <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+                <mat-icon (click)="viewHistorico(element.id)" onclick="event.stopPropagation();" class="td-history-icon">history</mat-icon>
+
               </ng-container>
             </ng-container>
           </div>

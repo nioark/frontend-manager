@@ -1,0 +1,33 @@
+
+<div class="title">
+  <mat-icon class="title-icon">description</mat-icon>
+  Historico Info
+</div>
+
+<hr class="divider">
+<div class="container">
+  <div class="data-container">
+    <h1 class="sub-title">Data de alteração:</h1>
+    <p class="data">{{data.timestamp}}</p>
+
+    <br>
+
+    <h1 class="sub-title">Comentário</h1>
+    <p class="data">{{data.comment}}</p>
+    <br>
+  </div>
+
+  <div class="buttons-container">
+    <button (click)="viewServer()" mat-raised-button class="button btn-form" color="primary">Ver Servidor</button>
+
+    <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
+  </div>
+
+</div>
+
+
+
+
+
+
+

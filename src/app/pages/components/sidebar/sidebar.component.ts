@@ -16,21 +16,41 @@ export class SidebarComponent implements OnInit {
   @Input() selected$: number | undefined;
   name: string | undefined;
 
-  isConvidado: boolean = true;
   permission_level: number = -1;
 
+  public cargos$?: Observable<Cargo[] | undefined>;
 
   constructor(private _router: Router, private _loginSrv: LoginService, private _cargosSrv : CargosService) {
-   }
+
+  }
+
+  ngAfterContentInit(): void {
+
+    if (localStorage.getItem('permission_level') == undefined){
+      this.cargos$ = this._cargosSrv.fetch()
+
+      this.cargos$.subscribe((dataCargos: Cargo[] | undefined) => {
+        const cargoId = this._loginSrv.retrieveData().cargo_id
+        const cargo = dataCargos?.find(cargo => cargo.id == cargoId) as Cargo
+        if (cargo.permission_level != undefined){
+          this.permission_level = cargo.permission_level
+        }
+
+        localStorage.setItem('permission_level', this.permission_level.toString())
+      });
+    }
+    else {
+      this.permission_level = parseInt(localStorage.getItem('permission_level') as string)
+    }
+
+
+  }
+
+  ngAfterViewInit(): void {
+
+  }
 
   ngOnInit(): void {
-    this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
-      const cargoId = this._loginSrv.retrieveData().cargo_id
-      const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
-      if (cargo.permission_level != undefined){
-        this.permission_level = cargo.permission_level
-      }
-    });
 
     this.name = this._loginSrv.getName()
   }
