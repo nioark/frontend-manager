@@ -26,7 +26,7 @@ export class ServidoresService {
   }
 
   fetch(): Observable<Servidor[]> {
-    return this.http.get<DataResult<Servidor[]>>(`${this.url}/manager/servidores`).pipe(
+    return this.http.get<DataResult<Servidor[]>>(`${this.url}/protected/servidores`).pipe(
       map(data => data?.data?.length ? data.data : []),
       tap({
         next: data=> this.list = new ListenData<Servidor>(data)
@@ -39,7 +39,7 @@ export class ServidoresService {
   }
 
   get(id: number): Observable<Servidor>{
-    return this.http.get<DataResult<Servidor>>(`${this.url}/manager/servidores/${id}`).pipe(
+    return this.http.get<DataResult<Servidor>>(`${this.url}/protected/servidores/${id}`).pipe(
       map(data => data.data as Servidor),
       tap({
         next: (x) => console.log(x)
@@ -56,14 +56,17 @@ export class ServidoresService {
       .append('qtd_canais', servidor.qtd_canais)
       .append('comentario', servidor.comentario as string)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/manager/servidores`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
         if(data.error!=undefined) return
         this.list?.add(data.data as Servidor) //data.data para servidor
       }
-    }))
+    }),catchError((err)=>{
+      this.openSnackBar(err.error.message as string, "OK")
+      return throwError(err)
+      }));
   }
 
   edit_servidor(servidor: Servidor, resetarSerial: boolean): Observable<any> {
@@ -80,7 +83,7 @@ export class ServidoresService {
       .append('comentario', servidor.comentario as string)
       .append('resetar_serial', resetarSerial)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/manager/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
@@ -99,7 +102,7 @@ export class ServidoresService {
   }
 
   remove(id : number): Observable<any>{
-    return this.http.delete<DataResult<Servidor>>(`${this.url}/manager/servidores/${id}`).pipe(tap({
+    return this.http.delete<DataResult<Servidor>>(`${this.url}/protected/servidores/${id}`).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 

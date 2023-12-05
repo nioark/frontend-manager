@@ -59,7 +59,7 @@ export class EditUsuarioComponent{
     const cargo : Cargo = {
       id: val.value,
       name: undefined,
-      permissao_level: undefined
+      permission_level: undefined
     };
     const nome = this.nome.first.nativeElement.value;
     const senha = this.password.first.nativeElement.value;

@@ -27,7 +27,7 @@ export class UsuariosService {
   }
 
   fetch(): Observable<Usuario[]> {
-    return this.http.get<DataResult<Usuario[]>>(`${this.url}/admin/usuarios`).pipe(
+    return this.http.get<DataResult<Usuario[]>>(`${this.url}/protected/usuarios`).pipe(
       map(data => data?.data?.length ? data.data : []),
       tap({
         next: data=> this.list = new ListenData<Usuario>(data)
@@ -40,7 +40,7 @@ export class UsuariosService {
   }
 
   get(id: number): Observable<Usuario>{
-    return this.http.get<DataResult<Usuario>>(`${this.url}/admin/usuarios/${id}`).pipe(
+    return this.http.get<DataResult<Usuario>>(`${this.url}/protected/usuarios/${id}`).pipe(
       map(data => data.data as Usuario),
       tap({
         next: (x) => console.log(x)
@@ -57,7 +57,7 @@ export class UsuariosService {
 
       console.log("Post: ", params, usuario)
 
-    return this.http.post<DataResult<Usuario>>(`${this.url}/admin/usuarios`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Usuario>>(`${this.url}/protected/usuarios`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
@@ -83,7 +83,7 @@ export class UsuariosService {
       .append('name', usuario.name)
       .append('password', usuario.password)
       .append('cargo_id', usuario.cargo.id)
-    return this.http.post<DataResult<Usuario>>(`${this.url}/admin/usuarios/${usuario.id}`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Usuario>>(`${this.url}/protected/usuarios/${usuario.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
@@ -97,7 +97,7 @@ export class UsuariosService {
   }
 
   remove(id : number): Observable<any>{
-    return this.http.delete<DataResult<Usuario>>(`${this.url}/admin/usuarios/${id}`).pipe(tap({
+    return this.http.delete<DataResult<Usuario>>(`${this.url}/protected/usuarios/${id}`).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 

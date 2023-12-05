@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CargosService } from '../../usuarios/services/cargos.service';
+import { Cargo } from 'src/app/models/cargos';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ export class LoginService {
   private userData:any;
   constructor(private http: HttpClient, private _snackBar: MatSnackBar, public _router: Router) {
     this.url=environment.backend
+
   }
 
   authenticate(email : string, password : string): Observable<boolean>{
@@ -93,4 +96,7 @@ export class LoginService {
     if(!storedToken) return {data: {acces_token: null, name: ''}};
     return JSON.parse(storedToken);
   }
+
+  //Add function to get cargo from user
+
 }

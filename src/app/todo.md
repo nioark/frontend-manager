@@ -5,9 +5,10 @@
 
 -Para servidores deletados mostrar no view quando foi deletado ⏱️
 
--Melhorar as ações registrada pelo backend em geral ⏱️
+-Melhorar as ações registradas pelo backend em geral ⏱️
 
--Reorganizar a estrutura de cargos usuario, gerente & admin ⏱️
-  -Usuario só visualiza
-  -Gerente pode ~~editar~~ e criar usuários, porem não pode editar admin & deletar usuários
+-Reorganizar a estrutura de cargos convidado, gerente & admin ✅
+  -Convidado só visualiza ✅
+  -Gerente pode ~~editar~~ e criar usuários, porem não pode editar admin & deletar usuários ✅
 
+-Reorganizar os sistemas de temas // alguns components não aderem a cor do tema ⏱️

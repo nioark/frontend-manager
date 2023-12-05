@@ -79,8 +79,7 @@
     <div class="subtitle-text">
         GERENCIAR
     </div>
-
-    <ng-container *ngIf="isAdmin == true">
+    <ng-container *ngIf="permission_level > -1">
       <ng-container *ngIf="selected$ != 4">
         <span (click)="goToPath('usuarios')" class="span">
           <div class="span-bump"></div>

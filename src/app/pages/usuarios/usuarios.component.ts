@@ -16,6 +16,7 @@ import { UsuariosService } from './services/usuarios.service';
 import { Observable } from 'rxjs';
 import { Cargo } from 'src/app/models/cargos';
 import { CargosService } from './services/cargos.service';
+import { LoginService } from '../login/services/login.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -27,9 +28,9 @@ export class UsuariosComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   usuarios$?: Observable<Usuario[] | undefined>
   cargos$?: Observable<Cargo[] | undefined>
+  permission_level: number = -1;
 
-
-  constructor(private _liveAnnouncer: LiveAnnouncer,  private _cargosSrv:CargosService,  private _usuariosSrv:UsuariosService, public dialog: MatDialog) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _loginSrv: LoginService,  private _cargosSrv:CargosService,  private _usuariosSrv:UsuariosService, public dialog: MatDialog) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -65,6 +66,15 @@ export class UsuariosComponent implements AfterViewInit {
         console.log("Usuarios data: ",datasource);
         console.log("Data cargos: ", dataCargos)
       });
+    });
+
+    this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
+      const cargoId = this._loginSrv.retrieveData().cargo_id
+      const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
+
+      if (cargo.permission_level != undefined){
+        this.permission_level = cargo.permission_level
+      }
     });
 
 

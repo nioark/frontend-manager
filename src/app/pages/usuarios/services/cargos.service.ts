@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
 import { DataResult } from 'src/app/models/data-result.model';
 import { throwError } from 'rxjs';
 import { ListenData } from 'src/app/models/listen-data.model';
-import { Usuario, UsuarioEdit, UsuarioNew } from 'src/app/models/usuario';
 import { Cargo } from 'src/app/models/cargos';
+import { LoginService } from '../../login/services/login.service';
 
 
 @Injectable({
@@ -18,12 +18,17 @@ export class CargosService {
   list: ListenData<Cargo>|undefined
 
   url:string
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private _loginSrv: LoginService) {
     this.url=environment.backend
+
+
+
   }
 
+
   fetch(): Observable<Cargo[]> {
-    return this.http.get<DataResult<Cargo[]>>(`${this.url}/manager/cargos`).pipe(
+    return this.http.get<DataResult<Cargo[]>>(`${this.url}/protected/cargos`).pipe(
       map(data => data?.data?.length ? data.data : []),
       tap({
         next: data=> this.list = new ListenData<Cargo>(data)

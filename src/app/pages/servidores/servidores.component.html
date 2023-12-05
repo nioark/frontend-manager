@@ -13,7 +13,9 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <div class="td-container">
-            <mat-icon (click)="editServidor(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
+            <ng-container *ngIf="permission_level > -1">
+              <mat-icon (click)="editServidor(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
+            </ng-container>
             {{element.nome}}
           </div>
         </td>
@@ -25,51 +27,55 @@
           Ativo
         </th>
         <td class="edit-input" mat-cell *matCellDef="let element">
-          <!-- <ng-container  *ngIf="element.active == true">
-            <div class="ativo">
-              <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
-            </div>
-          </ng-container>
-          <ng-container  *ngIf="element.active == false">
-            <div class="ativo desativado">
-              <mat-icon>close</mat-icon> <div class="ativo-text">Desativado</div>
-            </div>
-          </ng-container> -->
-
-          <ng-container  *ngIf="element.active == true">
-            <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo">
-              <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
-            </div></button>
-              <mat-menu #menu="matMenu" class="select-menu">
-                <button mat-menu-item disabled>
-                  <div class="ativo" mat-menu-item>
-                    <div class="ativo-text">Ativo</div>
-                  </div>
-                </button>
-                <button mat-menu-item>
-                  <div  (click)="changeServerActive(element, false)"  class="ativo desativado" mat-menu-item>
-                    <div class="ativo-text">Inativo</div>
-                  </div>
-                </button>
-              </mat-menu>
+          <ng-container *ngIf="permission_level < 0">
+            <ng-container  *ngIf="element.active == true">
+              <div class="ativo">
+                <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+              </div>
+            </ng-container>
+            <ng-container  *ngIf="element.active == false">
+              <div class="ativo desativado">
+                <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
+              </div>
+            </ng-container>
           </ng-container>
 
-          <ng-container  *ngIf="element.active == false">
-            <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo desativado">
-              <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
-            </div></button>
-              <mat-menu #menu="matMenu" class="select-menu">
-                <button mat-menu-item disabled>
-                  <div class="ativo desativado" mat-menu-item>
-                    <div class="ativo-text">Inativo</div>
-                  </div>
-                </button>
-                <button (click)="changeServerActive(element, true)" mat-menu-item>
-                  <div class="ativo" mat-menu-item>
-                    <div class="ativo-text">Ativo</div>
-                  </div>
-                </button>
-              </mat-menu>
+          <ng-container *ngIf="permission_level > -1">
+            <ng-container  *ngIf="element.active == true">
+              <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo">
+                <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+              </div></button>
+                <mat-menu #menu="matMenu" class="select-menu">
+                  <button mat-menu-item disabled>
+                    <div class="ativo" mat-menu-item>
+                      <div class="ativo-text">Ativo</div>
+                    </div>
+                  </button>
+                  <button mat-menu-item>
+                    <div  (click)="changeServerActive(element, false)"  class="ativo desativado" mat-menu-item>
+                      <div class="ativo-text">Inativo</div>
+                    </div>
+                  </button>
+                </mat-menu>
+            </ng-container>
+
+            <ng-container  *ngIf="element.active == false">
+              <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo desativado">
+                <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
+              </div></button>
+                <mat-menu #menu="matMenu" class="select-menu">
+                  <button mat-menu-item disabled>
+                    <div class="ativo desativado" mat-menu-item>
+                      <div class="ativo-text">Inativo</div>
+                    </div>
+                  </button>
+                  <button (click)="changeServerActive(element, true)" mat-menu-item>
+                    <div class="ativo" mat-menu-item>
+                      <div class="ativo-text">Ativo</div>
+                    </div>
+                  </button>
+                </mat-menu>
+            </ng-container>
           </ng-container>
 
 
@@ -100,7 +106,9 @@
           <div class="td-container">
             {{element.qtd_canais}}
             <ng-container *ngIf="element.deleted_at == null">
-              <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+              <ng-container *ngIf="permission_level > -1">
+                <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+              </ng-container>
             </ng-container>
           </div>
         </td>

@@ -14,6 +14,10 @@ import { Observable } from 'rxjs';
 import { DeleteServidorComponent } from './components/deleteServidor/deleteServidor.component';
 import { CommentEditComponent } from './components/commentEdit/commentEdit.component';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { LoginService } from '../login/services/login.service';
+import { UserService } from '../login/services/user.service';
+import { CargosService } from '../usuarios/services/cargos.service';
+import { Cargo } from 'src/app/models/cargos';
 
 @Component({
   selector: 'app-servidores',
@@ -29,8 +33,9 @@ export class ServidoresComponent implements AfterViewInit {
   showDeleted: boolean = false;
 
   servidores$?: Observable<Servidor[] | undefined>
+  permission_level: number = -1;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _cargosSrv: CargosService, private _loginSrv: LoginService,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
@@ -52,10 +57,17 @@ export class ServidoresComponent implements AfterViewInit {
         }
       });
 
-
-
       console.log(datasource)
     })
+
+    this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
+      const cargoId = this._loginSrv.retrieveData().cargo_id
+      const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
+
+      if (cargo.permission_level != undefined){
+        this.permission_level = cargo.permission_level
+      }
+    });
 
     if (this.sort) {
       this.dataSource.sort = this.sort;

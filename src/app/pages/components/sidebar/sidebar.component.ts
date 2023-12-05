@@ -4,6 +4,7 @@ import { LoginService } from '../../login/services/login.service';
 import { Cargo } from 'src/app/models/cargos';
 import { Observable } from 'rxjs/internal/Observable';
 import { CargosService } from '../../usuarios/services/cargos.service';
+import { UserService } from '../../login/services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,21 +15,22 @@ export class SidebarComponent implements OnInit {
 
   @Input() selected$: number | undefined;
   name: string | undefined;
-  cargos$?: Observable<Cargo[] | undefined>
-  cargos: Cargo[] | undefined;
 
-  isAdmin: boolean = false;
+  isConvidado: boolean = true;
+  permission_level: number = -1;
 
 
   constructor(private _router: Router, private _loginSrv: LoginService, private _cargosSrv : CargosService) {
    }
 
   ngOnInit(): void {
-    this.cargos$ = this._cargosSrv.fetch();
-    this.cargos$?.subscribe((dataCargos: Cargo[] | undefined) => {
-      this.cargos = dataCargos
-      this.getIsAdmin()
-    })
+    this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
+      const cargoId = this._loginSrv.retrieveData().cargo_id
+      const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
+      if (cargo.permission_level != undefined){
+        this.permission_level = cargo.permission_level
+      }
+    });
 
     this.name = this._loginSrv.getName()
   }
@@ -40,21 +42,6 @@ export class SidebarComponent implements OnInit {
   logout(){
     this._loginSrv.logout()
     this._router.navigate(['/login'])
-  }
-
-  getIsAdmin(){
-    const data = this._loginSrv.retrieveData()
-    const cargoId = data.cargo_id
-    const cargo = this.cargos?.find(cargo => cargo.id === cargoId) as any
-
-    if (cargo){
-
-      if (cargo.permission_level == 1)
-        this.isAdmin = true
-
-      console.log(cargo, this.isAdmin, cargo.permission_level )
-    }
-    // return cargo?.permissao_level == 1;
   }
 
 }

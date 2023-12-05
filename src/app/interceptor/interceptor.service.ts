@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class InterceptorService implements HttpInterceptor {
 
 //  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
-  constructor(public _loginSrv: LoginService, public _router: Router) { }
+  constructor(private _loginSrv: LoginService, public _router: Router) { }
 
  intercept( request: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
     // const loginService = this._loginSrv.retrieveData()
