@@ -17,7 +17,7 @@
   -Reorganizar o lugar do botao de temas ✅
 
 -Adicionar opção detrocar nome do proprio usuario ✅
-  -Desabilitar & Habilitar o botão de resetar se a senha for igual ⏱️
+  -Desabilitar & Habilitar o botão de resetar se a senha for igual ✅
 
 -Arrumar o icone Usuario piscando do sidebar ✅
 

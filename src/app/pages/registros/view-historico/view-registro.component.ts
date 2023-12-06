@@ -26,7 +26,7 @@ export class ViewRegistroComponent {
     const server = this._serverSrv.get(this.data.server_id).subscribe((data) => {
       const dialogRef = this.dialog.open(ViewServidorComponent, {
         width: '500px',
-        height: '500px',
+        maxHeight: '620px',
         data: data,
       });
     });
@@ -44,7 +44,7 @@ export class ViewRegistroComponent {
     const server = this._serverSrv.get(this.data.server_id).subscribe((data) => {
       const dialogRef = this.dialog.open(EditServidorComponent, {
         width: '500px',
-        height: '500px',
+        maxHeight: '620px',
         data: data,
       });
     });

@@ -2,135 +2,140 @@
 <app-sidebar [selected$]=2></app-sidebar>
 <div class="page animate">
   <div class="flex-container">
+    <div class="table-div">
+      <div class="flex-add-btn">
+        <mat-icon (click)="addServidor()" class="add-icon">add</mat-icon>
+      </div>
 
-    <table #tablee mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-        class="mat-elevation-z8 tabela">
+      <table #tablee mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+          class="mat-elevation-z8 tabela">
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
-          Nome
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="td-container">
-            <ng-container *ngIf="permission_level > -1">
-              <mat-icon (click)="editServidor(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
-            </ng-container>
-            {{element.nome}}
-          </div>
-        </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="active">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by active">
-          Ativo
-        </th>
-        <td class="edit-input" mat-cell *matCellDef="let element">
-          <ng-container *ngIf="permission_level < 0">
-            <ng-container  *ngIf="element.active == true">
-              <div class="ativo">
-                <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
-              </div>
-            </ng-container>
-            <ng-container  *ngIf="element.active == false">
-              <div class="ativo desativado">
-                <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
-              </div>
-            </ng-container>
-          </ng-container>
-
-          <ng-container *ngIf="permission_level > -1">
-            <ng-container  *ngIf="element.active == true">
-              <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo">
-                <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
-              </div></button>
-                <mat-menu #menu="matMenu" class="select-menu">
-                  <button mat-menu-item disabled>
-                    <div class="ativo" mat-menu-item>
-                      <div class="ativo-text">Ativo</div>
-                    </div>
-                  </button>
-                  <button mat-menu-item>
-                    <div  (click)="changeServerActive(element, false)"  class="ativo desativado" mat-menu-item>
-                      <div class="ativo-text">Inativo</div>
-                    </div>
-                  </button>
-                </mat-menu>
-            </ng-container>
-
-            <ng-container  *ngIf="element.active == false">
-              <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo desativado">
-                <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
-              </div></button>
-                <mat-menu #menu="matMenu" class="select-menu">
-                  <button mat-menu-item disabled>
-                    <div class="ativo desativado" mat-menu-item>
-                      <div class="ativo-text">Inativo</div>
-                    </div>
-                  </button>
-                  <button (click)="changeServerActive(element, true)" mat-menu-item>
-                    <div class="ativo" mat-menu-item>
-                      <div class="ativo-text">Ativo</div>
-                    </div>
-                  </button>
-                </mat-menu>
-            </ng-container>
-          </ng-container>
-
-
-        </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="qtd_usuarios">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_usuarios">
-          Usuarios
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.qtd_usuarios}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="qtd_usuarios_local">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_usuarios_local">
-          Usuarios Locais
-        </th>
-        <td mat-cell *matCellDef="let element"> {{element.qtd_usuarios_local}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="qtd_canais">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_canais">
-          Canais
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="td-container">
-            {{element.qtd_canais}}
-            <ng-container *ngIf="element.deleted_at == null">
+        <!-- Position Column -->
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
+            Nome
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="td-container">
               <ng-container *ngIf="permission_level > -1">
-                <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+                <mat-icon (click)="editServidor(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
               </ng-container>
-                <mat-icon (click)="viewHistorico(element.id)" onclick="event.stopPropagation();" class="td-history-icon">history</mat-icon>
+              {{element.nome}}
+            </div>
+          </td>
+        </ng-container>
 
+        <!-- Name Column -->
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by active">
+            Ativo
+          </th>
+          <td class="edit-input" mat-cell *matCellDef="let element">
+            <ng-container *ngIf="permission_level < 0">
+              <ng-container  *ngIf="element.active == true">
+                <div class="ativo">
+                  <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+                </div>
+              </ng-container>
+              <ng-container  *ngIf="element.active == false">
+                <div class="ativo desativado">
+                  <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
+                </div>
+              </ng-container>
             </ng-container>
-          </div>
-        </td>
-      </ng-container>
+
+            <ng-container *ngIf="permission_level > -1">
+              <ng-container  *ngIf="element.active == true">
+                <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo">
+                  <mat-icon>check</mat-icon> <div class="ativo-text">Ativo</div>
+                </div></button>
+                  <mat-menu #menu="matMenu" class="select-menu">
+                    <button mat-menu-item disabled>
+                      <div class="ativo" mat-menu-item>
+                        <div class="ativo-text">Ativo</div>
+                      </div>
+                    </button>
+                    <button mat-menu-item>
+                      <div  (click)="changeServerActive(element, false)"  class="ativo desativado" mat-menu-item>
+                        <div class="ativo-text">Inativo</div>
+                      </div>
+                    </button>
+                  </mat-menu>
+              </ng-container>
+
+              <ng-container  *ngIf="element.active == false">
+                <button onclick="event.stopPropagation();"  mat-button [matMenuTriggerFor]="menu"><div class="ativo desativado">
+                  <mat-icon>close</mat-icon> <div class="ativo-text">Inativo</div>
+                </div></button>
+                  <mat-menu #menu="matMenu" class="select-menu">
+                    <button mat-menu-item disabled>
+                      <div class="ativo desativado" mat-menu-item>
+                        <div class="ativo-text">Inativo</div>
+                      </div>
+                    </button>
+                    <button (click)="changeServerActive(element, true)" mat-menu-item>
+                      <div class="ativo" mat-menu-item>
+                        <div class="ativo-text">Ativo</div>
+                      </div>
+                    </button>
+                  </mat-menu>
+              </ng-container>
+            </ng-container>
+
+
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="qtd_usuarios">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_usuarios">
+            Usuarios
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.qtd_usuarios}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="qtd_usuarios_local">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_usuarios_local">
+            Usuarios Locais
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.qtd_usuarios_local}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qtd_canais">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by qtd_canais">
+            Canais
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="td-container">
+              {{element.qtd_canais}}
+              <ng-container *ngIf="element.deleted_at == null">
+                <mat-icon (click)="viewHistorico(element.id)" onclick="event.stopPropagation();" class="td-history-icon">history</mat-icon>
+                <ng-container *ngIf="permission_level > -1">
+                  <mat-icon (click)="deleteServidor(element.id)" onclick="event.stopPropagation();" class="td-delete-icon">delete</mat-icon>
+                </ng-container>
+              </ng-container>
+            </div>
+          </td>
+        </ng-container>
 
 
 
-      <tr class="header-tabela" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr (click)="viewServidor(row)" [ngClass]="{'row-tabela': row.deleted_at == null, 'row-tabela-deleted': row.deleted_at != null, 'hideDeleted': showDeleted == false && row.deleted_at != null}" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="header-tabela" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr (click)="viewServidor(row)" [ngClass]="{'row-tabela': row.deleted_at == null, 'row-tabela-deleted': row.deleted_at != null}" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-      <!-- <tr (click)="viewServidor(row)" class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
-    </table>
+        <!-- <tr (click)="viewServidor(row)" class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+      </table>
+    </div>
 
-    <mat-icon (click)="addServidor()" class="add-icon">add</mat-icon>
     <div class="paginacao" >
       <mat-paginator [pageSizeOptions]="[10, 20]"
         showFirstLastButtons
         aria-label="Seleciona pagina dos clientes">
       </mat-paginator>
       <mat-checkbox class="checkbox" (change)="toggleShowDeleted()" #checkbox value="" color="primary">Mostrar Deletados</mat-checkbox>
+
+
     </div>
   </div>
 </div>

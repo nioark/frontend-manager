@@ -7,11 +7,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 import { HistoricosService } from './services/historicos.service';
 import { Historico } from 'src/app/models/historicos';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, zip } from 'rxjs';
 import { ViewRegistroComponent } from './view-historico/view-registro.component';
 import { ServidoresService } from '../servidores/services/servidores.service';
 import { Servidor } from 'src/app/models/servidor';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { UsuariosService } from '../usuarios/services/usuarios.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro-servidor-view',
@@ -19,12 +21,12 @@ import { MatCheckbox } from '@angular/material/checkbox';
   styleUrls: ['./registros.component.scss']
 })
 export class RegistrosComponent implements AfterViewInit {
-  displayedColumns: string[] = ['nome', 'acao', 'quando'];
+  displayedColumns: string[] = ['name', 'action', 'time_ago_ms'];
   dataSource = new MatTableDataSource();
 
   historico$?: Observable<Historico[] | undefined>
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _serverSrv: ServidoresService, private _historicosSrv: HistoricosService, public dialog: MatDialog) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer, private route: ActivatedRoute, private _usuariosSrv : UsuariosService, private _serverSrv: ServidoresService, private _historicosSrv: HistoricosService, public dialog: MatDialog) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -32,23 +34,42 @@ export class RegistrosComponent implements AfterViewInit {
   @ViewChildren("checkbox") checkbox!: QueryList<MatCheckbox>;
   showDeleted: boolean = false;
 
+  private servers : Servidor[] | undefined;
+  private fetchedData : Historico[] | undefined;
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   ngAfterViewInit() {
-    this._serverSrv.fetch().subscribe((servers: Servidor[]) => {
-      console.log("Data server: ", servers)
+    let idValue = this.route.snapshot.paramMap.get('id')
+    let serverId : number | undefined;
+    if (idValue!= undefined)
+      serverId = parseInt(idValue as string)
 
-      this.historico$ = this._historicosSrv.fetch();
+    const observable = zip([
+      this._serverSrv.fetch(),
+      this._historicosSrv.fetch(),
+      this._usuariosSrv.fetch()
+    ])
 
-      this.historico$.subscribe((dataHistorico: any[] | undefined) => {
-        console.log("Data historico: ", dataHistorico)
-        const datasource = dataHistorico as any[];
-        this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
+    observable.subscribe({
+      next: ([dataServers, dataHistoricos, dataUsuarios]) => {
 
-        dataHistorico?.forEach(element => {
+        //Organiza por id e poem deletados embaixo
+        let historicos = dataHistoricos?.sort((a, b) => b.id - a.id) as any[];
+
+        console.log(serverId)
+        if (serverId != null)
+          historicos = historicos.filter((history) => history.server_id == serverId)
+
+        historicos?.forEach(element  => {
           const historico = element as Historico;
+
           const timestamp = historico.created_at;
 
           const date = new Date(timestamp);
-          console.log(timestamp, date)
           const now = new Date();
           const timeAgo = now.getTime() - date.getTime(); //milliseconds
 
@@ -69,21 +90,32 @@ export class RegistrosComponent implements AfterViewInit {
           }
 
           element.time_ago = timeAgoString
+          element.time_ago_ms = timeAgo
 
           element.deleted = false
 
-          const server = servers.find((server) => server.id === historico.server_id);
+          const server = dataServers.find((server) => server.id === historico.server_id);
           if (server && server.deleted_at == null) {
             element.deleted = true;
           }
 
-      });
+          const user = dataUsuarios.find((user) => user.id === historico.usuario_id)
 
+          element.name = user?.name
+          if (element.name == null)
+            element.name = 'deletado'
+        });
 
-    });
+        if (this.showDeleted == false){
+          this.dataSource.data = historicos.filter((history) => {
+            const server = dataServers.find((server) => server.id == history.server_id)
+            return !(server?.deleted_at != null)
+          })
+        }
+        this.fetchedData = historicos;
+        this.servers = dataServers;
+      }
     })
-
-
 
     if (this.sort) {
       this.dataSource.sort = this.sort;
@@ -119,7 +151,7 @@ export class RegistrosComponent implements AfterViewInit {
 
     const dialogRef = this.dialog.open(ViewRegistroComponent, {
       width: '500px',
-      height: '500px',
+      maxHeight: '620px',
       data: data
     });
 
@@ -133,5 +165,16 @@ export class RegistrosComponent implements AfterViewInit {
 
   toggleShowDeleted(){
     this.showDeleted = this.checkbox.first.checked;
+    console.log()
+
+    if (this.showDeleted == false && this.fetchedData){
+      this.dataSource.data = this.fetchedData.filter((history) => {
+        const server = this.servers?.find((server) => server.id == history.server_id)
+        return !(server?.deleted_at != null)
+      })
+    }
+    else if(this.fetchedData){
+      this.dataSource.data = this.fetchedData
+    }
   }
 }

@@ -110,7 +110,7 @@ export class UsuariosComponent implements AfterViewInit {
   addServidor(){
     const dialogRef = this.dialog.open(AddUsuarioComponent, {
       width: '500px',
-      height: '500px',
+      maxHeight: '620px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -124,7 +124,7 @@ export class UsuariosComponent implements AfterViewInit {
   editUsuario(data: UsuarioEdit){
     const dialogRef = this.dialog.open(EditUsuarioComponent, {
       width: '500px',
-      height: '500px',
+      maxHeight: '620px',
       data: data,
     });
 

@@ -66,7 +66,7 @@ export class ClientesComponent implements AfterViewInit {
   viewCliente(data: Cliente){
     const dialogRef = this.dialog.open(ViewClienteComponent, {
       width: '500px',
-      height: '500px',
+      maxHeight: '620px',
       data: data
     });
 

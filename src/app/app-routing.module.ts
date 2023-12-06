@@ -7,7 +7,6 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { RegistrosComponent } from './pages/registros/registros.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
-import { RegistroServidorComponent } from './pages/registros-servidor/registro-servidor.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -16,7 +15,7 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent},
   { path: 'usuarios', component: UsuariosComponent},
   { path: 'registros', component: RegistrosComponent},
-  { path: 'registro/:id', component: RegistroServidorComponent},
+  { path: 'registro/:id', component: RegistrosComponent},
   { path: 'config', component: ProfileConfigComponent},
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
 

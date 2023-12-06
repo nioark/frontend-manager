@@ -16,11 +16,11 @@
 
         <mat-form-field class="input-nome" appearance="fill">
           <mat-label>Nova Senha</mat-label>
-          <input class="input" (keydown)="inputChanged()" type="password" matInput #password required>
+          <input class="input" (keydown)="inputChangedPassword()" type="password" matInput #password required>
         </mat-form-field>
         <mat-form-field class="input-nome" appearance="fill">
           <mat-label>Confirme Nova Senha</mat-label>
-          <input class="input" (keydown)="inputChanged()" type="password" matInput #confirmpassword required>
+          <input class="input" (keydown)="inputChangedPassword()" type="password" matInput #confirmpassword required>
         </mat-form-field>
 
 
@@ -28,10 +28,18 @@
     </div>
 
     <div class="end-flex">
-      <button (click)="resetPassword()" mat-raised-button class="button btn-form" color="primary">
-        <mat-icon class="btn-icon">restart_alt</mat-icon>
-        Resetar
-      </button>
+      <ng-container *ngIf="canSubmitPassword$ == true">
+        <button (click)="resetPassword()" mat-raised-button class="button btn-form" color="primary">
+          <mat-icon class="btn-icon">restart_alt</mat-icon>
+          Resetar
+        </button>
+      </ng-container>
+      <ng-container *ngIf="canSubmitPassword$ == false">
+        <button (click)="resetPassword()" mat-raised-button class="button btn-form" color="primary" disabled>
+          <mat-icon class="btn-icon">restart_alt</mat-icon>
+          Resetar
+        </button>
+      </ng-container>
     </div>
   </div>
 
@@ -44,16 +52,24 @@
 
           <mat-form-field class="input-nome" appearance="fill">
             <mat-label>Novo Nome</mat-label>
-            <input class="input" (keydown)="inputChanged()" type="text" matInput #username required>
+            <input class="input" (keydown)="inputChangedName()" type="text" matInput #username required>
           </mat-form-field>
 
         </div>
       </div>
       <div class="end-flex">
-        <button (click)="changeUsername()" mat-raised-button class="button btn-form" color="primary">
-          <mat-icon class="btn-icon">restart_alt</mat-icon>
-          Trocar
-        </button>
+        <ng-container *ngIf="canSubmitName$ == true">
+          <button (click)="changeUsername()" mat-raised-button class="button btn-form" color="primary">
+            <mat-icon class="btn-icon">restart_alt</mat-icon>
+            Trocar
+          </button>
+        </ng-container>
+        <ng-container *ngIf="canSubmitName$ == false">
+          <button (click)="changeUsername()" mat-raised-button class="button btn-form" color="primary" disabled>
+            <mat-icon class="btn-icon" >restart_alt</mat-icon>
+            Trocar
+          </button>
+        </ng-container>
       </div>
   </div>
 

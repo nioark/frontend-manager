@@ -42,7 +42,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import { CommentEditComponent } from './pages/servidores/components/commentEdit/commentEdit.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
-import { RegistroServidorComponent } from './pages/registros-servidor/registro-servidor.component';
 
 
 @NgModule({
@@ -68,7 +67,6 @@ import { RegistroServidorComponent } from './pages/registros-servidor/registro-s
     DeleteServidorComponent,
     ProfileConfigComponent,
     CountUpDirective,
-    RegistroServidorComponent,
   ],
   imports: [
     BrowserModule,

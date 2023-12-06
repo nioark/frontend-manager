@@ -35,11 +35,13 @@ export class ServidoresComponent implements AfterViewInit {
 
   servidores$?: Observable<Servidor[] | undefined>
   permission_level: number = -1;
+  fetchedData : Servidor[] | undefined;
 
   constructor(private _liveAnnouncer: LiveAnnouncer,  private _router: Router, private _cargosSrv: CargosService, private _loginSrv: LoginService,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
+
 
   ngAfterViewInit() {
     this.servidores$ = this._servidoresSrv.fetch();
@@ -48,7 +50,8 @@ export class ServidoresComponent implements AfterViewInit {
       console.log("Data from server: ", data)
       const datasource = data as Servidor[];
       // this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
-      this.dataSource.data = datasource?.sort((a, b) => {
+
+      let servers = datasource?.sort((a, b) => {
         if (a.deleted_at && !b.deleted_at) {
           return 1; // a comes after b
         } else if (!a.deleted_at && b.deleted_at) {
@@ -58,6 +61,13 @@ export class ServidoresComponent implements AfterViewInit {
         }
       });
 
+      this.fetchedData = servers;
+
+      if (!this.showDeleted) {
+        servers = servers?.filter((server) => !server.deleted_at);
+      }
+
+      this.dataSource.data = servers
       console.log(datasource)
     })
 
@@ -95,7 +105,7 @@ export class ServidoresComponent implements AfterViewInit {
   addServidor(){
     const dialogRef = this.dialog.open(AddServidorComponent, {
       width: '500px',
-      height: '500px',
+      maxHeight: '620px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,7 +118,8 @@ export class ServidoresComponent implements AfterViewInit {
   editServidor(server: Servidor){
     const dialogRef = this.dialog.open(EditServidorComponent, {
       width: '500px',
-      height: '500px',
+      height: '',
+      maxHeight: '620px',
       data: server,
     });
 
@@ -122,7 +133,8 @@ export class ServidoresComponent implements AfterViewInit {
     const serverData: Servidor = {...serverTable};
     const dialogRef = this.dialog.open(ViewServidorComponent, {
       width: '500px',
-      height: '500px',
+      height: '',
+      maxHeight: '620px',
       data: serverData,
     });
 
@@ -159,6 +171,16 @@ export class ServidoresComponent implements AfterViewInit {
 
   toggleShowDeleted(){
     this.showDeleted = this.checkbox.first.checked;
+
+    if (this.showDeleted == false && this.fetchedData){
+      this.dataSource.data = this.fetchedData.filter((server) => {
+        return !(server.deleted_at != null)
+      })
+    }
+    else if(this.fetchedData){
+      this.dataSource.data = this.fetchedData
+    }
+
   }
 
   viewHistorico(id : number) {

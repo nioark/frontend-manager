@@ -13,6 +13,10 @@ export class ProfileConfigComponent implements OnInit {
   @ViewChildren("password") password!: QueryList<ElementRef>;
   @ViewChildren("username") username!: QueryList<ElementRef>;
 
+  canSubmitName$ = false;
+  canSubmitPassword$ = false;
+
+
   constructor(private _loginSrv: LoginService) {
     this.name = this._loginSrv.getName()
   }
@@ -23,8 +27,28 @@ export class ProfileConfigComponent implements OnInit {
 
 
 
-  inputChanged() {
+  inputChangedPassword() {
+    setTimeout(() => {
+      let flag = true;
 
+      if (this.password.first.nativeElement.value == this.confirmPassword.first.nativeElement.value)
+        this.canSubmitPassword$ = true;
+      else
+        this.canSubmitPassword$ = false;
+
+    }, 100);
+  }
+
+  inputChangedName() {
+    setTimeout(() => {
+      let flag = true;
+
+      if (this.username.first.nativeElement.value != "")
+        this.canSubmitName$ = true;
+      else
+        this.canSubmitName$ = false;
+
+    }, 100);
   }
 
   resetPassword() {
