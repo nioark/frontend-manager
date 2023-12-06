@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { Servidor } from 'src/app/models/servidor';
 import { ViewServidorComponent } from '../../servidores/components/viewServidor/viewServidor.component';
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
+import { ServidoresService } from '../../servidores/services/servidores.service';
+import { EditServidorComponent } from '../../servidores/components/editServidor/editServidor.component';
 
 @Component({
   selector: 'app-view-registro-servidor',
@@ -11,7 +13,7 @@ import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 })
 export class ViewRegistroComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _serverSrv : ServidoresService, private dialog: MatDialog, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
 
   ngOnInit() {
   }
@@ -21,18 +23,31 @@ export class ViewRegistroComponent {
   }
 
   viewServer(){
-    const dialogRef = this.dialog.open(ViewServidorComponent, {
-      width: '500px',
-      height: '500px',
-      data: this.data,
+    const server = this._serverSrv.get(this.data.server_id).subscribe((data) => {
+      const dialogRef = this.dialog.open(ViewServidorComponent, {
+        width: '500px',
+        height: '500px',
+        data: data,
+      });
     });
 
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The view dialog was closed');
-    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The view dialog was closed');
+    // });
 
     console.log("View servidor");
+  }
+
+  editServer(){
+    const server = this._serverSrv.get(this.data.server_id).subscribe((data) => {
+      const dialogRef = this.dialog.open(EditServidorComponent, {
+        width: '500px',
+        height: '500px',
+        data: data,
+      });
+    });
   }
 
 }

@@ -19,3 +19,7 @@ button {
   width: 100px;
   margin-right: 10px;
 }
+
+.comment {
+  width: 100%;
+}

@@ -9,8 +9,8 @@ import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 import { Historico } from 'src/app/models/historicos';
 import { Observable } from 'rxjs';
 import { HistoricosService } from '../registros/services/historicos.service';
-import { ViewRegistroServidorComponent } from './view-historico/view-registro-servidor.component';
 import { ActivatedRoute } from '@angular/router';
+import { ViewRegistroComponent } from '../registros/view-historico/view-registro.component';
 
 @Component({
   selector: 'app-registro-servidor-view',
@@ -103,17 +103,15 @@ export class RegistroServidorComponent implements AfterViewInit {
     const formatedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${minutes}`;
     data.timestamp = formatedDate;
 
-    const dialogRef = this.dialog.open(ViewRegistroServidorComponent, {
+    const dialogRef = this.dialog.open(ViewRegistroComponent, {
       width: '500px',
       height: '500px',
       data: data
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The view dialog was closed');
-      // this.animal = result;
-    });
-
-    console.log("View cliente");
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The view dialog was closed');
+    //   // this.animal = result;
+    // });
   }
 }

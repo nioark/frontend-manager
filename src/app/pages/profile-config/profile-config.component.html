@@ -1,51 +1,61 @@
 <app-sidebar></app-sidebar>
 <div class="page">
   <div class="flex-container animateSlider">
-    <span class="title-span ">
+    <!-- <span class="title-span ">
       <img class="avatar" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_640.png" alt="">
 
       <p class="username">{{name}}</p>
-      <!-- <p class="user-type">administrador</p> -->
+       <p class="user-type">administrador</p> -->
 
-    </span>
-
-
-    <mat-icon (click)="changeTheme()" class="theme-changer">format_color_fill</mat-icon>
-    <h1>Trocar Senha</h1>
-    <hr class="divider">
-    <div class="inputs-container">
-
-      <mat-form-field class="input-nome" appearance="fill">
-        <mat-label>Nova Senha</mat-label>
-        <input class="input" (keydown)="inputChanged()" type="password" matInput #password required>
-      </mat-form-field>
-      <mat-form-field class="input-nome" appearance="fill">
-        <mat-label>Confirme Nova Senha</mat-label>
-        <input class="input" (keydown)="inputChanged()" type="password" matInput #confirmpassword required>
-      </mat-form-field>
-
-      <button (click)="resetPassword()" mat-raised-button class="button btn-form" color="primary">
-        <mat-icon class="btn-icon">restart_alt</mat-icon>
-        Resetar
-      </button>
-
+    <!-- </span> -->
+    <div class="start-flex">
       <br>
-      <br>
-      <h1>Trocar Nome</h1>
+      <h1>Trocar Senha</h1>
       <hr class="divider">
       <div class="inputs-container">
 
         <mat-form-field class="input-nome" appearance="fill">
-          <mat-label>Novo Nome</mat-label>
-          <input class="input" (keydown)="inputChanged()" type="text" matInput #username required>
+          <mat-label>Nova Senha</mat-label>
+          <input class="input" (keydown)="inputChanged()" type="password" matInput #password required>
+        </mat-form-field>
+        <mat-form-field class="input-nome" appearance="fill">
+          <mat-label>Confirme Nova Senha</mat-label>
+          <input class="input" (keydown)="inputChanged()" type="password" matInput #confirmpassword required>
         </mat-form-field>
 
+
+      </div>
+    </div>
+
+    <div class="end-flex">
+      <button (click)="resetPassword()" mat-raised-button class="button btn-form" color="primary">
+        <mat-icon class="btn-icon">restart_alt</mat-icon>
+        Resetar
+      </button>
+    </div>
+  </div>
+
+  <div class="flex-container animateSlider">
+      <div class="start-flex">
+        <br>
+        <h1>Trocar Nome</h1>
+        <hr class="divider">
+        <div class="inputs-container">
+
+          <mat-form-field class="input-nome" appearance="fill">
+            <mat-label>Novo Nome</mat-label>
+            <input class="input" (keydown)="inputChanged()" type="text" matInput #username required>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div class="end-flex">
         <button (click)="changeUsername()" mat-raised-button class="button btn-form" color="primary">
           <mat-icon class="btn-icon">restart_alt</mat-icon>
           Trocar
         </button>
       </div>
-    </div>
   </div>
+
 
 </div>

@@ -10,8 +10,10 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
      box-sizing: border-box;
-     color: $text-color;
-    background-color: $background-color;
+     color: $background-text-color;
+
+
+    // background-color: $background-color;
 
 }
 
@@ -26,7 +28,7 @@
 
 .size-1 {
   display: flex;
-  background-color: $secondary-color;
+  background-color: $background-color;
   filter: drop-shadow(0 1px 8px rgba(68, 53, 53, 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   border-radius: 10px;
   height: calc(50% - 5px);
@@ -38,7 +40,7 @@
 
 .size-2 {
   display: flex;
-  background-color: white;
+  background-color: $background-color;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   border-radius: 10px;
   height: calc(50% - 5px);

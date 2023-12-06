@@ -7,9 +7,11 @@
       <!-- Position Column -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
-          Nome
+          Usuario
         </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-cell *matCellDef="let element"><div class="name-decorator">
+          @{{element.name}}
+        </div>  </td>
       </ng-container>
 
       <!-- Name Column -->

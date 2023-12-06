@@ -101,8 +101,11 @@ export class ServidoresService {
     }));
   }
 
-  remove(id : number): Observable<any>{
-    return this.http.delete<DataResult<Servidor>>(`${this.url}/protected/servidores/${id}`).pipe(tap({
+  remove(id : number, comentario : string): Observable<any>{
+    const params = new HttpParams()
+    .append('comentario', comentario as string)
+
+    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidor-delete/${id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 

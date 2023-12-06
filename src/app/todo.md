@@ -12,7 +12,9 @@
   -Convidado só visualiza ✅
   -Cargos só podem editar usuarios de permissão menor que o outro✅
 
--Reorganizar os sistemas de temas // alguns components não aderem a cor do tema ⏱️
+-Reorganizar os sistemas de temas // alguns components não aderem a cor do tema ✅
+  -Arrumar cores ✅
+  -Reorganizar o lugar do botao de temas ✅
 
 -Adicionar opção detrocar nome do proprio usuario ✅
   -Desabilitar & Habilitar o botão de resetar se a senha for igual ⏱️
@@ -23,6 +25,7 @@
 
 -No registro adicionar botão para abrir o viewServer Atual ✅ //Bem util pro usuario
 
+-Esconde o próprio usuario na aba de usuários ⏱️
 
 
 

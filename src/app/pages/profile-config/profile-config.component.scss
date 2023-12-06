@@ -7,11 +7,14 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
    box-sizing: border-box;
-   background-color: $background-color;
+  //  background-color: $background-color;
    width: 100%;
+   color:  $background-text-color;
 }
 
 .page {
+  display: flex;
+  gap: 10px;
   margin-left: 10px;
   width: 100%;
 }
@@ -36,13 +39,12 @@
 .flex-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 50%;
   width: 400px;
-  justify-content: center;
   align-items: center;
   border-radius: 10px;
   overflow: auto;
-  background-color: $secondary-color;
+  background-color: $background-color;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
 
@@ -71,7 +73,6 @@
   margin-left: 20px;
   width: 325px;
   flex-direction: row;
-  color: $text-color;
   margin-bottom: 40px;
   margin-top: -40px;
 }
@@ -87,7 +88,6 @@
 .username{
   font-size: x-large;
   user-select: text;
-  color: $text-color;
   margin: 0;
 }
 
@@ -104,6 +104,20 @@
 }
 
 h1 {
-  color: $text-color;
   text-align: center;
+}
+
+.end-flex {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding-bottom: 20px;
+  width: 200px;
+}
+
+.start-flex {
+  padding: 20px;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }

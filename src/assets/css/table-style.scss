@@ -3,6 +3,7 @@
 .tabela {
   width: 100%;
   box-shadow: none;
+  background-color: $background-color;
 
 }
 
@@ -31,6 +32,7 @@
 }
 
 .row-tabela {
+
   z-index: 300;
   transition: all 0.3s ease-in-out;
 

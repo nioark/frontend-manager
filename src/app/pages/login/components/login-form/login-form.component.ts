@@ -30,17 +30,19 @@ export class LoginFormComponent implements OnInit {
   }
 
   authenticate(email : string, password : string){
+    this.loading$ = true;
+
     if (!this._loginSrv.isAuthenticated()){
       this._loginSrv.authenticate(email, password).pipe(
         map((data: any) => {
 
           console.log("Storage: ",this._loginSrv.retrieveData())
           if (data){
-            this.loading$ = true;
             this._router.navigate(['dashboard'])
           }
           else{
             this.openSnackBar("Email ou Senha invalidos", "OK")
+            this.loading$ = false;
 
           }
         }

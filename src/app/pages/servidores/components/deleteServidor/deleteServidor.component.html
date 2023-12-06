@@ -1,6 +1,16 @@
 <h1>Deletar este servidor?</h1>
 <hr>
+<mat-form-field class="comment" appearance="fill">
+  <mat-label>Comentário</mat-label>
+  <textarea (keydown)="inputChanged()" matInput #comentario required></textarea>
+</mat-form-field>
 <div class="btn-container">
-  <button (click)="deleteServidor()" mat-raised-button class="button btn-form" color="warn">Deletar</button>
+  <ng-container *ngIf="canSubmit$ == true">
+    <button (click)="deleteServidor()" mat-raised-button class="button btn-form" color="warn">Deletar</button>
+  </ng-container>
+  <ng-container *ngIf="canSubmit$ == false">
+    <button mat-raised-button class="button btn-form" color="warn" disabled>Deletar</button>
+  </ng-container>
+
   <button (click)="closeDialog()" mat-stroked-button class="button btn-form" color="primary">Cancelar</button>
 </div>

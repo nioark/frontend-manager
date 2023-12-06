@@ -135,6 +135,29 @@
     margin: 0;
 }
 
+// .theme-changer{
+//   color: $text-color;
+//   transition: all 0.3s ease-in-out;
+//   padding: 5px;
+//   border-radius: 10px;
+// }
+
+.theme-changer {
+  height: 25px;
+  margin-right: 5px;
+  padding: 0px;
+  transition: all 0.1s ease-in-out;
+  padding: 5px;
+}
+
+.theme-changer:hover {
+  background-color: $primary-color;
+  cursor: pointer;
+  border-radius: 25px;
+
+}
+
+
 .user-type{
     font-size: small;
     color: $primary-color;
@@ -142,8 +165,10 @@
 
 hr {
     margin-top: 20px;
+    height: 0px;;
     width: 100%;
     margin-bottom: 20px;
+    border: 0;
     background-color: $text-color;
 }
 

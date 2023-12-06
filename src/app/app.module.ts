@@ -43,7 +43,6 @@ import { CommentEditComponent } from './pages/servidores/components/commentEdit/
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
 import { RegistroServidorComponent } from './pages/registros-servidor/registro-servidor.component';
-import { ViewRegistroServidorComponent } from './pages/registros-servidor/view-historico/view-registro-servidor.component';
 
 
 @NgModule({
@@ -70,7 +69,6 @@ import { ViewRegistroServidorComponent } from './pages/registros-servidor/view-h
     ProfileConfigComponent,
     CountUpDirective,
     RegistroServidorComponent,
-    ViewRegistroServidorComponent
   ],
   imports: [
     BrowserModule,

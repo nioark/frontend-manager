@@ -11,52 +11,84 @@
 .container {
   border-radius: 10px;
   overflow: hidden;
-  // width: 650px;
-  height: 400px;
-  background-color: $secondary-color;
   display: flex;
+  height: 400px;
+  width: 600px;
+  background-color: transparent;
+
 }
 
 .logo{
-  height: 100px;
+  height: 80px;
+  opacity: 1;
 }
 
 .left-container {
   display: flex;
-  width: 250px;
+  width: 45%;
   height: 100%;
-  background-color: $primary-color;
+  background-color: #8ecae6;
+
+  opacity: 0.9;
   justify-content: center;
   align-items: center;
 }
 
-.form{
-  width: 300px;
+.right-container{
+  width: 55%;
+  height: 100%;
   // border-radius: 15px;
-  background-color: $secondary-color;
-  padding: 20px;
-  padding-bottom: 0px;
+  background-color: white;
+
   // box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  justify-content: center;
 }
 
 .title {
   text-align: center;
+  color: black;
   font-size: 30px;
-  margin-bottom: 20px;
   padding: 10px;
   border-radius: 20px;
+  font-weight: 500;
+  margin: 0
 }
+
+.sub-title {
+  color: rgb(73, 71, 71);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+
+
+.form-container {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.row-container{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.load-bar-container{
+  height: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .loadbar{
-  position: relative;
-  width: 350px;
-  margin-top: 10px;
-  margin-left: -30px;
+  width: 100%;
   transition: 1 all;
 }
 
-.loadbar-div{
-  margin-top: 14px;
-}

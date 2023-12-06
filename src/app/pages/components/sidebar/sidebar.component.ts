@@ -5,6 +5,7 @@ import { Cargo } from 'src/app/models/cargos';
 import { Observable } from 'rxjs/internal/Observable';
 import { CargosService } from '../../usuarios/services/cargos.service';
 import { UserService } from '../../login/services/user.service';
+import { ThemeService } from '../../profile-config/services/theme.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,12 +21,17 @@ export class SidebarComponent implements OnInit {
 
   public cargos$?: Observable<Cargo[] | undefined>;
 
-  constructor(private _router: Router, private _loginSrv: LoginService, private _cargosSrv : CargosService) {
+  constructor(private _router: Router, private _themeSrv : ThemeService, private _loginSrv: LoginService, private _cargosSrv : CargosService) {
 
   }
 
-  ngAfterContentInit(): void {
 
+  changeTheme(){
+    this._themeSrv.nextTheme();
+  }
+
+  ngAfterContentInit(): void {
+    this._themeSrv.setTheme();
     if (localStorage.getItem('permission_level') == undefined){
       this.cargos$ = this._cargosSrv.fetch()
 

@@ -1,27 +1,38 @@
 
+
 <div class="container">
   <div class="left-container">
     <img class="logo" src="assets/logo.png" alt="">
   </div>
-  <div class="form " id="enterEvnt">
-    <h1 class="title">Login</h1>
-    <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input #email matInput type="email" placeholder="Email">
-    </mat-form-field>
-    <br>
-    <mat-form-field class="example-full-width">
-      <mat-label>Senha</mat-label>
-      <input #password matInput type="password" placeholder="Senha">
-    </mat-form-field>
-    <button id="loginBtn" (click)="authenticate(email.value,password.value)" mat-raised-button color="primary">Entrar</button>
-    <ng-container *ngIf="!loading$"  >
-      <div class="loadbar-div">
+  <div class="right-container " id="enterEvnt">
+    <div class="row-container">
+      <div class="form-container">
+        <h1 class="title">Bem vindo!</h1>
+        <h3 class="sub-title">Insira seu login</h3>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input #email matInput type="email" placeholder="Email">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Senha</mat-label>
+          <input #password matInput type="password" placeholder="Senha">
+        </mat-form-field>
+        <button id="loginBtn" (click)="authenticate(email.value,password.value)" mat-raised-button color="primary">Entrar</button>
+        <ng-container *ngIf="!loading$"  >
+          <div class="loadbar-div">
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-    <ng-container *ngIf="loading$"  >
-      <mat-progress-bar  class="loadbar" mode="indeterminate"></mat-progress-bar>
-    </ng-container>
+
+      <div class="load-bar-container">
+        <ng-container *ngIf="loading$ == true"  >
+          <mat-progress-bar  class="loadbar" mode="indeterminate"></mat-progress-bar>
+        </ng-container>
+      </div>
+    </div>
+
   </div>
 </div>
 

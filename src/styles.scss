@@ -21,11 +21,30 @@
 }
 
 .mat-sort-header-content{
-  color: $text-color;
+  color: $text-color
+}
+
+.mat-paginator {
+  background-color: $background-color;
+}
+
+// .mat-form-field-label {
+//   color: $background-text-color
+// }
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: $background-text-color
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  color: $background-text-color
 }
 
 .mat-form-field-label {
-  color: $text-color;
+  color: $background-text-color
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  background-color: $accent-color;
 }
 
 /* You can add global styles to this file, and also import other style files */

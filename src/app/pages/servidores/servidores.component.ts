@@ -138,7 +138,7 @@ export class ServidoresComponent implements AfterViewInit {
     console.log("Delete servidor", id);
     const dialogRef = this.dialog.open(DeleteServidorComponent, {
       width: '360px',
-      height: '170px',
+      height: '260px',
       data: id,
     });
   }

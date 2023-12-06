@@ -13,7 +13,7 @@ export class ProfileConfigComponent implements OnInit {
   @ViewChildren("password") password!: QueryList<ElementRef>;
   @ViewChildren("username") username!: QueryList<ElementRef>;
 
-  constructor(private _loginSrv: LoginService, private _themeSrv: ThemeService) {
+  constructor(private _loginSrv: LoginService) {
     this.name = this._loginSrv.getName()
   }
 
@@ -45,8 +45,5 @@ export class ProfileConfigComponent implements OnInit {
     }
   }
 
-  changeTheme(){
-    this._themeSrv.nextTheme();
-  }
 
 }
