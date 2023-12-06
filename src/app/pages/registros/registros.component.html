@@ -6,7 +6,7 @@
 
       <!-- Position Column -->
       <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
           Usuario
         </th>
         <td mat-cell *matCellDef="let element"><div class="name-decorator">
@@ -16,7 +16,7 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="acao">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by acao">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by action">
           Ação
         </th>
         <td mat-cell *matCellDef="let element">
@@ -25,7 +25,7 @@
       </ng-container>
 
       <ng-container matColumnDef="quando">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quando">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by time_ago">
           Quando
         </th>
         <td mat-cell *matCellDef="let element">
@@ -34,7 +34,7 @@
       </ng-container>
 
       <tr class="header-tabela" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr (click)="viewAction(row)" class="row-tabela"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr (click)="viewAction(row)"[ngClass]="{'row-tabela': row.deleted == false, 'row-tabela-deleted': row.deleted != true, 'hideDeleted': showDeleted == false && row.deleted == false}"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
 
@@ -43,6 +43,8 @@
         showFirstLastButtons
         aria-label="Seleciona pagina do historico">
       </mat-paginator>
+      <mat-checkbox class="checkbox" (change)="toggleShowDeleted()" #checkbox value="" color="primary">Mostrar Deletados</mat-checkbox>
+
     </div>
   </div>
 </div>

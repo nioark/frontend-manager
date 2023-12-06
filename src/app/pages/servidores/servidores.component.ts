@@ -30,8 +30,8 @@ export class ServidoresComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   @ViewChild("tablee")
   @ViewChildren("checkbox") checkbox!: QueryList<MatCheckbox>;
-  table!: MatTable<any>;
   showDeleted: boolean = false;
+  table!: MatTable<any>;
 
   servidores$?: Observable<Servidor[] | undefined>
   permission_level: number = -1;

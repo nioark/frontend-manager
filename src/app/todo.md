@@ -25,7 +25,7 @@
 
 -No registro adicionar botão para abrir o viewServer Atual ✅ //Bem util pro usuario
 
--Esconde o próprio usuario na aba de usuários ⏱️
+-Esconde o próprio usuario na aba de usuários ✅
 
 
 

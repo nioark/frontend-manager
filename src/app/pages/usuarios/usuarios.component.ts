@@ -36,20 +36,25 @@ export class UsuariosComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   ngAfterViewInit() {
+    const userLogged = this._loginSrv.retrieveData()
+
     this.cargos$ = this._cargosSrv.fetch();
     this.cargos$?.subscribe((dataCargos: Cargo[] | undefined) => {
       this.usuarios$ = this._usuariosSrv.fetch();
 
+      const userLogged = this._loginSrv.retrieveData()
       // Solver for the usuario cargo_id to the Cargo object
       // cargo name --> usuario.cargo.name
       this.usuarios$?.subscribe((dataUsuarios: any[] | undefined) => {
+        dataUsuarios = dataUsuarios?.filter((usuario: any) => usuario.id != userLogged?.id)
+
         dataUsuarios?.forEach((usuario: any, index) => {
           let cargo_id : number;
           if (usuario.cargo_id === undefined)
             cargo_id = usuario.cargo.id
           else
             cargo_id = usuario.cargo_id
-          console.log("Came user: ", usuario, "Came cargo_id: ", cargo_id)
+
           const cargo: Cargo = dataCargos?.find(cargo => cargo.id === cargo_id) as Cargo
           const usuarioNew: Usuario = {
             name: usuario.name,
@@ -58,7 +63,8 @@ export class UsuariosComponent implements AfterViewInit {
             email: usuario.email,
           }
 
-          dataUsuarios[index] = usuarioNew
+          if (dataUsuarios)
+            dataUsuarios[index] = usuarioNew
         })
 
         const datasource = dataUsuarios as Usuario[];

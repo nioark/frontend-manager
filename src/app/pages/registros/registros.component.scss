@@ -37,3 +37,20 @@
   background-color: rgb(130, 112, 247);
   width: max-content;
 }
+
+.row-tabela-deleted {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background-size: 8px 8px;
+  background-image: repeating-linear-gradient(45deg, #f13636bb 0, #f13636bb 0.8px, #e5e5f7 0, #e5e5f7 50%);
+}
+
+
+.hideDeleted {
+  display: none;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}

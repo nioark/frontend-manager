@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -9,6 +9,9 @@ import { HistoricosService } from './services/historicos.service';
 import { Historico } from 'src/app/models/historicos';
 import { Observable } from 'rxjs';
 import { ViewRegistroComponent } from './view-historico/view-registro.component';
+import { ServidoresService } from '../servidores/services/servidores.service';
+import { Servidor } from 'src/app/models/servidor';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-registro-servidor-view',
@@ -21,51 +24,66 @@ export class RegistrosComponent implements AfterViewInit {
 
   historico$?: Observable<Historico[] | undefined>
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private _historicosSrv: HistoricosService, public dialog: MatDialog) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer, private _serverSrv: ServidoresService, private _historicosSrv: HistoricosService, public dialog: MatDialog) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
+  @ViewChildren("checkbox") checkbox!: QueryList<MatCheckbox>;
+  showDeleted: boolean = false;
+
   ngAfterViewInit() {
-    this.historico$ = this._historicosSrv.fetch();
+    this._serverSrv.fetch().subscribe((servers: Servidor[]) => {
+      console.log("Data server: ", servers)
 
-    this.historico$.subscribe((dataHistorico: Historico[] | undefined) => {
-      console.log("Data historico: ", dataHistorico)
-      const datasource = dataHistorico as Historico[];
-      this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
+      this.historico$ = this._historicosSrv.fetch();
 
-      dataHistorico?.forEach(element => {
-        const historico = element as Historico;
-        const timestamp = historico.created_at;
+      this.historico$.subscribe((dataHistorico: any[] | undefined) => {
+        console.log("Data historico: ", dataHistorico)
+        const datasource = dataHistorico as any[];
+        this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
 
-        const date = new Date(timestamp);
-        console.log(timestamp, date)
-        const now = new Date();
-        const timeAgo = now.getTime() - date.getTime(); //milliseconds
+        dataHistorico?.forEach(element => {
+          const historico = element as Historico;
+          const timestamp = historico.created_at;
 
-        const seconds = Math.floor(timeAgo / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
+          const date = new Date(timestamp);
+          console.log(timestamp, date)
+          const now = new Date();
+          const timeAgo = now.getTime() - date.getTime(); //milliseconds
 
-        let timeAgoString = "";
-        if (days > 0) {
-          timeAgoString = `${days} dia${days > 1 ? 's' : ''} atrás`;
-        } else if (hours > 0) {
-          timeAgoString = `${hours} hora${hours > 1 ? 's' : ''} atrás`;
-        } else if (minutes > 0) {
-          timeAgoString = `${minutes} minuto${minutes > 1 ? 's' : ''} atrás`;
-        } else {
-          timeAgoString = `${seconds} segundo${seconds > 1 ? 's' : ''} atrás`;
-        }
+          const seconds = Math.floor(timeAgo / 1000);
+          const minutes = Math.floor(seconds / 60);
+          const hours = Math.floor(minutes / 60);
+          const days = Math.floor(hours / 24);
 
+          let timeAgoString = "";
+          if (days > 0) {
+            timeAgoString = `${days} dia${days > 1 ? 's' : ''} atrás`;
+          } else if (hours > 0) {
+            timeAgoString = `${hours} hora${hours > 1 ? 's' : ''} atrás`;
+          } else if (minutes > 0) {
+            timeAgoString = `${minutes} minuto${minutes > 1 ? 's' : ''} atrás`;
+          } else {
+            timeAgoString = `${seconds} segundo${seconds > 1 ? 's' : ''} atrás`;
+          }
 
+          element.time_ago = timeAgoString
 
-        element.time_ago = timeAgoString
+          element.deleted = false
+
+          const server = servers.find((server) => server.id === historico.server_id);
+          if (server && server.deleted_at == null) {
+            element.deleted = true;
+          }
+
       });
 
 
     });
+    })
+
+
 
     if (this.sort) {
       this.dataSource.sort = this.sort;
@@ -111,5 +129,9 @@ export class RegistrosComponent implements AfterViewInit {
     });
 
     console.log("View cliente");
+  }
+
+  toggleShowDeleted(){
+    this.showDeleted = this.checkbox.first.checked;
   }
 }
