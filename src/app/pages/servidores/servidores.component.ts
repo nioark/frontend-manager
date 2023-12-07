@@ -19,6 +19,7 @@ import { UserService } from '../login/services/user.service';
 import { CargosService } from '../usuarios/services/cargos.service';
 import { Cargo } from 'src/app/models/cargos';
 import { Router } from '@angular/router';
+import { Searcher } from 'fast-fuzzy';
 
 @Component({
   selector: 'app-servidores',
@@ -30,17 +31,53 @@ export class ServidoresComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   @ViewChild("tablee")
   @ViewChildren("checkbox") checkbox!: QueryList<MatCheckbox>;
+  @ViewChildren("filtro") filtro!: QueryList<ElementRef>;
   showDeleted: boolean = false;
   table!: MatTable<any>;
 
   servidores$?: Observable<Servidor[] | undefined>
   permission_level: number = -1;
   fetchedData : Servidor[] | undefined;
+  fetchedDataFiltred : any[] | undefined;
+
 
   constructor(private _liveAnnouncer: LiveAnnouncer,  private _router: Router, private _cargosSrv: CargosService, private _loginSrv: LoginService,  private _servidoresSrv:ServidoresService,public dialog: MatDialog,  private changeDetectorRefs: ChangeDetectorRef) {}
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
+
+  filtroChange(filtro : string){
+    setTimeout(() => {
+      const filtro = this.filtro.first.nativeElement.value
+      console.log(filtro, filtro == "")
+      if (filtro == ""){
+        if (this.showDeleted)
+          this.dataSource.data = this.fetchedData as any[]
+        else
+          this.dataSource.data = this.fetchedDataFiltred as any[]
+        return
+      }
+
+      let searcher;
+
+      if (this.showDeleted){
+        searcher = new Searcher(
+          this.fetchedData as any[],
+          {keySelector: (obj) => obj.nome},
+        );
+      } else {
+        searcher = new Searcher(
+          this.fetchedDataFiltred as any[],
+          {keySelector: (obj) => obj.nome},
+        );
+      }
+
+      const result = searcher.search(filtro, {returnMatchData: true});
+      this.dataSource.data = result.map((data) => data.item);
+      console.log("Fuzzy: ",filtro, result)
+    }, 100);
+
+  }
 
 
   ngAfterViewInit() {
@@ -65,6 +102,7 @@ export class ServidoresComponent implements AfterViewInit {
 
       if (!this.showDeleted) {
         servers = servers?.filter((server) => !server.deleted_at);
+        this.fetchedDataFiltred = servers;
       }
 
       this.dataSource.data = servers

@@ -15,12 +15,12 @@
           </th>
           <td mat-cell *matCellDef="let element">
             <div class="td-container">
-              <ng-container *ngIf="permission_level > element.cargo.permission_level">
+              <ng-container *ngIf="permission_level >= element.cargo.permission_level">
                 <mat-icon (click)="deleteUsuario(element.id)" onclick="event.stopPropagation();" class="delete-icon">delete</mat-icon>
                 <mat-icon (click)="editUsuario(element)" onclick="event.stopPropagation();" class="td-view-icon">edit_note</mat-icon>
                 {{element.id}}
               </ng-container>
-              <ng-container *ngIf="permission_level <= element.cargo.permission_level">
+              <ng-container *ngIf="permission_level < element.cargo.permission_level">
                 <mat-icon class="td-view-icon"></mat-icon>
                 <mat-icon class="delete-icon"></mat-icon>
 

@@ -27,5 +27,12 @@
 
 -Esconde o próprio usuario na aba de usuários ✅
 
+-Arrumar sistemas de cargos ✅
+  -Admin é um usuário default escondido
+  -Gerentes podem criar, editar e deletar gerentes
 
+-Adicionar barra de pesquisa servidores filtrando pelo nome
+-Adicionar barra de pesquisa registros filtrando pela ação
+-Esconder token, onde só aparece uma vez quando for resetado
 
+-Possivel bug: dois usuarios com o mesmo email

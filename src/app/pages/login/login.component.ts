@@ -14,8 +14,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-
-
     this._themeSrv.setThemeIndex(0)
 
     if (this._loginSrv.isAuthenticated()){

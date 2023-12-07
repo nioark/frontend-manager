@@ -129,6 +129,7 @@
     </div>
 
     <div class="paginacao" >
+      <input (keydown)="filtroChange(this.filtro.value)" class="filtrar" type="text" name="" #filtro>
       <mat-paginator [pageSizeOptions]="[10, 20]"
         showFirstLastButtons
         aria-label="Seleciona pagina dos clientes">

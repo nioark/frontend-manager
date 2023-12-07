@@ -43,7 +43,6 @@ import { CommentEditComponent } from './pages/servidores/components/commentEdit/
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

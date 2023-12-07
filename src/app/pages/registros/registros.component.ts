@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -14,7 +14,7 @@ import { Servidor } from 'src/app/models/servidor';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { UsuariosService } from '../usuarios/services/usuarios.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Searcher } from 'fast-fuzzy';
 @Component({
   selector: 'app-registro-servidor-view',
   templateUrl: './registros.component.html',
@@ -32,14 +32,52 @@ export class RegistrosComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   @ViewChildren("checkbox") checkbox!: QueryList<MatCheckbox>;
+  @ViewChildren("filtro") filtro!: QueryList<ElementRef>;
+
   showDeleted: boolean = false;
 
   private servers : Servidor[] | undefined;
   private fetchedData : Historico[] | undefined;
+  private fetchedDataFiltred : any[] | undefined;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  filtroChange(data : string){
+    setTimeout(() => {
+      const filtro = this.filtro.first.nativeElement.value
+
+      if (filtro == ""){
+        if (this.showDeleted)
+          this.dataSource.data = this.fetchedData as any[]
+        else
+          this.dataSource.data = this.fetchedDataFiltred as any[]
+        return
+      }
+
+      let searcher;
+
+      if (this.showDeleted){
+        searcher = new Searcher(
+          this.fetchedData as any[],
+          {keySelector: (obj) => obj.action},
+        );
+      } else {
+        searcher = new Searcher(
+          this.fetchedDataFiltred as any[],
+          {keySelector: (obj) => obj.action},
+        );
+      }
+
+      const result = searcher.search(filtro, {returnMatchData: true});
+      this.dataSource.data = result.map((data) => data.item);
+      console.log("Fuzzy: ",filtro, result)
+    }, 100);
+
+
+
   }
 
   ngAfterViewInit() {
@@ -111,6 +149,8 @@ export class RegistrosComponent implements AfterViewInit {
             const server = dataServers.find((server) => server.id == history.server_id)
             return !(server?.deleted_at != null)
           })
+
+          this.fetchedDataFiltred = this.dataSource.data;
         }
         this.fetchedData = historicos;
         this.servers = dataServers;
