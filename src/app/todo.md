@@ -7,6 +7,7 @@
   --Mesma coisa pro viewCliente ✅
 
 -Melhorar as ações registradas pelo backend em geral ✅ 
+  -Refazer o modelo dos registros ✅ 
 
 -Reorganizar a estrutura de cargos convidado, gerente & admin ✅
   -Convidado só visualiza ✅
@@ -31,8 +32,14 @@
   -Admin é um usuário default escondido
   -Gerentes podem criar, editar e deletar gerentes
 
--Adicionar barra de pesquisa servidores filtrando pelo nome
--Adicionar barra de pesquisa registros filtrando pela ação
--Esconder token, onde só aparece uma vez quando for resetado
+-Adicionar barra de pesquisa servidores filtrando pelo nome ✅
+-Adicionar barra de pesquisa registros filtrando pela ação ✅
+-Esconder token, onde só aparece uma vez quando for resetado ✅
+  -Mostrar quando for criar também ✅
 
--Possivel bug: dois usuarios com o mesmo email
+-Possivel bug: dois usuarios com o mesmo email ✅ Resolvido -- Não testado
+
+-Aparecer historico de edição de usuario ✅
+  -Refazer a estrutura para suportar tipos de registros diferntes ✅
+  -Implementar a diferencia no front end tambem  ✅
+

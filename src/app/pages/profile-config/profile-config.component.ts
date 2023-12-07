@@ -53,7 +53,6 @@ export class ProfileConfigComponent implements OnInit {
 
   resetPassword() {
     if (this.password.first.nativeElement.value == this.confirmPassword.first.nativeElement.value) {
-      console.log("Reset password")
       this._loginSrv.changePassword(this.password.first.nativeElement.value).subscribe((data) => {
         console.log(data)
       })

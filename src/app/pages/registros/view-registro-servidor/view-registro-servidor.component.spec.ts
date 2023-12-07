@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ViewRegistroComponent } from './view-registro.component';
+import { ViewRegistroServidorComponent } from './view-registro-servidor.component';
 
-describe('ViewRegistroComponent', () => {
-  let component: ViewRegistroComponent;
-  let fixture: ComponentFixture<ViewRegistroComponent>;
+describe('ViewRegistroServidorComponent', () => {
+  let component: ViewRegistroServidorComponent;
+  let fixture: ComponentFixture<ViewRegistroServidorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewRegistroComponent ]
+      declarations: [ ViewRegistroServidorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewRegistroComponent);
+    fixture = TestBed.createComponent(ViewRegistroServidorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

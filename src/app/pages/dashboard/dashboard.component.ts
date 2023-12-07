@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
     this.servidores$ = this._servidoresSrv.fetch();
 
     this.servidores$?.subscribe((data: Servidor[] | undefined) => {
-      console.log("Data from server: ", data)
       data = data?.filter((item: Servidor) => item.deleted_at == null);
       this.serverCount = data?.length as number;
 
@@ -102,12 +101,10 @@ export class DashboardComponent implements OnInit {
 
     let clientsEachMonth : number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-    console.log("CientesEachMonth: ", this.clientesData)
     for (let i = 0; i < 12; i++) {
       this.clientesData.forEach((element: any) => {
         const date = new Date(element.created_at);
         const nowYear = new Date().getFullYear();
-        console.log(date.getMonth(), i, date.getFullYear(), nowYear)
         if (date.getMonth() == i && date.getFullYear() == nowYear) {
           clientsEachMonth[i] = clientsEachMonth[i] + 1
         }

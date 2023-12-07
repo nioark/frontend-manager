@@ -8,6 +8,8 @@ import { DataResult } from 'src/app/models/data-result.model';
 import { throwError } from 'rxjs';
 import { ListenData } from 'src/app/models/listen-data.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NewTokenComponent } from '../components/new-token/new-token.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Injectable({
@@ -17,7 +19,7 @@ export class ServidoresService {
   list: ListenData<Servidor>|undefined
 
   url:string
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, public dialog: MatDialog,  private _snackBar: MatSnackBar) {
     this.url=environment.backend
   }
 
@@ -59,6 +61,13 @@ export class ServidoresService {
     return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
+        if (data.data?.serial){
+          const dialogRef = this.dialog.open(NewTokenComponent, {
+            width: '360px',
+            height: '260px',
+            data: data.data,
+          });
+        }
 
         if(data.error!=undefined) return
         this.list?.add(data.data as Servidor) //data.data para servidor
@@ -86,6 +95,14 @@ export class ServidoresService {
     return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
+        console.log("Data from edit server: ", data)
+        if (data.data?.serial){
+          const dialogRef = this.dialog.open(NewTokenComponent, {
+            width: '360px',
+            height: '260px',
+            data: data.data,
+          });
+        }
 
         if(data.error!=undefined) return
 

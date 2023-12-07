@@ -8,13 +8,14 @@ import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 import { HistoricosService } from './services/historicos.service';
 import { Historico } from 'src/app/models/historicos';
 import { Observable, forkJoin, zip } from 'rxjs';
-import { ViewRegistroComponent } from './view-historico/view-registro.component';
 import { ServidoresService } from '../servidores/services/servidores.service';
 import { Servidor } from 'src/app/models/servidor';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { UsuariosService } from '../usuarios/services/usuarios.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Searcher } from 'fast-fuzzy';
+import { ViewRegistroUsuarioComponent } from './view-registro-usuario/view-registro-usuario.component';
+import { ViewRegistroServidorComponent } from './view-registro-servidor/view-registro-servidor.component';
 @Component({
   selector: 'app-registro-servidor-view',
   templateUrl: './registros.component.html',
@@ -73,7 +74,6 @@ export class RegistrosComponent implements AfterViewInit {
 
       const result = searcher.search(filtro, {returnMatchData: true});
       this.dataSource.data = result.map((data) => data.item);
-      console.log("Fuzzy: ",filtro, result)
     }, 100);
 
 
@@ -98,7 +98,6 @@ export class RegistrosComponent implements AfterViewInit {
         //Organiza por id e poem deletados embaixo
         let historicos = dataHistoricos?.sort((a, b) => b.id - a.id) as any[];
 
-        console.log(serverId)
         if (serverId != null)
           historicos = historicos.filter((history) => history.server_id == serverId)
 
@@ -130,24 +129,56 @@ export class RegistrosComponent implements AfterViewInit {
           element.time_ago = timeAgoString
           element.time_ago_ms = timeAgo
 
-          element.deleted = false
+          element.deleted = true
 
-          const server = dataServers.find((server) => server.id === historico.server_id);
-          if (server && server.deleted_at == null) {
-            element.deleted = true;
+          const type_id = element.type_id
+
+          if (type_id == 0){ // Tipo De Registro de servidor
+            const server = dataServers.find((server) => server.id === historico.object_id);
+            if (server && server.deleted_at == null) {
+              element.deleted = false;
+            }
+
+            //Pega o nome do usuario que fez o registro
+            let user = dataUsuarios.find((user) => user.id === historico.usuario_id)
+            element.name = user?.name
+            if (element.name == null)
+              element.name = 'deletado'
+
+          }
+          else if (type_id == 1){
+            let user_object = dataUsuarios.find((user) => user.id === historico.object_id);
+            if (user_object) {
+              element.deleted = false;
+            }
+
+            let user = dataUsuarios.find((user) => user.id === historico.usuario_id)
+
+            element.name = user?.name
+            if (element.name == null)
+              element.name = 'deletado'
           }
 
-          const user = dataUsuarios.find((user) => user.id === historico.usuario_id)
 
-          element.name = user?.name
-          if (element.name == null)
-            element.name = 'deletado'
         });
 
+        //Filtro de deletados
         if (this.showDeleted == false){
           this.dataSource.data = historicos.filter((history) => {
-            const server = dataServers.find((server) => server.id == history.server_id)
-            return !(server?.deleted_at != null)
+            if (history.type_id == 0){
+              const server = dataServers.find((server) => server.id == history.object_id)
+              console.log(server)
+              if (server && server.deleted_at == null)
+                return true
+              return false
+            }
+            else if (history.type_id == 1){
+              const user = dataUsuarios.find((user) => user.id == history.object_id)
+              if (user)
+                return true
+              return false
+            }
+            return false
           })
 
           this.fetchedDataFiltred = this.dataSource.data;
@@ -189,16 +220,20 @@ export class RegistrosComponent implements AfterViewInit {
     const formatedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${minutes}`;
     data.timestamp = formatedDate;
 
-    const dialogRef = this.dialog.open(ViewRegistroComponent, {
-      width: '500px',
-      maxHeight: '620px',
-      data: data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The view dialog was closed');
-      // this.animal = result;
-    });
+    if (data.type_id == 0){
+      const dialogRef = this.dialog.open(ViewRegistroServidorComponent, {
+        width: '500px',
+        maxHeight: '620px',
+        data: data
+      });
+    }
+    else if (data.type_id == 1){
+      const dialogRef = this.dialog.open(ViewRegistroUsuarioComponent, {
+        width: '500px',
+        maxHeight: '620px',
+        data: data
+      });
+    }
 
     console.log("View cliente");
   }
@@ -208,10 +243,7 @@ export class RegistrosComponent implements AfterViewInit {
     console.log()
 
     if (this.showDeleted == false && this.fetchedData){
-      this.dataSource.data = this.fetchedData.filter((history) => {
-        const server = this.servers?.find((server) => server.id == history.server_id)
-        return !(server?.deleted_at != null)
-      })
+      this.dataSource.data = this.fetchedDataFiltred as Historico[]
     }
     else if(this.fetchedData){
       this.dataSource.data = this.fetchedData

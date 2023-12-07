@@ -40,7 +40,6 @@ export class EditServidorComponent{
         flag = false
       if (this.nome.first.nativeElement.value == '')
         flag = false
-      console.log("textArea: ", this.comentario.first.nativeElement.value)
       if (flag && this.comentario.first.nativeElement.value != ''){
         this.canSubmit$ = true;
       }

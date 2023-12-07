@@ -74,7 +74,8 @@
 }
 
 .add-icon{
-  padding: 5px;
+  z-index: 1000;
+  padding: 7px;
   border-radius: 20px;
   margin-right: 10px;
   margin-top: 10px;
@@ -85,7 +86,6 @@
 }
 
 .add-icon:hover {
-  padding: 5px;
   cursor: pointer;
   color: color-mix(in srgb, $accent-color,#000 25%);
 }

@@ -7,11 +7,11 @@ import { ServidoresService } from '../../servidores/services/servidores.service'
 import { EditServidorComponent } from '../../servidores/components/editServidor/editServidor.component';
 
 @Component({
-  selector: 'app-view-registro-servidor',
-  templateUrl: './view-registro.component.html',
-  styleUrls: ['./view-registro.component.scss']
+  selector: 'app-view-registro-usuario-servidor',
+  templateUrl: './view-registro-servidor.component.html',
+  styleUrls: ['./view-registro-servidor.component.scss']
 })
-export class ViewRegistroComponent {
+export class ViewRegistroServidorComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private _serverSrv : ServidoresService, private dialog: MatDialog, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
 
@@ -23,7 +23,7 @@ export class ViewRegistroComponent {
   }
 
   viewServer(){
-    const server = this._serverSrv.get(this.data.server_id).subscribe((data) => {
+    const server = this._serverSrv.get(this.data.object_id).subscribe((data) => {
       const dialogRef = this.dialog.open(ViewServidorComponent, {
         width: '500px',
         maxHeight: '620px',
@@ -31,17 +31,11 @@ export class ViewRegistroComponent {
       });
     });
 
-
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The view dialog was closed');
-    // });
-
     console.log("View servidor");
   }
 
   editServer(){
-    const server = this._serverSrv.get(this.data.server_id).subscribe((data) => {
+    const server = this._serverSrv.get(this.data.object_id).subscribe((data) => {
       const dialogRef = this.dialog.open(EditServidorComponent, {
         width: '500px',
         maxHeight: '620px',

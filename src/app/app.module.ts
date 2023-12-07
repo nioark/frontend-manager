@@ -1,4 +1,3 @@
-import { ViewRegistroComponent } from './pages/registros/view-historico/view-registro.component';
 import { UsuarioAction } from 'src/app/models/usuario';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +41,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import { CommentEditComponent } from './pages/servidores/components/commentEdit/commentEdit.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
+import { NewTokenComponent } from './pages/servidores/components/new-token/new-token.component';
+import { ViewRegistroUsuarioComponent } from './pages/registros/view-registro-usuario/view-registro-usuario.component';
+import { ViewRegistroServidorComponent } from './pages/registros/view-registro-servidor/view-registro-servidor.component';
 
 @NgModule({
   declarations: [
@@ -62,10 +64,12 @@ import { ProfileConfigComponent } from './pages/profile-config/profile-config.co
     EditUsuarioComponent,
     AddUsuarioComponent,
     DeleteUsuarioComponent,
-    ViewRegistroComponent,
+    ViewRegistroServidorComponent,
+    ViewRegistroUsuarioComponent,
     DeleteServidorComponent,
     ProfileConfigComponent,
     CountUpDirective,
+    NewTokenComponent,
   ],
   imports: [
     BrowserModule,

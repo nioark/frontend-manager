@@ -35,7 +35,7 @@
         </ng-container>
 
         <tr class="header-tabela" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr (click)="viewAction(row)"[ngClass]="{'row-tabela': row.deleted != false, 'row-tabela-deleted': row.deleted != true}"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr (click)="viewAction(row)"[ngClass]="{'row-tabela': row.deleted == false, 'row-tabela-deleted': row.deleted == true}"  mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       </table>
     </div>

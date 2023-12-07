@@ -36,7 +36,7 @@ export class LoginFormComponent implements OnInit {
       this._loginSrv.authenticate(email, password).pipe(
         map((data: any) => {
 
-          console.log("Storage: ",this._loginSrv.retrieveData())
+
           if (data){
             this._router.navigate(['dashboard'])
           }

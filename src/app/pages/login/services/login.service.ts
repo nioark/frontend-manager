@@ -97,9 +97,6 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean{
-    console.log("Value Bool: ", this.retrieveData() != null)
-
-    console.log("Value: ", this.retrieveData())
     if (this.retrieveData().access_token != null){
       return true
     }
@@ -107,7 +104,6 @@ export class LoginService {
   }
 
   getName(): string{
-    console.log("Storage: ",this.retrieveData())
     return this.retrieveData().name
   }
 
