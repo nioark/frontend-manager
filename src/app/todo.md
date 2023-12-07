@@ -43,3 +43,5 @@
   -Refazer a estrutura para suportar tipos de registros diferntes ✅
   -Implementar a diferencia no front end tambem  ✅
 
+-Arrumar desalinhamento dos icones da direita nas tabelas
+
