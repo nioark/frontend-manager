@@ -42,5 +42,6 @@ export class ViewServidorComponent{
 
   viewHistorico() {
     this._router.navigate(['registro/', this.data.id]);
+    this.closeDialog();
   }
 }
