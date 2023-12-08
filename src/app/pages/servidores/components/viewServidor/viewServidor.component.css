@@ -120,3 +120,8 @@
 .data-container {
   margin-top: 10px;
 }
+
+.btn-form {
+  width: 90px;
+  margin-left: 10px;
+}

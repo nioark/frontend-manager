@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Servidor } from 'src/app/models/servidor';
+import { EditServidorComponent } from '../editServidor/editServidor.component';
+import { DeleteServidorComponent } from '../deleteServidor/deleteServidor.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-servidor',
@@ -12,7 +15,7 @@ export class ViewServidorComponent{
   created_at: String | undefined;
   deleted_at: String | undefined;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Servidor, private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Servidor, private _router: Router,  private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
 
   ngOnInit() {
     console.log(this.data)
@@ -37,4 +40,7 @@ export class ViewServidorComponent{
     this._dialogRef.close();
   }
 
+  viewHistorico() {
+    this._router.navigate(['registro/', this.data.id]);
+  }
 }

@@ -44,6 +44,7 @@ import { ProfileConfigComponent } from './pages/profile-config/profile-config.co
 import { NewTokenComponent } from './pages/servidores/components/new-token/new-token.component';
 import { ViewRegistroUsuarioComponent } from './pages/registros/view-registro-usuario/view-registro-usuario.component';
 import { ViewRegistroServidorComponent } from './pages/registros/view-registro-servidor/view-registro-servidor.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ViewRegistroServidorComponent } from './pages/registros/view-registro-s
     InterceptorModule,
     MatMenuModule,
     MatTabsModule,
+    MatToolbarModule
 
   ],
   providers: [],

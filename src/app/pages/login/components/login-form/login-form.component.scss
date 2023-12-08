@@ -37,6 +37,18 @@
   align-items: center;
 }
 
+
+@media only screen and (max-width: 600px) {
+  .left-container {
+    display: none;
+  }
+  .right-container{
+    width: 100% !important;
+    margin: 10px;
+  }
+}
+
+
 .right-container{
   width: 55%;
   height: 100%;

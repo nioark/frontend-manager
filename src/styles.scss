@@ -20,12 +20,31 @@
 
 }
 
+.cdk-overlay-pane {
+  max-width: 100vw !important;
+}
+
+.mat-menu-panel {
+  background-color: $secondary-color;
+}
+
+.mat-menu-item .mat-icon-no-color{
+  color: $text-color;
+}
+.mat-menu-item .mat-icon  {
+  margin-right: 10px !important;
+}
+
 .mat-sort-header-content{
   color: $text-color
 }
 
 .mat-paginator {
   background-color: $background-color;
+}
+
+.mat-paginator-container {
+  justify-content: center !important;
 }
 
 // .mat-form-field-label {
@@ -50,5 +69,5 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: hidden; }
 

@@ -28,6 +28,17 @@
   width: 100%;
 }
 
+@media only screen and (max-width: 880px) {
+  .page {
+    margin-left: 0px;
+    height: calc(100% - 65px);
+  }
+
+  :host {
+    flex-direction: column;
+  }
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -100,3 +111,8 @@
   margin-bottom: 18px;
 }
 
+@media only screen and (max-width: 1280px) {
+  .wide-data {
+    display: none
+  }
+}

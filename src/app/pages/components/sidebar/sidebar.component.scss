@@ -201,6 +201,14 @@ hr {
 
 }
 
+.logout-tool-bar-icon{
+  height: 25px;
+}
+
+.bay-toolbar {
+  align-items: center;
+}
+
 .footer-section:hover{
     cursor: pointer;
     background-color: $primary-color;
@@ -215,3 +223,34 @@ hr {
     color: rgb(252, 6, 6);
 }
 
+.menu-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toolbar {
+  display: none;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: $secondary-color;
+  color: $text-color
+}
+
+.toolbar-subtitle {
+  margin-left: 20px;
+}
+
+.toolbar-menu{
+  background-color: $secondary-color;
+}
+
+@media only screen and (max-width: 880px) {
+  .sidebar{
+    display: none
+  }
+
+  .toolbar{
+    display: flex;
+  }
+}

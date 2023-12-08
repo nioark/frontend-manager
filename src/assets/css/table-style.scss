@@ -57,6 +57,13 @@
   background-color: $background-color;
 }
 
+@media only screen and (max-width: 1100px) {
+  .paginacao {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
 .add-btn {
   width: 60%;
 }
@@ -131,7 +138,6 @@
   right: 0;
   color: rgb(248, 57, 57);
   transform: scale(1.2);
-  transform: translateX(93px);
 
   padding: 5px;
   border-radius: 15px;
@@ -145,10 +151,9 @@
 }
 
 .td-history-icon {
-
   color: $text-color;
   transform: scale(1.2);
-  transform: translateX(93px);
+  transform: translateX(75px);
   padding: 5px;
   border-radius: 15px;
   transition: all 0.2s ease-in-out;

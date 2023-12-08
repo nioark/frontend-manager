@@ -24,7 +24,6 @@ import { ViewRegistroServidorComponent } from './view-registro-servidor/view-reg
 export class RegistrosComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'action', 'time_ago_ms'];
   dataSource = new MatTableDataSource();
-
   historico$?: Observable<Historico[] | undefined>
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private route: ActivatedRoute, private _usuariosSrv : UsuariosService, private _serverSrv: ServidoresService, private _historicosSrv: HistoricosService, public dialog: MatDialog) {}
@@ -99,7 +98,7 @@ export class RegistrosComponent implements AfterViewInit {
         let historicos = dataHistoricos?.sort((a, b) => b.id - a.id) as any[];
 
         if (serverId != null)
-          historicos = historicos.filter((history) => history.server_id == serverId)
+          historicos = historicos.filter((history) => history.object_id == serverId)
 
         historicos?.forEach(element  => {
           const historico = element as Historico;
