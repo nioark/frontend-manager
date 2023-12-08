@@ -42,7 +42,7 @@ export class ThemeService {
     // },
   ];
 
-  themeIndex : number = 0;
+  themeIndex : number = 1;
 
 
   constructor() {

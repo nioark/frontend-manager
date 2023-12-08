@@ -55,9 +55,19 @@
       </div>
     </div>
     <div class="size-2">
-      <div class="chart-container">
-        <canvas class="chart-canvas"  id="MyChart" >{{ chart }}</canvas>
+      <div id="chart">
+        <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [title]="chartOptions.title"
+      ></apx-chart>
       </div>
+
+
+      <!-- <div class="chart-container">
+        <canvas class="chart-canvas"  id="MyChart" >{{ chart }}</canvas>
+      </div> -->
     </div>
 
 

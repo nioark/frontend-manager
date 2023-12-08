@@ -77,10 +77,15 @@
   }
 
   .size-2 {
-    height: 200px;
+    // height: 200px;
     width: calc(100% - 5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
+
+
 
 // .grid-container {
 //   display: grid;
@@ -153,4 +158,10 @@
 
 .chart-canvas {
   width: 100%;
+}
+
+#chart {
+  width: 100%;
+  height: 100%;
+
 }

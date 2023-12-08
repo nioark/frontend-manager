@@ -141,8 +141,12 @@ export class RegistrosComponent implements AfterViewInit {
             //Pega o nome do usuario que fez o registro
             let user = dataUsuarios.find((user) => user.id === historico.usuario_id)
             element.name = user?.name
-            if (element.name == null)
-              element.name = 'deletado'
+            if (element.name == null){
+              if (element.usuario_id == 1)
+                element.name = 'admin'
+              else
+                element.name = 'deletado'
+            }
 
           }
           else if (type_id == 1){
@@ -155,7 +159,10 @@ export class RegistrosComponent implements AfterViewInit {
 
             element.name = user?.name
             if (element.name == null)
-              element.name = 'deletado'
+              if (element.usuario_id == 1)
+              element.name = 'admin'
+              else
+                element.name = 'deletado'
           }
 
 

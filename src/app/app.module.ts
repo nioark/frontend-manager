@@ -45,6 +45,7 @@ import { NewTokenComponent } from './pages/servidores/components/new-token/new-t
 import { ViewRegistroUsuarioComponent } from './pages/registros/view-registro-usuario/view-registro-usuario.component';
 import { ViewRegistroServidorComponent } from './pages/registros/view-registro-servidor/view-registro-servidor.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     NewTokenComponent,
   ],
   imports: [
+    NgApexchartsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

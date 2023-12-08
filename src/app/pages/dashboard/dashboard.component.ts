@@ -6,17 +6,33 @@ import { ServidoresService } from '../servidores/services/servidores.service';
 import { Servidor } from 'src/app/models/servidor';
 import { Observable } from 'rxjs';
 import { ClientesService } from '../clientes/services/clientes.service';
-
+import { NgApexchartsModule } from "ng-apexcharts";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexTitleSubtitle
+} from "ng-apexcharts";
 
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
+};
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
+
 export class DashboardComponent implements OnInit {
+  public chartOptions: Partial<ChartOptions> | any;;
   public chart: any;
   servidores$?: Observable<Servidor[] | undefined>
 
@@ -26,7 +42,11 @@ export class DashboardComponent implements OnInit {
   clienteCount: number = 0;
   clientesData: Cliente[] = [];
 
-  constructor(private _servidoresSrv: ServidoresService, private _clientesSrv: ClientesService) { }
+
+
+  constructor(private _servidoresSrv: ServidoresService, private _clientesSrv: ClientesService) {
+
+  }
 
   ngOnInit(): void {
     this.servidores$ = this._servidoresSrv.fetch();
@@ -47,49 +67,51 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  createChartv2(){
-    let root = am5.Root.new("chartdiv");
-
-
-    // Set themes
-    // https://www.amcharts.com/docs/v5/concepts/themes/
-    root.setThemes([
-      am5themes_Animated.new(root)
-    ]);
-
-    // Create chart
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/
-    let chart = root.container.children.push(
-      am5xy.XYChart.new(root, {
-        panX: true,
-        panY: true,
-        wheelX: "panX",
-        wheelY: "zoomX",
-        pinchZoomX: true,
-        paddingLeft: 0
-      })
-    );
-
-    // Add cursor
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-    let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-      behavior: "none"
-    }));
-    cursor.lineY.set("visible", false);
-
-    // Generate random data
-    let date = new Date();
-    date.setHours(0, 0, 0, 0);
-    let value = 100;
-    let previousValue = value;
-    let downColor = root.interfaceColors.get("negative");
-    let upColor = root.interfaceColors.get("positive");
-    let color;
-    let previousColor;
-    let previousDataObj;
-  }
-
   createChart(){
+    const labels = [];
+    const date = new Date();
+    for (let i = 0; i < 12; i++) {
+      date.setMonth(i);
+      const month = date.toLocaleString('pt-BR', { month: 'long' });
+      const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+      labels.push(capitalizedMonth);
+    }
+
+    let clientsEachMonth : number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+    for (let i = 0; i < 12; i++) {
+      this.clientesData.forEach((element: any) => {
+        const date = new Date(element.created_at);
+        const nowYear = new Date().getFullYear();
+        if (date.getMonth() == i && date.getFullYear() == nowYear) {
+          clientsEachMonth[i] = clientsEachMonth[i] + 1
+        }
+      });
+      //clientsEachMonth.push(Math.floor(Math.random() * 100))
+    }
+    console.log("Clientes por mes: ",clientsEachMonth)
+
+    this.chartOptions = {
+      series: [
+        {
+          name: "Clientes novos",
+          data: clientsEachMonth
+        }
+      ],
+      chart: {
+        height: 280,
+        type: "area",
+        width: "100%",
+      },
+      title: {
+        text: "Clientes novos por mês"
+      },
+      xaxis: {
+        categories: labels
+      }
+    };
+  }
+  createChartOld(){
     const labels = [];
     const date = new Date();
     for (let i = 0; i < 12; i++) {
