@@ -13,7 +13,7 @@ import { AddUsuarioComponent } from './components/add-usuario/add-usuario.compon
 import { EditUsuarioComponent } from './components/edit-usuario/edit-usuario.component';
 import { DeleteUsuarioComponent } from './components/delete-usuario/delete-usuario.component';
 import { UsuariosService } from './services/usuarios.service';
-import { Observable } from 'rxjs';
+import { Observable, zip } from 'rxjs';
 import { Cargo } from 'src/app/models/cargos';
 import { CargosService } from './services/cargos.service';
 import { LoginService } from '../login/services/login.service';
@@ -38,56 +38,60 @@ export class UsuariosComponent implements AfterViewInit {
   ngAfterViewInit() {
     const userLogged = this._loginSrv.retrieveData()
 
-    this.cargos$ = this._cargosSrv.fetch();
-    this.cargos$?.subscribe((dataCargos: Cargo[] | undefined) => {
-      this.usuarios$ = this._usuariosSrv.fetch();
+    const observable = zip([
+      this._cargosSrv.fetch(),
+      this._usuariosSrv.fetch()
+    ])
 
-      const userLogged = this._loginSrv.retrieveData()
-      // Solver for the usuario cargo_id to the Cargo object
-      // cargo name --> usuario.cargo.name
-      this.usuarios$?.subscribe((dataUsuarios: any[] | undefined) => {
-        dataUsuarios = dataUsuarios?.filter((usuario: any) => usuario.id != userLogged?.id)
-
-        dataUsuarios?.forEach((usuario: any, index) => {
-          let cargo_id : number;
-          if (usuario.cargo_id === undefined)
-            cargo_id = usuario.cargo.id
-          else
-            cargo_id = usuario.cargo_id
-
-          const cargo: Cargo = dataCargos?.find(cargo => cargo.id === cargo_id) as Cargo
-          const usuarioNew: Usuario = {
-            name: usuario.name,
-            id: usuario.id,
-            cargo: cargo,
-            email: usuario.email,
-          }
-
-          if (dataUsuarios)
-            dataUsuarios[index] = usuarioNew
-        })
-
-        const datasource = dataUsuarios as Usuario[];
-        this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
-      });
-    });
-
-    this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
-      const cargoId = this._loginSrv.retrieveData().cargo_id
-      const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
-
-      if (cargo.permission_level != undefined){
-        this.permission_level = cargo.permission_level
+    observable.subscribe({
+      next: ([dataCargos, dataUsuarios]) => {
+        this.processUsuarios(dataUsuarios, dataCargos)
+        this.processPermissionLevel(dataCargos)
       }
-    });
+    })
 
-    if (this.sort) {
+    if (this.sort && this.paginator) {
       this.dataSource.sort = this.sort;
-    }
-
-    if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
+  }
+  processPermissionLevel(dataCargos : Cargo[]){
+    const cargoId = this._loginSrv.retrieveData().cargo_id
+    const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
+
+    if (cargo.permission_level != undefined){
+      this.permission_level = cargo.permission_level
+    }
+  }
+  processUsuarios(dataUsuarios : Usuario[], dataCargos : Cargo[]){
+    const userLogged = this._loginSrv.retrieveData()
+
+    //Removes the user logged in
+    dataUsuarios = dataUsuarios?.filter((usuario: any) => usuario.id != userLogged?.id)
+
+    dataUsuarios?.forEach((usuario: any, index) => {
+      let cargo_id : number;
+      //Data type solver
+      if (usuario.cargo_id === undefined)
+        cargo_id = usuario.cargo.id
+      else
+        cargo_id = usuario.cargo_id
+
+      const cargo: Cargo = dataCargos?.find(cargo => cargo.id === cargo_id) as Cargo
+      const usuarioNew: Usuario = {
+        name: usuario.name,
+        id: usuario.id,
+        cargo: cargo,
+        email: usuario.email,
+      }
+
+      if (dataUsuarios)
+        dataUsuarios[index] = usuarioNew
+
+    })
+
+    const datasource = dataUsuarios as Usuario[];
+    this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
   }
 
   /** Announce the change in sort state for assistive technology. */
