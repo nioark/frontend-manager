@@ -1,29 +1,12 @@
 import { Cliente } from '../../models/cliente';
-import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js/auto';
-import Utils from "chart.js/auto"
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ServidoresService } from '../servidores/services/servidores.service';
 import { Servidor } from 'src/app/models/servidor';
 import { Observable } from 'rxjs';
 import { ClientesService } from '../clientes/services/clientes.service';
-import { NgApexchartsModule } from "ng-apexcharts";
-import * as am5 from "@amcharts/amcharts5";
-import * as am5xy from "@amcharts/amcharts5/xy";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexTitleSubtitle
-} from "ng-apexcharts";
+import { Row } from 'angular-google-charts';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  title: ApexTitleSubtitle;
-};
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -31,9 +14,11 @@ export type ChartOptions = {
 })
 
 
-export class DashboardComponent implements OnInit {
-  public chartOptions: Partial<ChartOptions> | any;;
-  public chart: any;
+export class DashboardComponent implements AfterViewInit {
+  options : google.visualization.LineChartOptions | undefined
+  dataTable : google.visualization.DataTable | undefined;
+  dataView : google.visualization.DataView | undefined
+  chart: google.visualization.LineChart | undefined;
   servidores$?: Observable<Servidor[] | undefined>
 
   serverCount: number = 0;
@@ -43,12 +28,10 @@ export class DashboardComponent implements OnInit {
   clientesData: Cliente[] = [];
 
 
-
   constructor(private _servidoresSrv: ServidoresService, private _clientesSrv: ClientesService) {
-
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.servidores$ = this._servidoresSrv.fetch();
 
     this.servidores$?.subscribe((data: Servidor[] | undefined) => {
@@ -67,59 +50,20 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  onResize(event : any) {
+    this.chart?.draw(this.dataView as any, this.options as any);
+  }
+
   createChart(){
-    const labels = [];
+    const labels: any[] | undefined = [];
     const date = new Date();
     for (let i = 0; i < 12; i++) {
       date.setMonth(i);
-      const month = date.toLocaleString('pt-BR', { month: 'long' });
+      const month = date.toLocaleString('pt-BR', { month: 'short' });
       const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
       labels.push(capitalizedMonth);
     }
 
-    let clientsEachMonth : number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
-
-    for (let i = 0; i < 12; i++) {
-      this.clientesData.forEach((element: any) => {
-        const date = new Date(element.created_at);
-        const nowYear = new Date().getFullYear();
-        if (date.getMonth() == i && date.getFullYear() == nowYear) {
-          clientsEachMonth[i] = clientsEachMonth[i] + 1
-        }
-      });
-      //clientsEachMonth.push(Math.floor(Math.random() * 100))
-    }
-    console.log("Clientes por mes: ",clientsEachMonth)
-
-    this.chartOptions = {
-      series: [
-        {
-          name: "Clientes novos",
-          data: clientsEachMonth
-        }
-      ],
-      chart: {
-        height: 280,
-        type: "area",
-        width: "100%",
-      },
-      title: {
-        text: "Clientes novos por mês"
-      },
-      xaxis: {
-        categories: labels
-      }
-    };
-  }
-  createChartOld(){
-    const labels = [];
-    const date = new Date();
-    for (let i = 0; i < 12; i++) {
-      date.setMonth(i);
-      const month = date.toLocaleString('pt-BR', { month: 'long' });
-      const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
-      labels.push(capitalizedMonth);
-    }
 
     let clientsEachMonth : number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
 
@@ -134,34 +78,45 @@ export class DashboardComponent implements OnInit {
       //clientsEachMonth.push(Math.floor(Math.random() * 100))
     }
 
-    this.chart = new Chart("MyChart", {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Novos Clientes',
-          data: clientsEachMonth,
-          borderWidth: 1,
+    this.dataTable = new google.visualization.DataTable()
+    this.dataTable.addColumn('string', 'Mês');
+    this.dataTable.addColumn('number', 'Novos Clientes');
 
-          borderColor: [
-            'rgb(0, 0, 256,0.8)',
-          ],
-        }],
-
-      },
-
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        aspectRatio:2.5,
-        scales: {
-          y: {
-            beginAtZero: true,
-          }
-        }
-      }
+    var data = clientsEachMonth.forEach((element: any, index: any) => {
+      this.dataTable?.addRow([labels[index], element])
     });
-  }
 
+    this.dataView = new google.visualization.DataView(this.dataTable);
+     this.dataView .setColumns([0, 1, {
+      calc: "stringify",
+      sourceColumn: 1,
+      type: "string",
+      role: "annotation"
+  },]);
+
+    this.chart = new google.visualization.AreaChart(document.getElementById('chart') as Element);
+
+    const maxValue = Math.max(...clientsEachMonth)
+    const ticks = [];
+
+    for (let i = 0; i <= maxValue; i++) {
+      ticks.push(i);
+    }
+
+    this.options  = {
+      title: 'Clientes de cada mês',
+      colors: ['#192ae1', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
+      vAxis: {
+        ticks: ticks // Set the desired tick values
+      },
+      chartArea: {width: '90%', height: '60%'},
+      legend: { position: 'bottom' },
+      pointSize: 5,
+
+
+    };
+
+    this.chart.draw( this.dataView , this.options as any);
+  }
 
 }
