@@ -28,6 +28,8 @@ export class UsuariosComponent implements AfterViewInit {
   dataSource = new MatTableDataSource();
   usuarios$?: Observable<Usuario[] | undefined>
   cargos$?: Observable<Cargo[] | undefined>
+
+  cargos: Cargo[] | undefined
   permission_level: number = -1;
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private _loginSrv: LoginService,  private _cargosSrv:CargosService,  private _usuariosSrv:UsuariosService, public dialog: MatDialog) {}
@@ -37,17 +39,13 @@ export class UsuariosComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const userLogged = this._loginSrv.retrieveData()
+    this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
+      this.cargos = dataCargos
 
-    const observable = zip([
-      this._cargosSrv.fetch(),
-      this._usuariosSrv.fetch()
-    ])
-
-    observable.subscribe({
-      next: ([dataCargos, dataUsuarios]) => {
-        this.processUsuarios(dataUsuarios, dataCargos)
+      this._usuariosSrv.fetch().subscribe((dataUsuarios: any) => {
         this.processPermissionLevel(dataCargos)
-      }
+        this.processUsuarios(dataUsuarios, dataCargos)
+      })
     })
 
     if (this.sort && this.paginator) {
