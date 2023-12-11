@@ -18,7 +18,9 @@
   </div>
 
   <div class="buttons-container">
-    <button (click)="editServer()" mat-raised-button class="button btn-form" color="secondary">Editar Servidor</button>
+    <ng-container *ngIf="data.deleted == false">
+      <button (click)="editServer()" mat-raised-button class="button btn-form" color="secondary">Editar Servidor</button>
+    </ng-container>
 
     <button (click)="viewServer()" mat-raised-button class="button btn-form" color="primary">Ver Servidor</button>
 
