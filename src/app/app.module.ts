@@ -46,6 +46,7 @@ import { ViewRegistroUsuarioComponent } from './pages/registros/view-registro-us
 import { ViewRegistroServidorComponent } from './pages/registros/view-registro-servidor/view-registro-servidor.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ViewActionDataComponent } from './pages/registros/view-action-data/view-action-data.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ProfileConfigComponent,
     CountUpDirective,
     NewTokenComponent,
+    ViewActionDataComponent,
   ],
   imports: [
     GoogleChartsModule,

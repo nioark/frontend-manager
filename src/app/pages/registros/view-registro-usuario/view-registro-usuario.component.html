@@ -18,6 +18,10 @@
   </div>
 
   <div class="buttons-container">
+    <ng-container *ngIf="data.action_data != ''">
+      <button (click)="viewChanges()" mat-raised-button class="button btn-form" color="secondary">Alterações</button>
+    </ng-container>
+
     <button (click)="closeDialog()" mat-raised-button class="button btn-form" color="warn">Cancelar</button>
   </div>
 

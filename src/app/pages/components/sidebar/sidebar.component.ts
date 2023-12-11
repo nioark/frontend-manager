@@ -21,10 +21,7 @@ export class SidebarComponent implements OnInit {
 
   public cargos$?: Observable<Cargo[] | undefined>;
 
-  constructor(private _router: Router, private _themeSrv : ThemeService, private _loginSrv: LoginService, private _cargosSrv : CargosService) {
-
-  }
-
+  constructor(private _router: Router, private _themeSrv : ThemeService, private _loginSrv: LoginService, private _cargosSrv : CargosService) {}
 
   changeTheme(){
     this._themeSrv.nextTheme();

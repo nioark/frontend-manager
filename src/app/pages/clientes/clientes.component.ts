@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -6,16 +6,11 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewClienteComponent } from 'src/app/pages/clientes/components/viewCliente/viewCliente.component';
-import { ClienteElement, Cliente } from 'src/app/models/cliente';
+import { Cliente } from 'src/app/models/cliente';
 import { Observable } from 'rxjs';
 import { ClientesService } from './services/clientes.service';
 
-const ELEMENT_DATA: ClienteElement[] = [
-  {nome: "Bremer", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: true},
-  {nome: "Contabilidade Wagner", cnpj:"XX.XXX.XXX/0001-XX.", accept_terms: true},
-  {nome: "Postos Russi", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: true},
-  {nome: "Postos Pilão", cnpj: "XX.XXX.XXX/0001-XX.", accept_terms: false},
-];
+
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',

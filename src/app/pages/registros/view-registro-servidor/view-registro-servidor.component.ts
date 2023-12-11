@@ -5,6 +5,7 @@ import { ViewServidorComponent } from '../../servidores/components/viewServidor/
 import { Usuario, UsuarioAction } from 'src/app/models/usuario';
 import { ServidoresService } from '../../servidores/services/servidores.service';
 import { EditServidorComponent } from '../../servidores/components/editServidor/editServidor.component';
+import { ViewActionDataComponent } from '../view-action-data/view-action-data.component';
 
 @Component({
   selector: 'app-view-registro-usuario-servidor',
@@ -40,6 +41,14 @@ export class ViewRegistroServidorComponent {
         maxHeight: '620px',
         data: data,
       });
+    });
+  }
+
+  viewChanges(){
+    const dialogRef = this.dialog.open(ViewActionDataComponent, {
+      width: '500px',
+      maxHeight: '620px',
+      data: this.data.action_data,
     });
   }
 

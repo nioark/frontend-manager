@@ -1,0 +1,21 @@
+<div class="container">
+  <ng-container *ngIf="changes != undefined">
+    <h1>Alterações</h1>
+    <ng-container *ngFor="let item of changes">
+      <div [ngClass]="{'color': item.index % 2 == 0}"  >
+        <h3 class="item-title">{{item.key}}</h3>
+        <div class="item-p">{{item.before_action}} <mat-icon class="mat-18">arrow_forward</mat-icon> {{item.after_action}}</div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+  <ng-container *ngIf="new_data != undefined">
+    <h1>Novos Dados</h1>
+    <ng-container *ngFor="let item of new_data">
+      <div [ngClass]="{'color': item.index % 2 == 0}"  >
+        <div class="item-p">{{item.key}} <mat-icon class="mat-18">arrow_forward</mat-icon> {{item.new_data}}</div>
+      </div>
+    </ng-container>
+</ng-container>
+</div>
