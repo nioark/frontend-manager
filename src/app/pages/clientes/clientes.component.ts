@@ -36,7 +36,6 @@ export class ClientesComponent implements AfterViewInit {
     this.clientes$ = this._clientesSrv.fetch();
 
     this.clientes$.subscribe((dataClientes: Cliente[] | undefined) => {
-      console.log("Data clientes: ", dataClientes)
       const datasource = dataClientes as Cliente[];
       this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
     })
@@ -70,12 +69,5 @@ export class ClientesComponent implements AfterViewInit {
       data: data
     });
 
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The view dialog was closed');
-      // this.animal = result;
-    });
-
-    console.log("View cliente");
   }
 }

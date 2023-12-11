@@ -49,7 +49,7 @@ export class ServidoresComponent implements AfterViewInit {
   filtroChange(filtro : string){
     setTimeout(() => {
       const filtro = this.filtro.first.nativeElement.value
-      console.log(filtro, filtro == "")
+
       if (filtro == ""){
         if (this.showDeleted)
           this.dataSource.data = this.fetchedData as any[]
@@ -74,7 +74,6 @@ export class ServidoresComponent implements AfterViewInit {
 
       const result = searcher.search(filtro, {returnMatchData: true});
       this.dataSource.data = result.map((data) => data.item);
-      console.log("Fuzzy: ",filtro, result)
     }, 100);
 
   }
@@ -84,7 +83,6 @@ export class ServidoresComponent implements AfterViewInit {
     this.servidores$ = this._servidoresSrv.fetch();
 
     this.servidores$?.subscribe((data: Servidor[] | undefined) => {
-      console.log("Data from server: ", data)
       const datasource = data as Servidor[];
       // this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
 
@@ -106,7 +104,6 @@ export class ServidoresComponent implements AfterViewInit {
       }
 
       this.dataSource.data = servers
-      console.log(datasource)
     })
 
     this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
@@ -145,12 +142,6 @@ export class ServidoresComponent implements AfterViewInit {
       width: '500px',
       maxHeight: '620px',
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The add dialog was closed');
-    });
-
-    console.log("Add servidor");
   }
 
   editServidor(server: Servidor){
@@ -161,10 +152,6 @@ export class ServidoresComponent implements AfterViewInit {
       data: server,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The edit dialog was closed');
-    });
-    console.log("Edit servidor", server);
   }
 
   viewServidor(serverTable: Servidor){
@@ -175,17 +162,9 @@ export class ServidoresComponent implements AfterViewInit {
       maxHeight: '620px',
       data: serverData,
     });
-
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The view dialog was closed');
-    });
-
-    console.log("View servidor");
   }
 
   deleteServidor(id: number){
-    console.log("Delete servidor", id);
     const dialogRef = this.dialog.open(DeleteServidorComponent, {
       width: '360px',
       height: '260px',
@@ -201,10 +180,6 @@ export class ServidoresComponent implements AfterViewInit {
       height: '280px',
       data: serverData,
     });
-
-    // this._servidoresSrv.edit_servidor(serverData, false).subscribe((data) => {
-    //   console.log(data);
-    // })
   }
 
   toggleShowDeleted(){

@@ -9,7 +9,6 @@ export class ListenData<T extends {id?:number, deleted_at?:string}> {
     this._data = new BehaviorSubject<T[]>(initValue)
     this.data$ = this._data.asObservable().pipe(
       map((data)=> {
-        console.log("Inside LISTENDATA PIPE: ", data)
         return data?.length ? data : []
         }
       )
@@ -17,10 +16,7 @@ export class ListenData<T extends {id?:number, deleted_at?:string}> {
   }
 
   add(value:T):void {
-    // console.log("Inside listendata add: ", this._data?.value, value)
-    // const newData = [value].concat(this._data?.value.slice() || [])
     this._data.next([value, ...this._data?.value])
-    // console.log("Inside listendata add after: ", this._data?.value, value)
 
   }
 

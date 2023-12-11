@@ -33,10 +33,7 @@ export class CargosService {
       tap({
         next: data=> this.list = new ListenData<Cargo>(data)
       }),
-      switchMap((data) => this.list  ? this.list?.data$ : of(data)),
-      tap({
-        next: (x) => console.log(x)
-      }),
+      switchMap((data) => this.list  ? this.list?.data$ : of(data))
     );
   }
 }

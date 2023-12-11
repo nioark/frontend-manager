@@ -32,19 +32,13 @@ export class UsuariosService {
       tap({
         next: data=> this.list = new ListenData<Usuario>(data)
       }),
-      switchMap((data) => this.list  ? this.list?.data$ : of(data)),
-      tap({
-        next: (x) => console.log(x)
-      }),
+      switchMap((data) => this.list  ? this.list?.data$ : of(data))
     );
   }
 
   get(id: number): Observable<Usuario>{
     return this.http.get<DataResult<Usuario>>(`${this.url}/protected/usuarios/${id}`).pipe(
       map(data => data.data as Usuario),
-      tap({
-        next: (x) => console.log(x)
-      }),
     );
   }
 
@@ -55,8 +49,6 @@ export class UsuariosService {
       .append('password', usuario.password)
       .append('cargo_id', usuario.cargo.id)
 
-      console.log("Post: ", params, usuario)
-
     return this.http.post<DataResult<Usuario>>(`${this.url}/protected/usuarios`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
@@ -64,7 +56,6 @@ export class UsuariosService {
         if(data.error!=undefined) return
         const id = data.data as unknown as number
         const user: Usuario = {...usuario, id: id}
-        console.log("POST hapening")
         this.list?.add(user) //data.data para servidor
       }
     }),catchError((err)=>{
@@ -101,7 +92,6 @@ export class UsuariosService {
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
-        console.log(data)
         if(data.error!=undefined) return
         this.list?.delete(id)
       }

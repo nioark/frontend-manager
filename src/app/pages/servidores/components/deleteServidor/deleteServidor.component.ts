@@ -32,7 +32,6 @@ export class DeleteServidorComponent implements OnInit {
 
   deleteServidor(){
     this._servidoresSrv.remove(this.data, this.comentario.first.nativeElement.value).subscribe((data) => {
-      console.log(data);
       this.closeDialog();
     })
   }

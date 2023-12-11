@@ -18,7 +18,6 @@ export class ViewServidorComponent{
   constructor(@Inject(MAT_DIALOG_DATA) public data: Servidor, private _router: Router,  private _dialogRef: MatDialogRef<ViewServidorComponent>) { }
 
   ngOnInit() {
-    console.log(this.data)
     const timestamp = this.data.deleted_at as string;
     const timestamp_created_at = this.data.created_at as string;
 

@@ -53,18 +53,14 @@ export class ProfileConfigComponent implements OnInit {
 
   resetPassword() {
     if (this.password.first.nativeElement.value == this.confirmPassword.first.nativeElement.value) {
-      this._loginSrv.changePassword(this.password.first.nativeElement.value).subscribe((data) => {
-        console.log(data)
-      })
+      this._loginSrv.changePassword(this.password.first.nativeElement.value).subscribe()
     }
   }
 
   changeUsername(){
     if (this.username.first.nativeElement.value != ""){
 
-      this._loginSrv.changeUsername(this.username.first.nativeElement.value).subscribe((data) => {
-        console.log(data)
-      })
+      this._loginSrv.changeUsername(this.username.first.nativeElement.value).subscribe()
     }
   }
 

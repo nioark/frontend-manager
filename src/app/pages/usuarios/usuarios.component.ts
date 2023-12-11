@@ -69,8 +69,6 @@ export class UsuariosComponent implements AfterViewInit {
 
         const datasource = dataUsuarios as Usuario[];
         this.dataSource.data = datasource?.sort((a, b) => b.id - a.id);
-        console.log("Usuarios data: ",datasource);
-        console.log("Data cargos: ", dataCargos)
       });
     });
 
@@ -112,13 +110,6 @@ export class UsuariosComponent implements AfterViewInit {
       width: '500px',
       maxHeight: '620px',
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The add dialog was closed');
-      // this.animal = result;
-    });
-
-    console.log("Add servidor");
   }
 
   editUsuario(data: UsuarioEdit){
@@ -127,16 +118,9 @@ export class UsuariosComponent implements AfterViewInit {
       maxHeight: '620px',
       data: data,
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The edit dialog was closed');
-      // this.animal = result;
-    });
-    console.log("Edit servidor", data);
   }
 
   deleteUsuario(id : number){
-    console.log("Delete Usuario", id);
     const dialogRef = this.dialog.open(DeleteUsuarioComponent, {
       width: '360px',
       height: '170px',

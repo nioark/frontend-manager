@@ -20,7 +20,6 @@ export class DeleteUsuarioComponent implements OnInit {
 
   deleteUsuario(){
     this._usuariosSrv.remove(this.data).subscribe((data) => {
-      console.log(data);
       this.closeDialog();
     })
   }

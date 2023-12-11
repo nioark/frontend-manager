@@ -63,14 +63,13 @@ export class AddUsuarioComponent implements OnInit {
     const val = this.cargo.first.selected as any;
     const cargo_id = val.value;
     const cargo = this.cargos.find(cargo => cargo.id === cargo_id) as Cargo
-    console.log(val,cargo_id, cargo)
+
     const nome = this.nome.first.nativeElement.value;
     const senha = this.password.first.nativeElement.value;
     const email = this.email.first.nativeElement.value;
 
     const userData: UsuarioNew = {name: nome, password: senha, cargo: cargo, email: email};
     this._usuariosSrv.add_usuario(userData).subscribe((data) => {
-      console.log("Add-usuario.ts back data:", data);
       this.closeDialog();
     })
   }

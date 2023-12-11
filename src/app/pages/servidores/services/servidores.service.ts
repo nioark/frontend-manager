@@ -34,18 +34,12 @@ export class ServidoresService {
         next: data=> this.list = new ListenData<Servidor>(data)
       }),
       switchMap((data) => this.list  ? this.list?.data$ : of(data)),
-      tap({
-        next: (x) => console.log(x)
-      }),
     );
   }
 
   get(id: number): Observable<Servidor>{
     return this.http.get<DataResult<Servidor>>(`${this.url}/protected/servidores/${id}`).pipe(
       map(data => data.data as Servidor),
-      tap({
-        next: (x) => console.log(x)
-      }),
     );
   }
 
@@ -95,7 +89,7 @@ export class ServidoresService {
     return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
-        console.log("Data from edit server: ", data)
+
         if (data.data?.serial){
           const dialogRef = this.dialog.open(NewTokenComponent, {
             width: '360px',
@@ -126,7 +120,6 @@ export class ServidoresService {
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
-        console.log(data)
         if(data.error!=undefined) return
         this.list?.softDelete(id)
       }

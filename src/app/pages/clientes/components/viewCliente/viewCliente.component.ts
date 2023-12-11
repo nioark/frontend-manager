@@ -14,7 +14,6 @@ export class ViewClienteComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Cliente, private _dialogRef: MatDialogRef<ViewClienteComponent>) { }
 
   ngOnInit() {
-    console.log(this.data)
     const timestamp = this.data.accepted_at as string;
 
     this.accepted_at = this.formatDate(new Date(timestamp));

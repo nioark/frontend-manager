@@ -173,7 +173,7 @@ export class RegistrosComponent implements AfterViewInit {
           this.dataSource.data = historicos.filter((history) => {
             if (history.type_id == 0){
               const server = dataServers.find((server) => server.id == history.object_id)
-              console.log(server)
+
               if (server && server.deleted_at == null)
                 return true
               return false
@@ -217,7 +217,7 @@ export class RegistrosComponent implements AfterViewInit {
   }
 
   viewAction(data: any){
-    console.log("Inject data: ", data)
+
     const date = new Date(data.created_at);
 
     let minutes: any = date.getMinutes();
@@ -241,12 +241,12 @@ export class RegistrosComponent implements AfterViewInit {
       });
     }
 
-    console.log("View cliente");
+
   }
 
   toggleShowDeleted(){
     this.showDeleted = this.checkbox.first.checked;
-    console.log()
+
 
     if (this.showDeleted == false && this.fetchedData){
       this.dataSource.data = this.fetchedDataFiltred as Historico[]

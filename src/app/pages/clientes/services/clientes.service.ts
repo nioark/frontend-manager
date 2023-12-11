@@ -30,9 +30,6 @@ export class ClientesService {
         next: data=> this.list = new ListenData<Cliente>(data)
       }),
       switchMap((data) => this.list  ? this.list?.data$ : of(data)),
-      tap({
-        next: (x) => console.log(x)
-      }),
     );
   }
 }

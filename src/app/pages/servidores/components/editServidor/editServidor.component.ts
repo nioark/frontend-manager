@@ -57,8 +57,6 @@ export class EditServidorComponent{
     const comentario = this.comentario.first.nativeElement.value;
     const resetarSerial = this.resetarSerial.first.checked;
 
-    console.log("Submit: ",nome, usuarios, usuarios_locais, canais, ativo, this.data.id, comentario);
-
     const serverData: Servidor = {
       nome: nome, active: ativo, qtd_usuarios: usuarios,
       qtd_usuarios_local: usuarios_locais, qtd_canais: canais,
@@ -66,7 +64,6 @@ export class EditServidorComponent{
     };
 
     this._servidoresSrv.edit_servidor(serverData, resetarSerial).subscribe((data) => {
-      console.log(data);
       this.closeDialog();
     })
   }

@@ -67,7 +67,6 @@ export class EditUsuarioComponent{
 
     const userData: UsuarioEdit = {name: nome, password: senha, cargo: cargo, id:this.data.id, email: email};
     this._usuariosSrv.edit_usuario(userData).subscribe((data) => {
-      console.log(data);
       this.closeDialog();
     })
   }

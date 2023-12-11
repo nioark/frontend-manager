@@ -31,7 +31,6 @@ export class ViewRegistroServidorComponent {
       });
     });
 
-    console.log("View servidor");
   }
 
   editServer(){

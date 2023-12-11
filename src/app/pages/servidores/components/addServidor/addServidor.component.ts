@@ -57,11 +57,9 @@ export class AddServidorComponent implements OnInit {
     const canais = this.canais.first.nativeElement.value;
     const ativo = this.ativo.first.checked;
     const comentario = this.comentario.first.nativeElement.value;
-    console.log(nome, usuarios, usuarios_locais, canais, ativo, comentario);
 
     const serverData: ServidorNew = {nome: nome, active: ativo, qtd_usuarios: usuarios, qtd_usuarios_local: usuarios_locais, qtd_canais: canais, comentario: comentario};
     this._servidoresSrv.add_servidor(serverData).subscribe((data) => {
-      console.log(data);
       this.closeDialog();
     })
   }

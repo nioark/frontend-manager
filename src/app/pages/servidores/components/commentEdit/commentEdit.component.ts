@@ -22,7 +22,6 @@ export class CommentEditComponent implements OnInit {
   submit(){
     this.data.comentario = this.comentario.first.nativeElement.value;
     this._servidoresSrv.edit_servidor(this.data, false).subscribe((data) => {
-      console.log(data);
       this.closeDialog();
     })
   }
