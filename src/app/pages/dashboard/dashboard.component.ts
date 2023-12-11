@@ -103,7 +103,7 @@ export class DashboardComponent implements AfterViewInit {
     }
 
     this.options  = {
-      title: 'Clientes de cada mês',
+      title: 'Novos Clientes por mês',
       colors: ['#192ae1', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
       vAxis: {
         ticks: ticks // Set the desired tick values

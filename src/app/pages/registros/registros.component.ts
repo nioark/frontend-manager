@@ -113,7 +113,7 @@ export class RegistrosComponent implements AfterViewInit {
   organizeById(dataHistoricos: any[], serverId: number | undefined) {
     let historicos = dataHistoricos?.sort((a, b) => b.id - a.id) as any[];
     if (serverId != null)
-      historicos = historicos.filter((history) => history.object_id == serverId)
+      historicos = historicos.filter((history) => history.object_id == serverId && history.type_id == 0);
     return historicos;
   }
 
