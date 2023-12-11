@@ -17,15 +17,12 @@ export class LoginFormComponent implements OnInit {
   constructor( private _loginSrv: LoginService,  private _snackBar: MatSnackBar, private _router: Router) { }
 
   ngOnInit() {
-    // if (this._loginSrv.isAuthenticated()){
-    //   this._router.navigate(['home'])
-    // }
     document.querySelector("#enterEvnt")?.addEventListener("keyup", event => {
       const ev = event as any;
 
-      if(ev.key !== "Enter") return; // Use `.key` instead.
-      (document.querySelector("#loginBtn") as HTMLButtonElement)?.click(); // Things you want to do.
-      ev.preventDefault(); // No need to `return false;`.
+      if(ev.key !== "Enter") return;
+      (document.querySelector("#loginBtn") as HTMLButtonElement)?.click();
+      ev.preventDefault();
   });
   }
 
@@ -35,15 +32,12 @@ export class LoginFormComponent implements OnInit {
     if (!this._loginSrv.isAuthenticated()){
       this._loginSrv.authenticate(email, password).pipe(
         map((data: any) => {
-
-
           if (data){
             this._router.navigate(['dashboard'])
           }
           else{
             this.openSnackBar("Email ou Senha invalidos", "OK")
             this.loading$ = false;
-
           }
         }
       )).subscribe()

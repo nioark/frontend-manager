@@ -110,7 +110,6 @@ export class LoginService {
   logout(){
     localStorage.removeItem("userdata");
     localStorage.removeItem("permission_level");
-
   }
 
   storeToken(token: string) {

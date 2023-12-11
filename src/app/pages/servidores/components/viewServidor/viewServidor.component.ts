@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Servidor } from 'src/app/models/servidor';
-import { EditServidorComponent } from '../editServidor/editServidor.component';
-import { DeleteServidorComponent } from '../deleteServidor/deleteServidor.component';
 import { Router } from '@angular/router';
 
 @Component({

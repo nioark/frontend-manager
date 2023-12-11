@@ -57,13 +57,13 @@ export class DashboardComponent implements AfterViewInit {
   createChart(){
     const labels: any[] | undefined = [];
     const date = new Date();
+
     for (let i = 0; i < 12; i++) {
       date.setMonth(i);
       const month = date.toLocaleString('pt-BR', { month: 'short' });
       const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
       labels.push(capitalizedMonth);
     }
-
 
     let clientsEachMonth : number[] = [0,0,0,0,0,0,0,0,0,0,0,0];
 
@@ -75,7 +75,6 @@ export class DashboardComponent implements AfterViewInit {
           clientsEachMonth[i] = clientsEachMonth[i] + 1
         }
       });
-      //clientsEachMonth.push(Math.floor(Math.random() * 100))
     }
 
     this.dataTable = new google.visualization.DataTable()
@@ -87,12 +86,12 @@ export class DashboardComponent implements AfterViewInit {
     });
 
     this.dataView = new google.visualization.DataView(this.dataTable);
-     this.dataView .setColumns([0, 1, {
+    this.dataView.setColumns([0, 1, {
       calc: "stringify",
       sourceColumn: 1,
       type: "string",
       role: "annotation"
-  },]);
+    },]);
 
     this.chart = new google.visualization.AreaChart(document.getElementById('chart') as Element);
 

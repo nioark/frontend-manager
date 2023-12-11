@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   constructor(private _loginSrv: LoginService, private _themeSrv : ThemeService, private _router: Router) { }
 
   ngOnInit() {
-
     this._themeSrv.setThemeIndex(0)
 
     if (this._loginSrv.isAuthenticated()){

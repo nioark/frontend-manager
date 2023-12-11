@@ -81,8 +81,6 @@ export class UsuariosComponent implements AfterViewInit {
       }
     });
 
-
-
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }

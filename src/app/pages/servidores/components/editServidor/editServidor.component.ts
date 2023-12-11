@@ -1,7 +1,7 @@
 import {Component, ElementRef, Inject, QueryList, ViewChildren} from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import { Servidor, ServidorNew } from 'src/app/models/servidor';
+import { Servidor } from 'src/app/models/servidor';
 import { ServidoresService } from '../../services/servidores.service';
 
 @Component({

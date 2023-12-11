@@ -15,7 +15,6 @@ import { DeleteServidorComponent } from './components/deleteServidor/deleteServi
 import { CommentEditComponent } from './components/commentEdit/commentEdit.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { LoginService } from '../login/services/login.service';
-import { UserService } from '../login/services/user.service';
 import { CargosService } from '../usuarios/services/cargos.service';
 import { Cargo } from 'src/app/models/cargos';
 import { Router } from '@angular/router';

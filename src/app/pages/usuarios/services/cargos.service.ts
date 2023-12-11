@@ -21,11 +21,7 @@ export class CargosService {
 
   constructor(private http: HttpClient, private _loginSrv: LoginService) {
     this.url=environment.backend
-
-
-
   }
-
 
   fetch(): Observable<Cargo[]> {
     return this.http.get<DataResult<Cargo[]>>(`${this.url}/protected/cargos`).pipe(

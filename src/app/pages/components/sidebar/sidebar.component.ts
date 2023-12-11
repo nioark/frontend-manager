@@ -4,7 +4,6 @@ import { LoginService } from '../../login/services/login.service';
 import { Cargo } from 'src/app/models/cargos';
 import { Observable } from 'rxjs/internal/Observable';
 import { CargosService } from '../../usuarios/services/cargos.service';
-import { UserService } from '../../login/services/user.service';
 import { ThemeService } from '../../profile-config/services/theme.service';
 
 @Component({

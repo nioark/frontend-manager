@@ -1,4 +1,3 @@
-import { UsuarioAction } from 'src/app/models/usuario';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -26,7 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditServidorComponent } from './pages/servidores/components/editServidor/editServidor.component';
 import { AddServidorComponent } from './pages/servidores/components/addServidor/addServidor.component';
 import { MatSelectModule } from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule} from '@angular/material/checkbox';
 import { ViewServidorComponent } from './pages/servidores/components/viewServidor/viewServidor.component';
 import { ViewClienteComponent } from './pages/clientes/components/viewCliente/viewCliente.component';
 import { RegistrosComponent } from './pages/registros/registros.component';
@@ -37,9 +36,9 @@ import { DeleteServidorComponent } from './pages/servidores/components/deleteSer
 import { DeleteUsuarioComponent } from './pages/usuarios/components/delete-usuario/delete-usuario.component';
 
 import { InterceptorModule } from './interceptor/interceptor.module';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule} from '@angular/material/menu';
 import { CommentEditComponent } from './pages/servidores/components/commentEdit/commentEdit.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule} from '@angular/material/tabs';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
 import { NewTokenComponent } from './pages/servidores/components/new-token/new-token.component';
 import { ViewRegistroUsuarioComponent } from './pages/registros/view-registro-usuario/view-registro-usuario.component';

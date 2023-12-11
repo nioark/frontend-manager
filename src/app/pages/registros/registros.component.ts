@@ -93,102 +93,9 @@ export class RegistrosComponent implements AfterViewInit {
 
     observable.subscribe({
       next: ([dataServers, dataHistoricos, dataUsuarios]) => {
-
-        //Organiza por id e poem deletados embaixo
-        let historicos = dataHistoricos?.sort((a, b) => b.id - a.id) as any[];
-
-        if (serverId != null)
-          historicos = historicos.filter((history) => history.object_id == serverId)
-
-        historicos?.forEach(element  => {
-          const historico = element as Historico;
-
-          const timestamp = historico.created_at;
-
-          const date = new Date(timestamp);
-          const now = new Date();
-          const timeAgo = now.getTime() - date.getTime(); //milliseconds
-
-          const seconds = Math.floor(timeAgo / 1000);
-          const minutes = Math.floor(seconds / 60);
-          const hours = Math.floor(minutes / 60);
-          const days = Math.floor(hours / 24);
-
-          let timeAgoString = "";
-          if (days > 0) {
-            timeAgoString = `${days} dia${days > 1 ? 's' : ''} atrás`;
-          } else if (hours > 0) {
-            timeAgoString = `${hours} hora${hours > 1 ? 's' : ''} atrás`;
-          } else if (minutes > 0) {
-            timeAgoString = `${minutes} minuto${minutes > 1 ? 's' : ''} atrás`;
-          } else {
-            timeAgoString = `${seconds} segundo${seconds > 1 ? 's' : ''} atrás`;
-          }
-
-          element.time_ago = timeAgoString
-          element.time_ago_ms = timeAgo
-
-          element.deleted = true
-
-          const type_id = element.type_id
-
-          if (type_id == 0){ // Tipo De Registro de servidor
-            const server = dataServers.find((server) => server.id === historico.object_id);
-            if (server && server.deleted_at == null) {
-              element.deleted = false;
-            }
-
-            //Pega o nome do usuario que fez o registro
-            let user = dataUsuarios.find((user) => user.id === historico.usuario_id)
-            element.name = user?.name
-            if (element.name == null){
-              if (element.usuario_id == 1)
-                element.name = 'admin'
-              else
-                element.name = 'deletado'
-            }
-
-          }
-          else if (type_id == 1){
-            let user_object = dataUsuarios.find((user) => user.id === historico.object_id);
-            if (user_object) {
-              element.deleted = false;
-            }
-
-            let user = dataUsuarios.find((user) => user.id === historico.usuario_id)
-
-            element.name = user?.name
-            if (element.name == null)
-              if (element.usuario_id == 1)
-              element.name = 'admin'
-              else
-                element.name = 'deletado'
-          }
-
-
-        });
-
-        //Filtro de deletados
-        if (this.showDeleted == false){
-          this.dataSource.data = historicos.filter((history) => {
-            if (history.type_id == 0){
-              const server = dataServers.find((server) => server.id == history.object_id)
-
-              if (server && server.deleted_at == null)
-                return true
-              return false
-            }
-            else if (history.type_id == 1){
-              const user = dataUsuarios.find((user) => user.id == history.object_id)
-              if (user)
-                return true
-              return false
-            }
-            return false
-          })
-
-          this.fetchedDataFiltred = this.dataSource.data;
-        }
+        let historicos = this.organizeById(dataHistoricos, serverId);
+        this.processHistoricos(historicos, dataServers, dataUsuarios);
+        this.filterDeleted(historicos, dataServers, dataUsuarios);
         this.fetchedData = historicos;
         this.servers = dataServers;
       }
@@ -201,6 +108,109 @@ export class RegistrosComponent implements AfterViewInit {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  organizeById(dataHistoricos: any[], serverId: number | undefined) {
+    let historicos = dataHistoricos?.sort((a, b) => b.id - a.id) as any[];
+    if (serverId != null)
+      historicos = historicos.filter((history) => history.object_id == serverId)
+    return historicos;
+  }
+
+  processHistoricos(historicos: any[], dataServers: any[], dataUsuarios: any[]) {
+    historicos?.forEach(element  => {
+      const historico = element as Historico;
+      this.calculateTimeAgo(element, historico);
+      this.processElement(element, historico, dataServers, dataUsuarios);
+    });
+  }
+
+  calculateTimeAgo(element: any, historico: Historico) {
+    const timestamp = historico.created_at;
+    const date = new Date(timestamp);
+    const now = new Date();
+    const timeAgo = now.getTime() - date.getTime(); //milliseconds
+    element.time_ago = this.getTimeAgoString(timeAgo);
+    element.time_ago_ms = timeAgo;
+  }
+
+  getTimeAgoString(timeAgo: number) {
+    const seconds = Math.floor(timeAgo / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    let timeAgoString = "";
+    if (days > 0) {
+      timeAgoString = `${days} dia${days > 1 ? 's' : ''} atrás`;
+    } else if (hours > 0) {
+      timeAgoString = `${hours} hora${hours > 1 ? 's' : ''} atrás`;
+    } else if (minutes > 0) {
+      timeAgoString = `${minutes} minuto${minutes > 1 ? 's' : ''} atrás`;
+    } else {
+      timeAgoString = `${seconds} segundo${seconds > 1 ? 's' : ''} atrás`;
+    }
+    return timeAgoString;
+  }
+
+  processElement(element: any, historico: Historico, dataServers: any[], dataUsuarios: any[]) {
+    element.deleted = true;
+    const type_id = element.type_id;
+    if (type_id == 0) {
+      this.processServerElement(element, historico, dataServers, dataUsuarios);
+    } else if (type_id == 1) {
+      this.processUserElement(element, historico, dataUsuarios);
+    }
+  }
+
+  processServerElement(element: any, historico: Historico, dataServers: any[], dataUsuarios: any[]) {
+    const server = dataServers.find((server) => server.id === historico.object_id);
+    if (server && server.deleted_at == null) {
+      element.deleted = false;
+    }
+    this.assignUserName(element, historico, dataUsuarios);
+  }
+
+  processUserElement(element: any, historico: Historico, dataUsuarios: any[]) {
+    let user_object = dataUsuarios.find((user) => user.id === historico.object_id);
+    if (user_object) {
+      element.deleted = false;
+    }
+    this.assignUserName(element, historico, dataUsuarios);
+  }
+
+  assignUserName(element: any, historico: Historico, dataUsuarios: any[]) {
+    let user = dataUsuarios.find((user) => user.id === historico.usuario_id)
+    element.name = user?.name
+    if (element.name == null){
+      if (element.usuario_id == 1)
+        element.name = 'admin'
+      else
+        element.name = 'deletado'
+    }
+  }
+
+  filterDeleted(historicos: any[], dataServers: any[], dataUsuarios: any[]) {
+    if (this.showDeleted == false){
+      this.dataSource.data = historicos.filter((history) => this.isNotDeleted(history, dataServers, dataUsuarios));
+      this.fetchedDataFiltred = this.dataSource.data;
+    }
+  }
+
+  isNotDeleted(history: any, dataServers: any[], dataUsuarios: any[]) {
+    if (history.type_id == 0){
+      const server = dataServers.find((server) => server.id == history.object_id)
+      if (server && server.deleted_at == null)
+        return true
+      return false
+    }
+    else if (history.type_id == 1){
+      const user = dataUsuarios.find((user) => user.id == history.object_id)
+      if (user)
+        return true
+      return false
+    }
+    return false
   }
 
   /** Announce the change in sort state for assistive technology. */
@@ -217,7 +227,6 @@ export class RegistrosComponent implements AfterViewInit {
   }
 
   viewAction(data: any){
-
     const date = new Date(data.created_at);
 
     let minutes: any = date.getMinutes();
@@ -240,13 +249,10 @@ export class RegistrosComponent implements AfterViewInit {
         data: data
       });
     }
-
-
   }
 
   toggleShowDeleted(){
     this.showDeleted = this.checkbox.first.checked;
-
 
     if (this.showDeleted == false && this.fetchedData){
       this.dataSource.data = this.fetchedDataFiltred as Historico[]

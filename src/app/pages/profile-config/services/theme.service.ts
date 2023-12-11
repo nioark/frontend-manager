@@ -15,14 +15,6 @@ export class ThemeService {
       '--text-color': "1c1a03",
       '--text-color-background': "000000"
     },
-    // {
-    //   '--primary-color': '#a26769',
-    //   '--secondary-color': '#d5b9b2',
-    //   '--background-color': "#ece2d0",
-    //   '--accent-color': '#3772ff',
-    //   '--text-color': "#49111c",
-    //   '--text-color-background': "000000"
-    // },
     {
       '--primary-color': '#003554',
       '--secondary-color': '#051923',
@@ -32,22 +24,12 @@ export class ThemeService {
       '--text-color': "#bcb8b1",
       '--text-color-background': "000000"
     },
-    // {
-    //   '--primary-color': '#208b3a',
-    //   '--secondary-color': '#2dc653',
-    //   '--background-color': "#b7efc5",
-    //   '--accent-color': '#a8d5e2',
-    //   '--text-color': "#1e2f23",
-    //   '--text-color-background': "000000"
-    // },
   ];
 
   themeIndex : number = 1;
 
 
-  constructor() {
-
-  }
+  constructor() {}
 
   setColors(theme: Record<string, string>){
     for (const [key, value] of Object.entries(theme)) {

@@ -21,11 +21,7 @@ export class ProfileConfigComponent implements OnInit {
     this.name = this._loginSrv.getName()
   }
 
-  ngOnInit() {
-    // document.documentElement.style.setProperty('--primary-color', "blue");
-  }
-
-
+  ngOnInit() {}
 
   inputChangedPassword() {
     setTimeout(() => {
