@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
 import { ThemeService } from '../profile-config/services/theme.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
     this._themeSrv.setThemeIndex(0)
 
     if (this._loginSrv.isAuthenticated()){
-      this._router.navigate(['home'])
+      this._router.navigate([environment.url + 'home'])
     }
   }
 

@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -8,16 +9,19 @@ import { RegistrosComponent } from './pages/registros/registros.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { ProfileConfigComponent } from './pages/profile-config/profile-config.component';
 
+
+const url = environment.url;
+
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'servidores', component: ServidoresComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'clientes', component: ClientesComponent},
-  { path: 'usuarios', component: UsuariosComponent},
-  { path: 'registros', component: RegistrosComponent},
-  { path: 'registro/:id', component: RegistrosComponent},
-  { path: 'config', component: ProfileConfigComponent},
-  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: url + '/dashboard', component: DashboardComponent },
+  { path: url + '/servidores', component: ServidoresComponent },
+  { path: url + '/login', component: LoginComponent },
+  { path: url + '/clientes', component: ClientesComponent},
+  { path: url + '/usuarios', component: UsuariosComponent},
+  { path: url + '/registros', component: RegistrosComponent},
+  { path: url + '/registro/:id', component: RegistrosComponent},
+  { path: url + '/config', component: ProfileConfigComponent},
+  { path: '**', redirectTo: url + '/dashboard', pathMatch: 'full' },
 
 ];
 

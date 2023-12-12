@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Servidor } from 'src/app/models/servidor';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-view-servidor',
@@ -38,7 +39,7 @@ export class ViewServidorComponent{
   }
 
   viewHistorico() {
-    this._router.navigate(['registro/', this.data.id]);
+    this._router.navigate([environment.url + '/registro/', this.data.id]);
     this.closeDialog();
   }
 }

@@ -19,6 +19,7 @@ import { CargosService } from '../usuarios/services/cargos.service';
 import { Cargo } from 'src/app/models/cargos';
 import { Router } from '@angular/router';
 import { Searcher } from 'fast-fuzzy';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-servidores',
@@ -196,7 +197,7 @@ export class ServidoresComponent implements AfterViewInit {
   }
 
   viewHistorico(id : number) {
-    this._router.navigate(['registro/', id]);
+    this._router.navigate([environment.url + '/registro/', id]);
     //Todo navigate to route
   }
 }

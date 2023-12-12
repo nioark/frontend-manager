@@ -58,7 +58,7 @@ export class LoginService {
         // Logado com sucesso
         this.openSnackBar(data.message as string, "OK")
         this.logout()
-        this._router.navigate(['/login'])
+        this._router.navigate([environment.url + '/login'])
 
         if (data.data != null){
           return true;
@@ -86,7 +86,7 @@ export class LoginService {
         local.name = username
 
         localStorage.setItem("userdata", JSON.stringify(local));
-        this._router.navigate(['/dashboard'])
+        this._router.navigate([environment.url + '/dashboard'])
 
         if (data.data != null){
           return true;

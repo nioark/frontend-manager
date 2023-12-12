@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login-form',
@@ -33,7 +34,7 @@ export class LoginFormComponent implements OnInit {
       this._loginSrv.authenticate(email, password).pipe(
         map((data: any) => {
           if (data){
-            this._router.navigate(['dashboard'])
+            this._router.navigate([environment.url + '/dashboard'])
           }
           else{
             this.openSnackBar("Email ou Senha invalidos", "OK")

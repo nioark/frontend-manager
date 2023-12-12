@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './pages/login/services/login.service';
 import { ThemeService } from './pages/profile-config/services/theme.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent {
     _themeSrv.setTheme()
 
     if (this._loginSrv.isAuthenticated() == false){
-      this._router.navigate(['/login'])
+      this._router.navigate([environment.url + '/login'])
     }
   }
 }

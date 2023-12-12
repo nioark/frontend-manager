@@ -5,6 +5,7 @@ import { Cargo } from 'src/app/models/cargos';
 import { Observable } from 'rxjs/internal/Observable';
 import { CargosService } from '../../usuarios/services/cargos.service';
 import { ThemeService } from '../../profile-config/services/theme.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -58,12 +59,12 @@ export class SidebarComponent implements OnInit {
   }
 
   goToPath(path: string) {
-    this._router.navigate([path])
+    this._router.navigate([environment.url + path])
   }
 
   logout(){
     this._loginSrv.logout()
-    this._router.navigate(['/login'])
+    this._router.navigate([environment.url + '/login'])
   }
 
 }
