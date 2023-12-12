@@ -15,7 +15,7 @@ export class LoginService {
   private userData:any;
   constructor(private http: HttpClient, private _snackBar: MatSnackBar, public _router: Router) {
     this.url=environment.backend
-
+    console.log("URL: ", this.url, window.location.host)
   }
 
   authenticate(email : string, password : string): Observable<boolean>{

@@ -1,12 +1,29 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+const production = false;
+
+const getIp = () => {
+  let backend
+  if (!backend) {
+    backend = window.location.host;
+    if (!production) {
+      backend = backend.split(':')[0] + ":4242";
+    }
+  }
+
+  backend = "https://" + backend;
+  return backend;
+};
+
 
 export const environment = {
-  production: false,
-  backend: 'https://192.168.101.36:4242',
+  production: production,
+  backend: getIp(),
   url: "manager"
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file
