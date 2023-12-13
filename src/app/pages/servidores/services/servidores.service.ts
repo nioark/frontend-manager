@@ -27,9 +27,43 @@ export class ServidoresService {
     this._snackBar.open(message, action);
   }
 
+  //Bug fix for the old type of data provided names in the backend
+  fixDataFetch(dataList : any[]){
+    dataList.forEach((data)=>{
+      this.fixData(data)
+    })
+    return dataList
+
+  }
+
+  //Adapter for backend old model
+  fixData(data : any){
+    data.nome = data.Nome
+    data.id = data.ID
+    data.serial = data.Serial
+    data.active = data.Active
+    data.qtd_usuarios = data.QtdUsuarios
+    data.qtd_usuarios_local = data.QtdUsuariosLocal
+    data.qtd_canais = data.QtdCanais
+    delete data.QtdUsuarios
+    delete data.QtdUsuariosLocal
+    delete data.QtdCanais
+    delete data.Serial
+    delete data.Active
+    delete data.ID
+    delete data.Nome
+
+    return data
+  }
+
+  fixDataGet(data: any){
+    return this.fixData(data)
+  }
+
   fetch(): Observable<Servidor[]> {
+    //Todo transformar QtdUsuarios -> qtd_usuarios
     return this.http.get<DataResult<Servidor[]>>(`${this.url}/protected/servidores`).pipe(
-      map(data => data?.data?.length ? data.data : []),
+      map(data => data?.data?.length ? this.fixDataFetch(data.data) : []),
       tap({
         next: data=> this.list = new ListenData<Servidor>(data)
       }),
@@ -39,7 +73,7 @@ export class ServidoresService {
 
   get(id: number): Observable<Servidor>{
     return this.http.get<DataResult<Servidor>>(`${this.url}/protected/servidores/${id}`).pipe(
-      map(data => data.data as Servidor),
+      map(data => this.fixDataGet(data.data) as Servidor),
     );
   }
 
@@ -52,7 +86,12 @@ export class ServidoresService {
       .append('qtd_canais', servidor.qtd_canais)
       .append('comentario', servidor.comentario as string)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores`, "", {params: params}).pipe(
+      map((data) => {
+        data.data = this.fixDataGet(data.data)
+        return data
+      }),
+      tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
         if (data.data?.serial){
@@ -86,7 +125,8 @@ export class ServidoresService {
       .append('comentario', servidor.comentario as string)
       .append('resetar_serial', resetarSerial)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidores/${servidor.id}`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<any>>(`${this.url}/protected/servidores/${servidor.id}`, "", {params: params}).pipe(
+      tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
@@ -101,10 +141,11 @@ export class ServidoresService {
         if(data.error!=undefined) return
 
         this.get(servidor.id).subscribe((data) => {
+          console.log(data)
           const servidor2 = data;
           this.list?.edit(servidor2);
+
         });
-        //data.data para servidor
       },
     }),catchError((err)=>{
       this.openSnackBar(err.error.message as string, "OK")
@@ -116,7 +157,8 @@ export class ServidoresService {
     const params = new HttpParams()
     .append('comentario', comentario as string)
 
-    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidor-delete/${id}`, "", {params: params}).pipe(tap({
+    return this.http.post<DataResult<Servidor>>(`${this.url}/protected/servidor-delete/${id}`, "", {params: params}).pipe(
+      tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")
 
