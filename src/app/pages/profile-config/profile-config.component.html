@@ -71,5 +71,34 @@
       </div>
   </div>
 
+  <div class="flex-container animateSlider">
+    <div class="start-flex">
+      <h1>Trocar Email</h1>
+      <hr class="divider">
+      <div class="inputs-container">
+
+        <mat-form-field class="input-nome" appearance="fill">
+          <mat-label>Novo Email</mat-label>
+          <input class="input" (keydown)="inputChangedEmail()" type="text" matInput #email required>
+        </mat-form-field>
+
+      </div>
+    </div>
+    <div class="end-flex">
+      <ng-container *ngIf="canSubmitEmail$ == true">
+        <button (click)="changeEmail()" mat-raised-button class="button btn-form" color="primary">
+          <mat-icon class="btn-icon">restart_alt</mat-icon>
+          Trocar
+        </button>
+      </ng-container>
+      <ng-container *ngIf="canSubmitEmail$ == false">
+        <button (click)="changeEmail()" mat-raised-button class="button btn-form" color="primary" disabled>
+          <mat-icon class="btn-icon" >restart_alt</mat-icon>
+          Trocar
+        </button>
+      </ng-container>
+    </div>
+</div>
+
 
 </div>

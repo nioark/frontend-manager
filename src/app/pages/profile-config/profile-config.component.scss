@@ -27,7 +27,7 @@
 
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
   .page {
     margin-left: 0px;
     height: calc(100% - 65px);
@@ -65,7 +65,7 @@
   min-height: 300px;
   align-items: center;
   border-radius: 10px;
-  overflow: auto;
+  overflow: hidden;
   background-color: $background-color;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }

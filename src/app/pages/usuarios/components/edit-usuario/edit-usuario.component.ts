@@ -21,6 +21,7 @@ const gerente = {nome: "Gerente", permissao: 0, id: 2};
 export class EditUsuarioComponent{
   @ViewChildren("nome") nome!: QueryList<ElementRef>;
   @ViewChildren("password") password!: QueryList<ElementRef>;
+  @ViewChildren("confirmpassword") confirmPassword!: QueryList<ElementRef>;
   @ViewChildren("email") email!: QueryList<ElementRef>;
   @ViewChildren("cargo") cargo!: QueryList<MatSelect>;
   canSubmit$ = false;
@@ -41,6 +42,8 @@ export class EditUsuarioComponent{
       if (this.cargo.first.selected == undefined)
         flag = false
       if (this.email.first.nativeElement.value == '')
+        flag = false
+      if (this.confirmPassword.first.nativeElement.value != this.password.first.nativeElement.value)
         flag = false
 
       if (flag)

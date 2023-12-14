@@ -45,3 +45,7 @@
 
 -Arrumar desalinhamento dos icones da direita nas tabelas
 
+-Adicionar input de confirmar senha na edição de um usuario ✅
+
+-Adicionar mais um tela para poder editar seu próprio email ✅
+  -Arrumar bug da div invisivel
