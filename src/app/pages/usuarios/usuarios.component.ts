@@ -41,7 +41,6 @@ export class UsuariosComponent implements AfterViewInit {
     const userLogged = this._loginSrv.retrieveData()
     this._cargosSrv.fetch().subscribe((dataCargos: Cargo[]) => {
       this.cargos = dataCargos
-
       this._usuariosSrv.fetch().subscribe((dataUsuarios: any) => {
         this.processPermissionLevel(dataCargos)
         this.processUsuarios(dataUsuarios, dataCargos)
@@ -54,12 +53,20 @@ export class UsuariosComponent implements AfterViewInit {
     }
   }
   processPermissionLevel(dataCargos : Cargo[]){
+    console.log(dataCargos)
+
     const cargoId = this._loginSrv.retrieveData().cargo_id
     const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
 
-    if (cargo.permission_level != undefined){
-      this.permission_level = cargo.permission_level
+    try {
+      if (cargo.permission_level != undefined){
+        this.permission_level = cargo.permission_level
+      }
+      //O cargo de um usuario admin não aparece no dataCargos
+    } catch (error) {
+      this.permission_level = 1
     }
+
   }
   processUsuarios(dataUsuarios : Usuario[], dataCargos : Cargo[]){
     const userLogged = this._loginSrv.retrieveData()

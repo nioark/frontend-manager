@@ -59,7 +59,7 @@ export class UsuariosService {
         this.list?.add(user) //data.data para servidor
       }
     }),catchError((err)=>{
-      this.openSnackBar(err.error.message as string, "OK")
+      this.openSnackBar((err.error.message + " - " + err.error.error) as string, "OK")
       return throwError(err)
       }));
   }
@@ -82,7 +82,7 @@ export class UsuariosService {
         this.list?.edit(usuario) //data.data para servidor
       }
     }),catchError((err)=>{
-      this.openSnackBar(err.error.message as string, "OK")
+      this.openSnackBar((err.error.message + " - " + err.error.error) as string, "OK")
       return throwError(err)
       }));
   }
@@ -96,7 +96,7 @@ export class UsuariosService {
         this.list?.delete(id)
       }
     }),catchError((err)=>{
-      this.openSnackBar(err.error.message as string, "OK")
+      this.openSnackBar((err.error.message + " - " + err.error.error) as string, "OK")
       return throwError(err)
       }));
   }
