@@ -13,16 +13,23 @@
     <input (keydown)="inputChanged()" type="email" matInput #email required>
   </mat-form-field>
 
+  <mat-form-field class="input-email" appearance="fill">
+    <mat-label>Nome Usuário</mat-label>
+    <input (keydown)="inputChanged()" matInput #nome required>
+  </mat-form-field>
+
   <div class="input-group">
+
     <mat-form-field class="input-nome" appearance="fill">
-      <mat-label>Nome Usuário</mat-label>
-      <input (keydown)="inputChanged()" matInput #nome required>
+      <mat-label>Nova Senha</mat-label>
+      <input (keydown)="inputChanged()" type="password" matInput #password>
     </mat-form-field>
 
     <mat-form-field class="input-nome" appearance="fill">
-      <mat-label>Senha</mat-label>
-      <input (keydown)="inputChanged()" type="password" matInput #password required>
+      <mat-label>Confirmar Senha</mat-label>
+      <input (keydown)="inputChanged()" type="password" matInput #confirmpassword>
     </mat-form-field>
+
   </div>
 
   <ng-container *ngIf="cargos$ | async as cargos">

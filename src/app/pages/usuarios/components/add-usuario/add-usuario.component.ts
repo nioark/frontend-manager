@@ -19,6 +19,7 @@ export class AddUsuarioComponent implements OnInit {
   @ViewChildren("password") password!: QueryList<ElementRef>;
   @ViewChildren("email") email!: QueryList<ElementRef>;
   @ViewChildren("cargo") cargo!: QueryList<MatSelect>;
+  @ViewChildren("confirmpassword") confirmPassword!: QueryList<ElementRef>;
 
   canSubmit$ = false;
   cargos$: Observable<Cargo[]> | undefined;
@@ -44,6 +45,8 @@ export class AddUsuarioComponent implements OnInit {
       if (this.cargo.first.selected == undefined)
         flag = false
       if (this.email.first.nativeElement.value == '')
+        flag = false
+        if (this.confirmPassword.first.nativeElement.value != this.password.first.nativeElement.value)
         flag = false
 
 
