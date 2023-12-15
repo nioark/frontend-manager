@@ -141,7 +141,6 @@ export class ServidoresService {
         if(data.error!=undefined) return
 
         this.get(servidor.id).subscribe((data) => {
-          console.log(data)
           const servidor2 = data;
           this.list?.edit(servidor2);
 

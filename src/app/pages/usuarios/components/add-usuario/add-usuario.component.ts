@@ -30,8 +30,9 @@ export class AddUsuarioComponent implements OnInit {
   ngOnInit() {
     this.cargos$ = this._cargosSrv.fetch().pipe(map(data => {
       data.shift()
+      this.cargos = data
       return data;
-   }));
+    }));
 
   }
 

@@ -49,6 +49,7 @@ export class UsuariosService {
       .append('password', usuario.password)
       .append('cargo_id', usuario.cargo.id)
 
+
     return this.http.post<DataResult<Usuario>>(`${this.url}/protected/usuarios`, "", {params: params}).pipe(tap({
       next:(data)=> {
         this.openSnackBar(data.message as string, "OK")

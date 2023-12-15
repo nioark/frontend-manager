@@ -21,9 +21,6 @@ export class ListenData<T extends {id?:number, deleted_at?:string}> {
   }
 
   edit(value:T):void {
-    console.log("Edit: ")
-    console.log(value)
-    console.log(this._data.value)
     const index = this._data.value.findIndex((item)=> item.id === value?.id)
     if(index !== -1) {
       this._data.value[index] = value
