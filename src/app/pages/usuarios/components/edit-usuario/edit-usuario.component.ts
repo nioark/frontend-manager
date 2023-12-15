@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import {Component, ElementRef, Inject, QueryList, ViewChildren} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
@@ -30,7 +30,10 @@ export class EditUsuarioComponent{
   constructor(@Inject(MAT_DIALOG_DATA) public data: Usuario, private _usuariosSrv:UsuariosService, private _cargosSrv: CargosService, private _dialogRef: MatDialogRef<EditUsuarioComponent>) { }
 
   ngOnInit() {
-   this.cargos$ = this._cargosSrv.fetch();
+   this.cargos$ = this._cargosSrv.fetch().pipe(map(data => {
+      data.shift()
+      return data;
+   }));
   }
 
   inputChanged() {

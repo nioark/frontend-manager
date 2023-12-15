@@ -53,20 +53,12 @@ export class UsuariosComponent implements AfterViewInit {
     }
   }
   processPermissionLevel(dataCargos : Cargo[]){
-    console.log(dataCargos)
-
     const cargoId = this._loginSrv.retrieveData().cargo_id
     const cargo = dataCargos.find(cargo => cargo.id == cargoId) as Cargo
 
-    try {
-      if (cargo.permission_level != undefined){
-        this.permission_level = cargo.permission_level
-      }
-      //O cargo de um usuario admin não aparece no dataCargos
-    } catch (error) {
-      this.permission_level = 1
+    if (cargo.permission_level != undefined){
+      this.permission_level = cargo.permission_level
     }
-
   }
   processUsuarios(dataUsuarios : Usuario[], dataCargos : Cargo[]){
     const userLogged = this._loginSrv.retrieveData()

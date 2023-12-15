@@ -7,7 +7,7 @@ import { Cargo } from 'src/app/models/cargos';
 import { Servidor } from 'src/app/models/servidor';
 import { UsuarioNew } from 'src/app/models/usuario';
 import { CargosService } from '../../services/cargos.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-add-usuario',
@@ -28,10 +28,11 @@ export class AddUsuarioComponent implements OnInit {
   constructor(private _dialogRef: MatDialogRef<AddUsuarioComponent>, private _cargosSrv:CargosService, private _usuariosSrv:UsuariosService) { }
 
   ngOnInit() {
-    this.cargos$ = this._cargosSrv.fetch();
-    this.cargos$.subscribe((data) => {
-      this.cargos = data;
-    })
+    this.cargos$ = this._cargosSrv.fetch().pipe(map(data => {
+      data.shift()
+      return data;
+   }));
+
   }
 
   inputChanged() {
