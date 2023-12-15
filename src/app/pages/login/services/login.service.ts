@@ -96,27 +96,27 @@ export class LoginService {
     );
   }
 
-  changeEmail(newEmail: string): Observable<boolean>{
-    const params = new HttpParams()
-    .append('email', newEmail)
-    return this.http.post(`${this.url}/usuarios/change-email`, "", {params: params}).pipe(
-      catchError((err) => {
-        console.error(err);
-        this.openSnackBar(err.message as string, "OK")
-        return of(false);
-      }),
-      map((data: any) => {
-        this.openSnackBar(data.message as string, "OK")
-        this.logout()
-        this._router.navigate([environment.url + '/login'])
+  // changeEmail(newEmail: string): Observable<boolean>{
+  //   const params = new HttpParams()
+  //   .append('email', newEmail)
+  //   return this.http.post(`${this.url}/usuarios/change-email`, "", {params: params}).pipe(
+  //     catchError((err) => {
+  //       console.error(err);
+  //       this.openSnackBar(err.message as string, "OK")
+  //       return of(false);
+  //     }),
+  //     map((data: any) => {
+  //       this.openSnackBar(data.message as string, "OK")
+  //       this.logout()
+  //       this._router.navigate([environment.url + '/login'])
 
-        if (data.data != null){
-          return true;
-        }
-        return false;
-      }),
-    );
-  }
+  //       if (data.data != null){
+  //         return true;
+  //       }
+  //       return false;
+  //     }),
+  //   );
+  // }
 
   isAuthenticated(): boolean{
     if (this.retrieveData().access_token != null){

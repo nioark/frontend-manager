@@ -68,17 +68,16 @@ export class ProfileConfigComponent implements OnInit {
 
   changeUsername(){
     if (this.username.first.nativeElement.value != ""){
-
       this._loginSrv.changeUsername(this.username.first.nativeElement.value).subscribe()
     }
   }
 
-  changeEmail(){
-    if (this.email.first.nativeElement.value != ""){
+  // changeEmail(){
+  //   if (this.email.first.nativeElement.value != ""){
 
-      this._loginSrv.changeEmail(this.email.first.nativeElement.value).subscribe()
-    }
-  }
+  //     this._loginSrv.changeEmail(this.email.first.nativeElement.value).subscribe()
+  //   }
+  // }
 
 
 }

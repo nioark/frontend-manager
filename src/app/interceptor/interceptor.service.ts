@@ -28,7 +28,7 @@ export class InterceptorService implements HttpInterceptor {
 
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {}, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        if (err.error.erro = "falha na autenticação") {
+        if (err.error.error == "falha na autenticação") {
           this._loginSrv.logout()
           this._router.navigate([environment.url + '/login'])
         }
