@@ -129,6 +129,9 @@
 }
 
 .username{
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 250px;
     font-size: large;
     user-select: text;
     color: $text-color;
